@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Web Programming: Web forms</title>
+
+  <meta name="description" content="A lecture on Web forms">
+  <meta name="author" content="Claudia Hauff">
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="css/reveal.min.css">
+  <link rel="stylesheet" href="css/theme/tudelft.css" id="theme">
+
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+  <script>
+  document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+  </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-background-transition="slide" data-background="img/tu_delft_library.jpg" style="background: rgba(0,129,195,.9); color: white" id="presentable" class="bookend">          
+          <h1>Web forms</h1>
+          <h3>Claudia Hauff</h3>
+          <p>
+            <small>Created with <a href="https://github.com/hakimel/reveal.js">reveal.js</a></small>
+          </p>
+        </section>
+
+
+
+        <!-- a quick recap of PHP -->
+        <section>
+          <h2>A reminder: PHP</h2>
+          <p>
+            A simple PHP script <em>add.php</em> adding two integers<br>
+            and printing out their sum.          
+          </p>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html,php">
+
+            &lt;html>
+            &lt;body> 
+            The first parameter is: 
+            &lt;?php $a = isset($_GET["first"]) ? htmlspecialchars($_GET["first"]) : 0; 
+            echo $a; 
+            $a = intval($a); 
+            echo ", parsed: ".$a; ?><br>
+            The second parameter is: 
+            &lt;?= $b = isset($_GET["second"]) ? htmlspecialchars($_GET["second"]) : 0 ?>, 
+            parsed: &lt;?= $b = intval($b); ?><br>
+            &lt;hr>
+            The sum is: &lt;?= $a+$b ?>
+            &lt;/body>
+            &lt;/html>
+
+          </code></pre>
+
+          <aside class="notes">
+          </aside>
+        </section>
+
+
+
+
+        <!-- Effect on PHP script on various (in)valid parameters -->
+        <section>
+          <h2>Calling <em>add.php</em></h2>
+
+          <ul>
+            <li><a href="http://www.st.ewi.tudelft.nl/~hauff/add.php?first=3&amp;second=2">http://www.st.ewi.tudelft.nl/~hauff/add.php?first=3&amp;second=2</a></li>
+            <li><a href="http://www.st.ewi.tudelft.nl/~hauff/add.php">http://www.st.ewi.tudelft.nl/~hauff/add.php</a></li>
+            <li><a href="http://www.st.ewi.tudelft.nl/~hauff/add.php?first=3.9&amp;second=4.9">http://www.st.ewi.tudelft.nl/~hauff/add.php?first=3.9&amp;second=4.9</a></li>
+            <li><a href="http://www.st.ewi.tudelft.nl/~hauff/add.php?first=3.blub&amp;second=4blah">http://www.st.ewi.tudelft.nl/~hauff/add.php?first=3.blub&amp;second=4blah</a></li>
+            <li><a href="http://www.st.ewi.tudelft.nl/~hauff/add.php?first=3.blub&amp;second=blah4">http://www.st.ewi.tudelft.nl/~hauff/add.php?first=3.blub&amp;second=blah4</a></li>
+          </ul>  
+
+          <aside class="notes">
+          </aside>
+        </section> 
+
+
+
+        <!-- What is the purpose of htmlspecialchars -->
+        <section>
+          <h2>htmlspecialchars()</h2>
+
+          <ul>
+            <li>Converts special characters &lt; and &gt; into &amp;lt; and &amp;gt;</li>
+            <li>What if a user does not provide the expected input?</li>
+            <li><a href="http://www.st.ewi.tudelft.nl/~hauff/add2.php?first=<script>alert('Help!')</script>&amp;second=4">http://www.st.ewi.tudelft.nl/~hauff/add2.php?first=&lt;script>alert('Help!')&lt;/script>&amp;second=4</a></li>
+            <li>
+              <ul>
+                <li>code injection: <code>&lt;script>alert('Help!')&lt;/script></code> as one of the form's parameters</li>
+              </ul>
+            </li>
+            <li>A malicious user can execute cross-site scripting attacks (XSS)</li>
+            <li>Use <code>htmlspecialchars()</code> to avoid such problems</li>
+          </ul>  
+
+          <aside class="notes">
+            <!-- some extra info on XSS -->
+            http://www.sitepoint.com/php-security-cross-site-scripting-attacks-xss/
+          </aside>
+        </section>                 
+
+
+
+        <!-- A very simple HTML form -->
+        <section>
+          <h2>A simple form</h2>
+
+          <form action="action.php" method="get" target="_blank">
+            <input type="text">
+            <input type="submit" value="Search">
+          </form>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;form action="action.php" method="get" target="_blank">
+            <input type="text">
+            <input type="submit" value="Search">
+            &lt;/form>
+          </code></pre>
+
+          <aside class="notes">
+          </aside>
+        </section>
+
+
+        <!-- The most common form skeleton (common = 1 button) -->
+        <section>
+          <h2>More generally ...</h2>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;form action="X" method="Y">
+            form element
+            form element
+            form element
+            <input type="submit">
+            &lt;/form>
+          </code></pre>
+
+          <aside class="notes">
+            Note that more than one submit button is of course possible.
+            In HTML5, the action/method part is not bound to the form anymore but can also be bound to the button(s).
+          </aside>
+        </section>   
+
+
+
+        <!-- list of form elements -->
+        <section>
+          <h2>The form element contains </h2>
+
+          <form>
+            <ul>
+              <li>input</li>
+              <li>textarea</li>
+              <li>button</li>
+              <li>select</li>
+              <li>option</li>
+              <li>optgroup</li>
+              <li>fieldset</li>
+              <li>label</li>
+            </ul>
+          </form>
+
+          <aside class="notes">
+          </aside>
+        </section>   
+
+
+
+        <!-- the most common attributes of <form> -->
+        <section>
+          <h2>Attributes of form</h2>
+          
+            <table class="centerTable">
+              <tr><td>attribute</td><td>value</td></tr>
+              <tr><td>target</td><td>response location</td></tr>
+              <tr><td>action</td><td>URL</td></tr>
+              <tr><td>autocomplete<sup>HTML5</sup></td><td><em>on</em> or <em>off</em></td></tr>
+              <tr><td>method</td><td><em>get</em> or <em>post</em></td></tr>
+              <tr><td>name</td><td>name of the form</td></tr>
+              <tr><td>novalidate<sup>HTML5</sup></td><td>novalidate</td></tr>
+            </table>
+          
+          <aside class="notes">
+          </aside>
+        </section>   
+
+
+        <!-- An overview of the target attribute -->
+        <section>
+          <h2>target</h2>
+
+          <ul>
+            <li><em>_blank</em>  Loads the response in a new window or tab</li>
+            <li><em>_self</em> Loads the response in the same frame (default)</li>
+            <li><em>_parent</em> Loads the response in the parent frame</li>
+            <li><em>_top</em>  Loads the response in the full body of the window</li>
+            <li><em>framename</em> Loads the response in a named iframe</li>
+          </ul>
+        </section> 
+
+
+        <!-- example of autocomplete -->
+        <section>
+          <h2>autocomplete: on</h2>
+          
+            <form autocomplete="on">
+              Item 1: <input type="text" name="item1"><br>
+              Item 2: <input type="text" name="item2"><br>
+              <input type="submit">
+            </form>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;form autocomplete="on">
+              Item 1: <input type="text" name="item1"><br>
+              Item 2: <input type="text" name="item2"><br>
+              <input type="submit">
+            &lt;/form>
+          </code></pre>
+          <aside class="notes">
+            - add content in the first try
+            - reload
+            - add the same content (autocomplete becomes clear)
+          </aside>
+        </section> 
+
+
+        <!-- example of autocomplete off -->
+        <section>
+          <h2>autocomplete: off</h2>
+          
+            <form autocomplete="off">
+              Item 3: <input type="text" name="item3"><br>
+              Item 4: <input type="text" name="item4"><br>
+              <input type="submit">
+            </form>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;form autocomplete="off">
+              Item 3: <input type="text" name="item3"><br>
+              Item 4: <input type="text" name="item4"><br>
+              <input type="submit">
+            &lt;/form>
+          </code></pre>
+          <aside class="notes">
+            as in previous slide (this time no autocomplete appears)
+          </aside>
+        </section> 
+
+
+        <!-- example of the impact of the lack of novalidate -->
+        <section>
+          <h2>(no)validate</h2>
+
+            <form>
+              E-mail: <input type="email" name="email">
+              <input type="submit">
+            </form> 
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;form>
+              E-mail: <input type="email" name="email">
+              <input type="submit">
+            &lt;/form> 
+          </code></pre>
+          <aside class="notes">
+            try to add an invalid email address and click submit ...
+          </aside>
+        </section> 
+
+
+        <!-- example of the impact of novalidate -->
+        <section>
+          <h2>novalidate</h2>
+          <p>
+            If added as attribute, the form input is not validated.<br>
+            XHTML: <code>novalidate="novalidate"</code><br>
+            HTML5: <code>novalidate</code><br>
+          </p>
+            <form novalidate="novalidate">
+              E-mail: <input type="email" name="email">
+              <input type="submit">
+            </form> 
+          
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;form novalidate="novalidate">
+              E-mail: <input type="email" name="email">
+              <input type="submit">
+            &lt;/form> 
+          </code></pre>
+          <aside class="notes">
+            add an invalid email address
+          </aside>
+        </section> 
+
+
+        <!-- an argument why client-side validation may not be as simple -->
+        <section>
+          <h2>Why not validate yourself?</h2>
+
+          <p>
+            Not as straight-forward as it seems.<br>
+            An official standard exists: <a href="http://tools.ietf.org/html/rfc5322#section-3.4">RFC 5322</a>.<br>
+            Client-side script-based validation can be disabled.
+          </p>
+          RFC 5322 taken literally (<a href="http://www.regular-expressions.info/email.html">source</a>):
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+              (?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*
+              |  "(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]
+              |  \\[\x01-\x09\x0b\x0c\x0e-\x7f])*")
+              @ (?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?
+              |  \[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}
+              (?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:
+              (?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]
+              |  \\[\x01-\x09\x0b\x0c\x0e-\x7f])+)
+              \])
+          </code></pre>
+        </section> 
+
+
+        <!-- overview of GET vs. POST -->
+        <section>
+          <h2>GET vs. POST</h2>
+          
+            <ul>
+              <li>GET/POST create an associative array</li>
+              <li>
+                <ul><li>first=>3, second=>4</li></ul>
+              </li>
+              <li>key: name of form control, value: input data</li>
+              <li>in PHP accessed through <code>$_GET</code> and <code>$_POST</code> (superglobals)</li>
+              <li><code>$_GET</code> passed via URL parameters</li>
+              <li>
+                <ul><li><a href="http://www.rottentomatoes.com/search/?search=life+of+pi">http://www.rottentomatoes.com/search/?search=life+of+pi</a></li>
+                  <li><a href="http://www.nu.nl/zoeken/?q=greenpeace">http://www.nu.nl/zoeken/?q=greenpeace</a></li>
+                  <li><a href="www.bing.com/images/search?q=amsterdam&amp;qft=+filterui:color2-bw+filterui:aspect-square">www.bing.com/images/search?q=amsterdam&amp;qft=+filterui:color2-bw+filterui:aspect-square</a></li>
+                </ul>
+              </li>
+              <li><code>$_POST</code> passed to the script via HTTP POST method</li>
+            </ul>
+
+        </section> 
+
+
+        <!-- more details on GET -->
+        <section>
+          <h2>GET</h2>
+            <ul>
+              <li>Parameters limited by the maximum URL length (~2000 characters)</li>
+              <li>Rule: do not pass sensitive data through GET - data is visible through URL!</li>
+              <li>Useful for non-secure data, e.g. Google/Bing/... search strings</li>
+              <li>Simplifies bookmarking for users (no need to refill the forms)</li>
+            </ul>
+        </section>   
+
+
+        <!-- more details on GET II -->
+        <section>
+          <h2>GET</h2>
+
+            <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+              Login: <input type="text" name="login"><br>
+              Password: <input type="password" name="password"><br>
+              <input type="submit">
+            </form>
+          
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+              Login: <input type="text" name="login"><br>
+              Password: <input type="password" name="password"><br>
+              <input type="submit">
+            &lt;/form>
+          </code></pre>
+        </section>   
+
+
+        <!-- details on POST -->
+        <section>
+          <h2>POST</h2>
+          
+            <ul>
+              <li>Name/value pairs not visible in URL</li>
+              <li>No limits on amount of data to send</li>
+              <li>Preferred option for data transfer</li>
+              <li>No bookmarking</li>
+            </ul>
+          
+          
+            <form action="http://www.st.ewi.tudelft.nl/~hauff/raw.php" method="post">
+              Login: <input type="text" name="login"><br>
+              Password: <input type="password" name="password"><br>
+              <input type="submit">
+            </form>
+          
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/raw.php" method="post">
+              Login: <input type="text" name="login"><br>
+              Password: <input type="password" name="password"><br>
+              <input type="submit">
+            &lt;/form>
+          </code></pre>
+          <p>raw.php</p>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;?php
+            $request_body = @file_get_contents('php://input');
+            echo $request_body;
+            ?>
+          </code></pre>
+        </section> 
+
+
+        <!-- input element examples -->
+        <section>
+          <h2>The input element</h2>
+          
+            <ul>
+              <li>Select user information</li>
+              <li>Makeup varies depending on type attribute</li>
+            </ul>
+          
+            <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+              Text field:     <input type="text" name="text_field_name"><br>
+              Password field: <input type="password" name="password_field_name"><br>
+              Radio buttons: <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
+              Checkboxes: <input type="checkbox" name="hobbies[]" value="sports">sports <input type="checkbox" name="hobbies[]" value="traveling">traveling <input type="checkbox" name="hobbies[]" value="reading">reading<br>
+              <input type="submit" value="Submit data">
+            </form>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+              Text field:     <input type="text" name="text_field_name"><br>
+              Password field: <input type="password" name="password_field_name"><br>
+              Radio buttons: <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
+              Checkboxes: <input type="checkbox" name="hobbies[]" value="sports">sports <input type="checkbox" name="hobbies[]" value="traveling">traveling <input type="checkbox" name="hobbies[]" value="reading">reading<br>
+              <input type="submit" value="Submit data">
+            &lt;/form>
+            </code></pre>
+            <p>
+              Checkbox [] brackets in name: use in combination with PHP.
+            </p>
+          
+
+          <aside class="notes">
+            Open this page in Firefox/Chrome/Safari - different rendering engines implement different elements.
+          </aside>
+        </section> 
+
+
+        <!-- some attributes of input elements -->
+        <section>
+          <h2>Some input element attributes</h2>
+          <h4>placeholder, required, pattern, maxlength, height</h4>
+          
+            <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+              Text field:     <input type="text" name="n" placeholder="Add your name" required pattern="[a-z]"><br>
+              Password field: <input type="password" name="p" placeholder="Type your password" maxlength="4"><br>
+              Radio buttons: <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
+              Checkboxes: <input type="checkbox" name="hobbies[]" value="sports">sports <input type="checkbox" name="hobbies[]" value="traveling">traveling <input type="checkbox" name="hobbies[]" value="reading" disabled>reading<br>
+              I agree to everything: <input type="checkbox" name="agree" value="yes" required>yes<br>
+              <input type="image" src="http://openclipart.org/image/800px/svg_to_png/109645/Help_button.png" height="60" name="submit" alt="submit_button" />
+            </form>
+          
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+            &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+              Text field:     <input type="text" name="n" placeholder="Add your name" required pattern="[a-z]"><br>
+              Password field: <input type="password" name="p" placeholder="Type your password" maxlength="4"><br>
+              Radio buttons: <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
+              Checkboxes: <input type="checkbox" name="hobbies[]" value="sports">sports <input type="checkbox" name="hobbies[]" value="traveling">traveling <input type="checkbox" name="hobbies[]" value="reading" disabled>reading<br>
+              I agree to everything: <input type="checkbox" name="agree" value="yes" required>yes<br>
+              <input type="image" src="http://openclipart.org/image/800px/svg_to_png/109645/Help_button.png" height="60" name="submit" alt="submit_button" />
+            &lt;/form>
+          </code></pre>
+          CSS and HTML elements can have overlapping attributes!
+
+        </section>    
+
+
+        <!-- and another list of input elements -->
+        <section>
+          <h2>More input elements</h2>
+          The less common elements are not available in all browsers.
+          
+            <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+              URL field: <input type="url" name="u" required placeholder="http://"><br>
+              File field: <input type="file" name="f"><br>
+              Number field: <input type="number" name="n" min="100" max="200" step="10"><br>
+              Range field: <input type="range" name="r" min="100" max="200" step="5"><br>
+              Color field: <input type="color" name="c"><br>
+              Date field: <input type="date" name="d"><br> 
+              Month field: <input type="month" name="m"><br>
+              Time field: <input type="time" name="t"><br>
+              <input type="reset" value="Reset form">
+              <input type="submit" value="Submit">
+            </form>
+          
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+           &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            URL field: <input type="url" name="u" required placeholder="http://"><br>
+            File field: <input type="file" name="f"><br>
+            Number field: <input type="number" name="n" min="100" max="200" step="10"><br>
+            Range field: <input type="range" name="r" min="100" max="200" step="5"><br>
+            Color field: <input type="color" name="c"><br>
+            Date field: <input type="date" name="d"><br> 
+            Month field: <input type="month" name="m"><br>
+            Time field: <input type="time" name="t"><br>
+            <input type="reset" value="Reset form">
+            <input type="submit" value="Submit">
+          &lt;/form>
+        </code></pre>
+
+      </section>        
+
+
+      <!-- textarea -->
+      <section>
+        <h2>The textarea element</h2>
+        <h3>Multi-line text input</h3>
+
+          <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            <textarea rows="4" cols="100" id="ta">
+              Start writing ....
+            </textarea><br>
+            <input type="submit" value="Submit data">
+          </form>
+
+        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+          &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            <textarea rows="4" cols="100">
+              Start writing ....
+            </textarea><br>
+            <input type="submit" value="Submit data">
+          &lt;/form>
+        </code></pre>
+
+      </section> 
+
+      <!-- the label element: a binding example -->
+      <section>
+        <h2>The label element</h2>
+
+        <ul>
+          <li>Can be bound to an input element with <em>for</em></li>
+          <li>Useful when navigating by mouse</li>
+        </ul>
+
+          <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            <label for="i1">Item 1</label> <input type="text" id="i1"><br>
+            <label for="i2">Item 2</label> <input type="text" id="i2"><br>
+            <label for="i3">Item 3</label> <input type="text" id="i3">
+            <input type="submit" value="Submit data">
+          </form>
+
+        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+          &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            <label for="id1">Item 1</label> <input type="text" id="id1"><br>
+            <label for="id2">Item 2</label> <input type="text" id="id2"><br>
+            <label for="id3">Item 3</label> <input type="text" id="id3">
+            <input type="submit" value="Submit data">
+          &lt;/form>
+        </code></pre>
+
+      </section> 
+
+
+      <!-- the label element - unbound -->
+      <section>
+        <h2>The label element</h2>
+
+        <ul>
+          <li>Can be bound to an input element with <em>for</em></li>
+          <li>Useful when navigating by mouse</li>
+        </ul>
+        
+          <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            <label>Item 1</label> <input type="text" id="i12"><br>
+            <label>Item 2</label> <input type="text" id="i22"><br>
+            <label>Item 3</label> <input type="text" id="i32">
+            <input type="submit" value="Submit data">
+          </form>
+        
+        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+          &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            <label>Item 1</label> <input type="text" id="id12"><br>
+            <label>Item 2</label> <input type="text" id="id22"><br>
+            <label>Item 3</label> <input type="text" id="id32">
+            <input type="submit" value="Submit data">
+          &lt;/form>
+        </code></pre>
+
+      </section> 
+
+
+      <!-- fieldset -->
+      <section>
+        <h2>fieldset</h2>
+
+        <ul>
+          <li>Used to semantically group related elements</li>
+          <li>Useful when navigating by mouse</li>
+        </ul>
+        
+          <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            <fieldset name="group1">  
+              <legend>Group 1</legend>
+              <label>Item 1.1</label> <input type="text" id="i1.1"><br>
+              <label>Item 2.1</label> <input type="text" id="i1.2"><br>
+            </fieldset>
+            <fieldset name="group2" disabled="disabled">
+              <legend>Group 2</legend>
+              <label>Item 2.1</label> <input type="text" id="i2.1"><br>
+              <label>Item 2.2</label> <input type="text" id="i2.2"><br>
+            </fieldset>
+            <input type="submit" value="Submit data">
+          </form>
+        
+        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+          &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            &lt;fieldset name="group1">  
+              <label>Item 1.1</label> <input type="text" id="id1.1"><br>
+              <label>Item 2.1</label> <input type="text" id="id1.2"><br>
+            &lt;/fieldset>
+            &lt;fieldset name="group2" disabled="disabled">
+              <label>Item 2.1</label> <input type="text" id="id2.1">
+              <label>Item 2.2</label> <input type="text" id="id2.2">
+            &lt;/fieldset>
+            <input type="submit" value="Submit data">
+          &lt;/form>
+        </code></pre>
+
+      </section> 
+
+      <section>
+        <h2>Drop-down lists: select</h2>
+        <ul>
+          <li><em>value</em> attribute is sent to server</li>
+        </ul>
+        
+          <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            <select name="car_select" size="4" multiple="multiple">
+              <option value="volvo">Volvo</option>
+              <option value="saab" disabled="disabled">Saab</option>
+              <option value="mercedes" selected="selected">Mercedes</option>
+              <option value="audi">Audi</option>
+              <option value="bmw">BMW</option>
+              <option value="vw">VW</option>
+            </select> 
+            <input type="submit" value="Submit data">
+          </form>            
+        
+        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+          &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            <select>
+              <option value="volvo">Volvo</option>
+              <option value="saab" disabled="disabled">Saab</option>
+              <option value="mercedes" selected="selected">Mercedes</option>
+              <option value="audi">Audi</option>
+              <option value="bmw">BMW</option>
+              <option value="vw">VW</option>
+            </select> 
+            <input type="submit" value="Submit data">
+          &lt;/form>
+        </code></pre>
+        <aside class="notes">
+          On a Mac: hold down "command" to select multiple options.
+          On Windows: hold down "control".
+        </aside>
+
+      </section>
+
+      <section>
+        <h2>Grouping options within select: optgroup</h2>
+        
+          <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+            <select name="car_select" size="4" multiple="multiple">
+             <optgroup label="Swedish Cars">  
+              <option value="volvo">Volvo</option>
+              <option value="saab">Saab</option>
+            </optgroup>
+            <optgroup label="German Cars">
+              <option value="mercedes">Mercedes</option>
+              <option value="audi">Audi</option>
+              <option value="bmw">BMW</option>
+              <option value="vw">VW</option>
+            </optgroup>
+          </select> 
+          <input type="submit" value="Submit data">
+        </form>            
+      
+      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+        &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+          <select name="car_select" size="4" multiple="multiple">
+           <optgroup label="Swedish Cars">  
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+          </optgroup>
+          <optgroup label="German Cars">
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+            <option value="bmw">BMW</option>
+            <option value="vw">VW</option>
+          </optgroup>
+        </select> 
+        <input type="submit" value="Submit data">
+      &lt;/form>
+    </code></pre>
+    <aside class="notes">
+    </aside>
+
+  </section>
+
+  <section>
+    <h2>button attributes</h2>
+    <ul>
+      <li><em>formaction</em> specifies where to send the data to</li>
+      <li><em>formmethod</em> specifies whether to use <em>get</em> or <em>post</em></li>
+      <li><em>formnovalidate</em> specifies whether or not to perform validation</li>
+      <li><em>formtarget</em> specifies where to display the response</li>
+    </ul>
+    
+      <form>
+        <select name="car_select" size="4" multiple="multiple">
+          <option value="volvo">Volvo</option>
+          <option value="saab" disabled="disabled">Saab</option>
+          <option value="mercedes" selected="selected">Mercedes</option>
+          <option value="audi">Audi</option>
+          <option value="bmw">BMW</option>
+          <option value="vw">VW</option>
+        </select> <br>
+        <input type="submit" value="Submit data via GET" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" formmethod="get"><br>
+        <input type="submit" value="Submit data via POST" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" formmethod="post" formtarget="_blank">
+      </form>            
+    
+    <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+      &lt;form>
+        <select name="car_select" size="4" multiple="multiple">
+          <option value="volvo">Volvo</option>
+          <option value="saab" disabled="disabled">Saab</option>
+          <option value="mercedes" selected="selected">Mercedes</option>
+          <option value="audi">Audi</option>
+          <option value="bmw">BMW</option>
+          <option value="vw">VW</option>
+        </select> <br>
+        <input type="submit" value="Submit data via GET" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" formmethod="get"><br>
+        <input type="submit" value="Submit data via POST" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script2.php" formmethod="post" formtarget="_blank">
+      &lt;/form>  
+    </code></pre>
+    <aside class="notes">
+    </aside>
+
+  </section>          
+
+  <section>
+    <h2>datalist</h2>
+    <ul>
+      <li>The <em>datalist</em> tag specifies a list of pre-defined options for an <em>input</em> element.</li>
+    </ul>
+    
+      <form>
+        <input list="browsers_">
+        <datalist id="browsers_">
+          <option value="Internet Explorer">
+            <option value="Firefox">
+              <option value="Chrome">
+                <option value="Opera">
+                  <option value="Safari">
+                  </datalist> <br>
+                  <input type="submit" value="Submit data via GET" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" formmethod="get"><br>
+                  <input type="submit" value="Submit data via POST" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" formmethod="post" formtarget="_blank">
+                </form>            
+              
+              <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+                &lt;form>
+                  <input list="browsers">
+                  <datalist id="browsers">
+                    <option value="Internet Explorer">
+                      <option value="Firefox">
+                        <option value="Chrome">
+                          <option value="Opera">
+                            <option value="Safari">
+                            </datalist> <br>
+                            <input type="submit" value="Submit data via GET" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" formmethod="get"><br>
+                            <input type="submit" value="Submit data via POST" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script2.php" formmethod="post" formtarget="_blank">
+                          &lt;/form>  
+                        </code></pre>
+                        <aside class="notes">
+                          On a Mac: hold down "command" to select multiple options.
+                          On Windows: hold down "control".
+                        </aside>
+
+                      </section>  
+
+                      <section>
+                        <h2>datalist</h2>
+                        <ul>
+                          <li>The <em>datalist</em> tag specifies a list of pre-defined options for an <em>input</em> element.</li>
+                        </ul>
+                        
+                          <form>
+                            <input list="browsers__">
+                            <datalist id="browsers__">
+                              <option value="Internet Explorer">
+                                <option value="Firefox">
+                                  <option value="Chrome">
+                                    <option value="Opera">
+                                      <option value="Safari">
+                                      </datalist> <br>
+                                      <input type="submit" value="Submit data via GET" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" formmethod="get"><br>
+                                      <input type="submit" value="Submit data via POST" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" formmethod="post" formtarget="_blank">
+                                    </form>            
+                                  
+                                  <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+                                    &lt;form>
+                                      <input list="_browsers">
+                                      <datalist id="_browsers">
+                                        <option value="Internet Explorer">
+                                          <option value="Firefox">
+                                            <option value="Chrome">
+                                              <option value="Opera">
+                                                <option value="Safari">
+                                                </datalist> <br>
+                                                <input type="submit" value="Submit data via GET" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" formmethod="get"><br>
+                                                <input type="submit" value="Submit data via POST" formaction="http://www.st.ewi.tudelft.nl/~hauff/some_script2.php" formmethod="post" formtarget="_blank">
+                                              &lt;/form>  
+                                            </code></pre>
+                                            <aside class="notes">
+                                            </aside>
+                                              In the code, we cannot use "browsers" (used in earlier slide), as id can only appear once in a HTML page ...
+                                          </section> 
+
+
+                                          <section>
+                                            <h2>keygen</h2>
+                                            <ul>
+                                              <li>key-pair generator</li>
+                                              <li>public key sent to server, private key stored locally</li>
+                                              <li>different keytypes are possible: <em>rsa</em>, <em>dsa</em>, <em>ec</em></li>
+                                            </ul>
+                                            
+                                             <form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+                                              Username: <input type="text" name="usr_name"><br>
+                                              Encryption: <keygen name="security" keytype="rsa"><br>
+                                              <input type="submit">
+                                            </form>           
+                                          
+                                          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+                                           &lt;form action="http://www.st.ewi.tudelft.nl/~hauff/some_script.php" method="get">
+                                            Username: <input type="text" name="usr_name"><br>
+                                            Encryption: <keygen name="security"><br>
+                                            <input type="submit">
+                                          &lt;/form>  
+                                        </code></pre>
+                                        <aside class="notes">
+                                        </aside>
+
+                                      </section> 
+
+                                    </div>
+
+                                  </div>
+
+                                  <script src="lib/js/head.min.js"></script>
+                                  <script src="js/reveal.min.js"></script>
+
+                                  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+        { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+        { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+</script>
+
+
+</body>
+</html>
