@@ -47,17 +47,23 @@
 
         <section>
           <h2>HTML5 vs. HTML4.01</h2>
-          <p>
-            In this lecture, form elements and attributes that were introduced in HTML5 are marked with <span class="html5">HTML5</span>.
-          </p>
 
+          <ul>
+          <li>
+            In this lecture, form elements and attributes that were introduced in HTML5 are marked with <span class="html5">HTML5</span>.
+          </li>
+
+          <li>
+            Not all elements and attributes are supported by all modern browser rendering engines. Which browser supports what can be found online, e.g. for <code>&lt;form></code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">here</a> or <a href="http://www.w3schools.com/html/html5_form_attributes.asp">here</a>.
+          </li>
+        </ul>
         </section>
 
 
         <!-- info on HTML validation -->
         <section>
           <h2>A detour: how to read the <a href="http://www.w3.org/TR/html5/">HTML specification</a></h2>
-          <h4>Question: can a &lt;ul&gt; reside within &lt;p&gt;?</h4>
+          <p>Question: can a <code>&lt;ul&gt;</code> reside within a <code>&lt;p&gt;</code> element?</p>
           <p>
             Lets look at the &lt;p&gt; element:<br>
           </p>
@@ -89,22 +95,22 @@
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
 
-            &lt;html>
-            &lt;body> 
+&lt;html>
+  &lt;body> 
             The first parameter is: 
             &lt;?php $a = isset($_GET["first"]) ? htmlspecialchars($_GET["first"]) : 0; 
-            echo $a; 
-            $a = intval($a); 
-            echo ", parsed: ".$a; ?>
-            <br>
+              echo $a; 
+              $a = intval($a); 
+              echo ", parsed: ".$a; 
+            ?><br>
             The second parameter is: 
             &lt;?= $b = isset($_GET["second"]) ? htmlspecialchars($_GET["second"]) : 0 ?>, 
             parsed: &lt;?= $b = intval($b); ?>
             <br>
             &lt;hr>
             The sum is: &lt;?= $a+$b ?>
-            &lt;/body>
-            &lt;/html>
+  &lt;/body>
+&lt;/html>
 
           </code></pre>
 
@@ -166,10 +172,10 @@
           </form>
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-            &lt;form action="php/vars.php" method="get" target="_blank">
+&lt;form action="php/vars.php" method="get" target="_blank">
             Input: <input type="text" name="text_input">
             <input type="submit" value="Submit input">
-            &lt;/form>
+&lt;/form>
           </code></pre>
 
           <aside class="notes">
@@ -182,12 +188,12 @@
           <h2>In general</h2>
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-            &lt;form action="X" method="post|get">
+&lt;form action="X" method="post|get">
             form element
             form element
             form element
             <input type="submit">
-            &lt;/form>
+&lt;/form>
           </code></pre>
 
           <aside class="notes">
@@ -201,14 +207,14 @@
           <h2>In general <span class="html5">HTML5</span></h2>
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-            &lt;form>
+&lt;form>
             form element
             form element
             form element
             <input type="submit"  formaction="X1" formmethod="post|get">
             <input type="submit"  formaction="X2" formmethod="post|get">
             <input type="submit"  formaction="X3" formmethod="post|get">
-            &lt;/form>
+&lt;/form>
           </code></pre>
 
           <aside class="notes">
@@ -224,12 +230,12 @@
           <h2>or <span class="html5">HTML5</span></h2>
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-            &lt;form id="form1">
+&lt;form id="form1">
             form element
             form element
-            &lt;/form>
+&lt;/form>
             ...
-          <input type="submit" form="form1" value="Submit"> 
+<input type="submit" form="form1" value="Submit"> 
           </code></pre>
 
           <aside class="notes">
@@ -240,18 +246,18 @@
         <section>
           <h2>or <span class="html5">HTML5</span></h2>
 
-          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-            &lt;form id="form1">
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+&lt;form id="form1">
             form element
             form element
-            &lt;/form>
+&lt;/form>
             ...
-            &lt;form id="form2">
+&lt;form id="form2">
             form element
             form element
-            &lt;/form>
+&lt;/form>
             ...
-          <input type="submit" form="form1 form2" value="Submit">
+<input type="submit" form="form1 form2" value="Submit">
           </code></pre>
 
           <aside class="notes">
@@ -280,7 +286,7 @@
 
         <!-- the most common attributes of <form> -->
         <section>
-          <h2>Attributes of <a href="http://www.w3schools.com/tags/tag_form.asp">form</a></h2>
+          <h2>Attributes of <a href="http://www.w3schools.com/tags/tag_form.asp"><code>form</code></a></h2>
 
           <table class="centerTable">
             <tr><th>attribute</th><th>value</th></tr>
@@ -299,7 +305,7 @@
 
         <!-- An overview of the target attribute -->
         <section>
-          <h2>Attribute of form: target</h2>
+          <h2>Attribute of <code>form</code>: <code>target</code></h2>
 
 
           <table class="centerTable">
@@ -316,7 +322,7 @@
 
 
         <section>
-          <h2>_self vs. _top vs. _parent</h2>
+          <h2><code>_self</code>,  <code>_top</code> and <code>_parent</code></h2>
           <p>
             <code>&lt;a href ... &gt;</code> and <code>&lt;form&gt;</code> both have the <em>target</em> attribute.
           </p>
@@ -324,7 +330,7 @@
 
           <iframe name="f1" width="600px" height="100px" style="background-color:red" srcdoc="<p>Calling <a href='forms.html' target='_self'>forms.html</a> with <b>_self</b>!</p>"></iframe>
 
-          <iframe name="f3" width="600px" height="100px" style="background-color:green" srcdoc="
+          <iframe name="f3" width="600px" height="200px" style="background-color:green" srcdoc="
           <html><body>
           <iframe width='280px' name='f3.1' style='background-color:lightgreen' src='forms_helper1.html'></iframe>
           <iframe width='280px' name='f3.2' style='background-color:springgreen'></iframe>
@@ -338,7 +344,7 @@
 
       <!-- example of autocomplete -->
       <section>
-        <h2>autocomplete: on</h2>
+        <h2><code>autocomplete="on"</code></h2>
 
         <form autocomplete="on">
           Item 1: <input type="text" name="item1"><br>
@@ -347,11 +353,11 @@
         </form>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form autocomplete="on">
+&lt;form autocomplete="on">
           Item 1: <input type="text" name="item1"><br>
           Item 2: <input type="text" name="item2"><br>
           <input type="submit" value="Submit data">
-          &lt;/form>
+&lt;/form>
         </code></pre>
         <aside class="notes">
           - add content in the first try
@@ -363,7 +369,7 @@
 
       <!-- example of autocomplete off -->
       <section>
-        <h2>autocomplete: off</h2>
+        <h2><code>autocomplete="off"</code></h2>
 
         <form autocomplete="off">
           Item 3: <input type="text" name="item3"><br>
@@ -372,11 +378,11 @@
         </form>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form autocomplete="off">
+&lt;form autocomplete="off">
           Item 3: <input type="text" name="item3"><br>
           Item 4: <input type="text" name="item4"><br>
           <input type="submit" value="Submit data">
-          &lt;/form>
+&lt;/form>
         </code></pre>
         <aside class="notes">
           as in previous slide (this time no autocomplete appears)
@@ -386,7 +392,7 @@
 
       <!-- example of the impact of the lack of novalidate -->
       <section>
-        <h2>(no)validate</h2>
+        <h2>(<code>no</code>)<code>validate</code></h2>
         <p>Rudimentary form of validation!</p>
         <form>
           E-mail<span class="html5">HTML5</span>: <input type="email" name="email"><br>
@@ -394,10 +400,10 @@
         </form> 
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form>
+&lt;form>
           E-mail: <input type="email" name="email"><br>
           <input type="submit" value="Submit email address">
-          &lt;/form> 
+&lt;/form> 
         </code></pre>
         <aside class="notes">
           try to add an invalid email address and click submit ...
@@ -410,7 +416,7 @@
 
       <!-- example of the impact of novalidate -->
       <section>
-        <h2>novalidate</h2>
+        <h2><code>novalidate</code></h2>
         <ul>
           <li>If added as attribute, the form input is not validated</li>
           <li>XHTML: <code>novalidate="novalidate"</code></li>
@@ -423,10 +429,10 @@
 
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form novalidate="novalidate">
+&lt;form novalidate="novalidate">
           E-mail: <input type="email" name="email"><br>
           <input type="submit" value="Submit email address">
-          &lt;/form> 
+&lt;/form> 
         </code></pre>
         <aside class="notes">
           add an invalid email address
@@ -527,11 +533,11 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+&lt;form action="php/vars.php" method="get">
           Login: <input type="text" name="login"><br>
           Password: <input type="password" name="password"><br>
           <input type="submit" value="Login">
-          &lt;/form>
+&lt;/form>
         </code></pre>
       </section>   
 
@@ -556,18 +562,18 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/raw.php" method="post">
+&lt;form action="php/raw.php" method="post">
           Login: <input type="text" name="login"><br>
           Password: <input type="password" name="password"><br>
           <input type="submit" value="Login">
-          &lt;/form>
+&lt;/form>
         </code></pre>
         <p>raw.php</p>
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
-          &lt;?php
+&lt;?php
           $request_body = @file_get_contents('php://input');
           echo $request_body;
-          ?>
+?>
         </code></pre>
       </section> 
 
@@ -591,19 +597,19 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
-          Text field:     <input type="text" name="text_field_name"><br>
-          Password field: <input type="password" name="password_field_name"><br>
-          Radio buttons:  <input type="radio" name="gender" value="M">Male 
-          <input type="radio" name="gender" value="F">Female<br>
-          Checkboxes:     <input type="checkbox" name="hobbies[]" value="sports">sports 
-          <input type="checkbox" name="hobbies[]" value="travel">travel 
-          <input type="checkbox" name="hobbies[]" value="reading">reading<br>
-          <input type="submit" value="Submit data">
-          &lt;/form>
+&lt;form action="php/vars.php" method="get">
+  Text field:     <input type="text" name="text_field_name"><br>
+  Password field: <input type="password" name="password_field_name"><br>
+  Radio buttons:  <input type="radio" name="gender" value="M">Male 
+    <input type="radio" name="gender" value="F">Female<br>
+  Checkboxes:     <input type="checkbox" name="hobbies[]" value="sports">sports 
+    <input type="checkbox" name="hobbies[]" value="travel">travel 
+    <input type="checkbox" name="hobbies[]" value="reading">reading<br>
+  <input type="submit" value="Submit data">
+&lt;/form>
         </code></pre>
         <p>
-          Checkbox [] brackets in name: use in combination with PHP.
+          Checkbox [] brackets in name: use in combination with PHP (next slide).
         </p>
 
 
@@ -612,11 +618,35 @@
         </aside>
       </section> 
 
+      <section>
+        <h2>Effect of missing <code>[]</code></h2>
+
+        <div class="exampleForm">
+          <form action="php/vars.php" method="get">
+            <label for="text_field_name">Text field:</label>     <input type="text" name="text_field_name"><br>
+            ...<br>
+            <label for="hobbies">Checkboxes:</label> <input type="checkbox" name="hobbies" value="sports">sports <input type="checkbox" name="hobbies" value="travel">travel <input type="checkbox" name="hobbies" value="reading">reading<br>
+            <input type="submit" value="Submit data">
+          </form>
+        </div>
+
+        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+&lt;form action="php/vars.php" method="get">
+  Text field:     <input type="text" name="text_field_name"><br>
+  ...
+  Checkboxes:     <input type="checkbox" name="hobbies" value="sports">sports 
+    <input type="checkbox" name="hobbies" value="travel">travel 
+    <input type="checkbox" name="hobbies" value="reading">reading<br>
+  <input type="submit" value="Submit data">
+&lt;/form>
+        </code></pre>
+      </section>       
+
 
       <!-- some attributes of input elements -->
       <section>
-        <h2>Some input tag <a href="http://www.w3schools.com/tags/tag_input.asp">attributes</a></h2>
-        <p>placeholder<span class="html5">HTML5</span>, required<span class="html5">HTML5</span>, pattern<span class="html5">HTML5</span>, maxlength</p>
+        <h2>Some <code>input</code> tag <a href="http://www.w3schools.com/tags/tag_input.asp">attributes</a></h2>
+        <p><code>placeholder</code><span class="html5">HTML5</span>, <code>required</code><span class="html5">HTML5</span>, <code>pattern</code><span class="html5">HTML5</span>, <code>maxlength</code></p>
 
         <div class="exampleForm">
           <form action="php/vars.ph>" method="get">
@@ -630,21 +660,20 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-          &lt;form action="php/vars.php" method="get">
-          Text field:     &lt;input type="text" name="n" placeholder="Add your name"
-          required pattern="[a-z]"><br>
-          Password field: &lt;input type="password" name="p" placeholder="Type your password" 
-          maxlength="4"><br>
-          Radio buttons:  <input type="radio" name="gender" value="M">Male 
-          <input type="radio" name="gender" value="F">Female<br>
-          Checkboxes:     <input type="checkbox" name="hobbies[]" value="sports">sports 
-          <input type="checkbox" name="hobbies[]" value="travel">travel 
-          &lt;input type="checkbox" name="hobbies[]" value="reading" 
-          disabled>reading<br>
-          I agree:        &lt;input type="checkbox" name="agree" value="yes" required>yes<br>
+&lt;form action="php/vars.php" method="get">
+  Text field:&lt;input type="text" name="n" placeholder="Add your name"
+    required pattern="[a-z]">
+  Password field: &lt;input type="password" name="p" placeholder="Type your password" 
+    maxlength="4">
+  Radio buttons:<input type="radio" name="gender" value="M">Male 
+    <input type="radio" name="gender" value="F">Female
+  Checkboxes: <input type="checkbox" name="hobbies[]" value="sports">sports 
+    <input type="checkbox" name="hobbies[]" value="travel">travel 
+    &lt;input type="checkbox" name="hobbies[]" value="reading" disabled>reading
+  I agree: &lt;input type="checkbox" name="agree" value="yes" required>yes
           &lt;input type="image" src="arrow_button.png" height="60" name="submit" 
           alt="submit button" />
-          &lt;/form>
+&lt;/form>
         </code></pre>
 
       </section>    
@@ -652,7 +681,7 @@
 
       <!-- and another list of input elements -->
       <section>
-        <h2>More input element <a href="http://www.w3schools.com/tags/att_input_type.asp">types</a></h2>
+        <h2>More <code>input</code> element <a href="http://www.w3schools.com/tags/att_input_type.asp">types</a></h2>
 
         <div class="exampleForm">
           <form action="php/vars.php" method="get">
@@ -670,18 +699,18 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
-          URL:    <input type="url" name="u" required placeholder="http://"><br>
-          File:   <input type="file" name="f"><br>
-          Number: <input type="number" name="n" min="100" max="200" step="10"><br>
-          Range:  <input type="range" name="r" min="100" max="200" step="5"><br>
-          Color:  <input type="color" name="c"><br>
-          Date:   <input type="date" name="d"><br> 
-          Month:  <input type="month" name="m"><br>
-          Time:   <input type="time" name="t"><br>
+&lt;form action="php/vars.php" method="get">
+          URL:    <input type="url" name="u" required placeholder="http://">
+          File:   <input type="file" name="f">
+          Number: <input type="number" name="n" min="100" max="200" step="10">
+          Range:  <input type="range" name="r" min="100" max="200" step="5">
+          Color:  <input type="color" name="c">
+          Date:   <input type="date" name="d"> 
+          Month:  <input type="month" name="m">
+          Time:   <input type="time" name="t">
           <input type="reset" value="Reset form">
           <input type="submit" value="Submit">
-          &lt;/form>
+&lt;/form>
         </code></pre>
 
         <aside class="notes">
@@ -692,10 +721,10 @@
 
       <!-- hidden -->
       <section>
-        <h2>hidden</h2>
+        <h2><code>input</code> attribute <code>hidden</code></h2>
 
         <ul>
-          <li>Elements that do not visually appear in the form</li>
+          <li>Element does not appear visually in the form</li>
           <li>Cannot be examined or manipulated by the user</li>
           <li>Useful to track additional information (e.g. which page of a Web portal the user uses a form from)</li>
         </ul>
@@ -721,7 +750,7 @@
 
       <!-- the button -->
       <section>
-        <h2><a href="http://www.w3schools.com/tags/tag_button.asp">button</a></h2>
+        <h2><a href="http://www.w3schools.com/tags/tag_button.asp"><code>button</code></a></h2>
 
         <ul>
           <li>A button element has one of three types: <code>button</code>, <code>reset</code>, <code>submit</code></li>
@@ -729,10 +758,10 @@
         </ul>
 
         <form>
-          <button type="button"><a href="http://www.bing.com/">bing.com</a></button><br>
-          <button type="button" style="padding:0;margin:0;spacing:0" height="10px"><img src="http://openclipart.org/image/800px/svg_to_png/5127/remi_inconnu_Flat_button.png" width="250px"></button><br>
-          <button type="button"><p>A paragraph of text</p></button><br>
-          <button type="button"><textarea cols="50" rows="2">Some text</textarea></button>
+          <button type="button" style="margin:5px"><a href="http://www.bing.com/">bing.com</a></button><br>
+          <button type="button" style="padding:0;margin:5px;spacing:0" height="10px"><img src="http://openclipart.org/image/800px/svg_to_png/5127/remi_inconnu_Flat_button.png" width="250px"></button><br>
+          <button type="button" style="margin:5px"><p>A paragraph of text</p></button><br>
+          <button type="button" style="margin:5px"><textarea cols="50" rows="2">Some text</textarea></button>
         </form>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -750,7 +779,7 @@
 
       <!-- textarea -->
       <section>
-        <h2>The <a href="http://www.w3schools.com/tags/tag_textarea.asp">textarea</a> element</h2>
+        <h2><a href="http://www.w3schools.com/tags/tag_textarea.asp"><code>textarea</code></a></h2>
         <p>Multi-line text input</p>
 
         <form action="php/vars.php" method="get">
@@ -759,20 +788,20 @@
         </form>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
-          <textarea rows="4" cols="60" name="ta">Start writing ....</textarea><br>
+&lt;form action="php/vars.php" method="get">
+          <textarea rows="4" cols="60" name="ta">Start writing ....</textarea>
           <input type="submit" value="Submit data">
-          &lt;/form>
+&lt;/form>
         </code></pre>
 
       </section> 
 
       <!-- the label element: a binding example -->
       <section>
-        <h2>The <a href="http://www.w3schools.com/tags/tag_label.asp">label</a> element</h2>
+        <h2>The <a href="http://www.w3schools.com/tags/tag_label.asp"><code>label</code></a> element</h2>
 
         <ul>
-          <li>Can be bound to an input element with <em>for</em></li>
+          <li>Can be bound to an <code>input</code> element with <code>for="element_id"</code></li>
           <li>Useful when navigating by mouse</li>
         </ul>
 
@@ -788,12 +817,12 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+&lt;form action="php/vars.php" method="get">
           <label for="id1">Item 1:</label> <input type="text" id="id1"><br>
           <label for="id2">Item 2:</label> <input type="text" id="id2"><br>
           <label for="id3">Item 3:</label> <input type="text" id="id3"><br>
           <input type="submit" value="Submit data">
-          &lt;/form>
+&lt;/form>
         </code></pre>
 
       </section> 
@@ -801,10 +830,10 @@
 
       <!-- the label element - unbound -->
       <section>
-        <h2>The <a href="http://www.w3schools.com/tags/tag_label.asp">label</a> element</h2>
+        <h2>The <a href="http://www.w3schools.com/tags/tag_label.asp"><code>label</code></a> element</h2>
 
         <ul>
-          <li>Can be bound to an input element with <em>for</em></li>
+          <li>Can be bound to an <code>input</code> element with <code>for="element_id"</code></li>
           <li>Useful when navigating by mouse</li>
         </ul>
 
@@ -819,12 +848,12 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+&lt;form action="php/vars.php" method="get">
           <label>Item 1:</label> <input type="text" id="id12"><br>
           <label>Item 2:</label> <input type="text" id="id22"><br>
           <label>Item 3:</label> <input type="text" id="id32">
           <input type="submit" value="Submit data">
-          &lt;/form>
+&lt;/form>
         </code></pre>
 
       </section> 
@@ -832,7 +861,7 @@
 
       <!-- fieldset -->
       <section>
-        <h2><a href="http://www.w3schools.com/tags/tag_fieldset.asp">fieldset</a></h2>
+        <h2><a href="http://www.w3schools.com/tags/tag_fieldset.asp"><code>fieldset</code></a></h2>
 
         <ul>
           <li>Used to semantically group related elements</li>
@@ -844,7 +873,7 @@
             <fieldset name="group1">  
               <legend>Group 1</legend>
               <label>Item 1.1:</label> <input type="text" id="i1.1"><br>
-              <label>Item 2.1:</label> <input type="text" id="i1.2"><br>
+              <label>Item 1.2:</label> <input type="text" id="i1.2"><br>
             </fieldset><br>
             <fieldset name="group2" disabled="disabled">
               <legend>Group 2</legend>
@@ -856,30 +885,30 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+&lt;form action="php/vars.php" method="get">
           <fieldset name="group1">  
             <legend>Group 1</legend>
-            <label>Item 1.1:</label> <input type="text" id="i1.1"><br>
-            <label>Item 2.1:</label> <input type="text" id="i1.2"><br>
-          </fieldset><br>
+            <label>Item 1.1:</label> <input type="text" id="i1.1">
+            <label>Item 1.2:</label> <input type="text" id="i1.2">
+          </fieldset>
           <fieldset name="group2" disabled="disabled">
             <legend>Group 2</legend>
-            <label>Item 2.1:</label> <input type="text" id="i2.1"><br>
-            <label>Item 2.2:</label> <input type="text" id="i2.2"><br>
+            <label>Item 2.1:</label> <input type="text" id="i2.1">
+            <label>Item 2.2:</label> <input type="text" id="i2.2">
           </fieldset>
           <input type="submit" value="Submit data">
-          &lt;/form>
+&lt;/form>
         </code></pre>
 
       </section> 
 
       <section>
-        <h2><a href="http://www.w3schools.com/tags/tag_select.asp">select</a></h2>
+        <h2><a href="http://www.w3schools.com/tags/tag_select.asp"><code>select</code></a></h2>
         <ul>
-          <li>drop-down list</li>
-          <li>selected <code>value</code> attribute is submitted</li>
-          <li>multiple values can be selected if <code>multiple</code> is specified</li>
-          <li>the initially selected value can be set with <code>selected</code></li>
+          <li>Drop-down list</li>
+          <li>Selected <code>value</code> attribute is submitted</li>
+          <li>Multiple values can be selected if <code>multiple</code> is specified</li>
+          <li>The initially selected value can be set with <code>selected</code></li>
         </ul>
 
         <form action="php/vars.php" method="get">
@@ -895,7 +924,7 @@
         </form>            
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+&lt;form action="php/vars.php" method="get">
           <select name="car_select" size="3" multiple="multiple">
             <option value="volvo">car: Volvo</option>
             <option value="saab" disabled="disabled">car: Saab</option>
@@ -903,9 +932,9 @@
             <option value="audi">car: Audi</option>
             <option value="bmw">car: BMW</option>
             <option value="vw">car: VW</option>
-          </select> <br>
+          </select>
           <input type="submit" value="Submit data">
-          &lt;/form>
+&lt;/form>
         </code></pre>
         <aside class="notes">
           On a Mac: hold down "command" to select multiple options.
@@ -915,7 +944,7 @@
       </section>
 
       <section>
-        <h2>Grouping options: <a href="http://www.w3schools.com/tags/tag_optgroup.asp">optgroup</a></h2>
+        <h2>Grouping options: <a href="http://www.w3schools.com/tags/tag_optgroup.asp"><code>optgroup</code></a></h2>
 
         <ul>
           <li>All elements of a group can be disabled with a single setting</li>
@@ -938,7 +967,7 @@
       </form>            
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-        &lt;form action="php/vars.php" method="get">
+&lt;form action="php/vars.php" method="get">
         <select name="car_select" size="3" multiple="multiple">
           <optgroup label="Swedish Cars">  
             <option value="volvo">Volvo</option>
@@ -950,9 +979,9 @@
           <option value="bmw">BMW</option>
           <option value="vw">VW</option>
           &lt;/optgroup>
-        </select><br> 
+        </select>
         <input type="submit" value="Submit data">
-        &lt;/form>
+&lt;/form>
       </code></pre>
       <aside class="notes">
       </aside>
@@ -960,8 +989,8 @@
     </section>
 
     <section>
-      <h2>button attributes<span class="html5">HTML5</span></h2>
-
+      <h2>Moving form attributes<span class="html5">HTML5</span></h2>
+      <p>Before HTML5: attributes within the <code>form</code> tag.</p>
       <table class="centerTable" style="font-size:75%; margin:15px auto">
         <tr><td>formaction</td><td>where to send the data to</td></tr>
         <tr><td>formmethod</td><td><em>get</em> or <em>post</em></td></tr>
@@ -984,7 +1013,7 @@
       </form>            
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-        &lt;form>
+&lt;form>
         <select name="car_select" size="3" multiple="multiple">
           <option value="volvo">Volvo</option>
           <option value="saab" disabled="disabled">Saab</option>
@@ -994,10 +1023,10 @@
           <option value="vw">VW</option>
         </select>
         &lt;input type="submit" value="Submit data via GET" 
-        formaction="php/vars.php" formmethod="get">
+          formaction="php/vars.php" formmethod="get">
         &lt;input type="submit" value="Submit data via POST" 
-        formaction="php/vars.php" formmethod="post" formtarget="_blank">
-        &lt;/form>  
+          formaction="php/vars.php" formmethod="post" formtarget="_blank">
+&lt;/form>  
       </code></pre>
       <aside class="notes">
       </aside>
@@ -1005,7 +1034,7 @@
     </section>          
 
     <section>
-      <h2><a href="http://www.w3schools.com/tags/tag_datalist.asp">datalist</a><span class="html5">HTML5</span></h2>
+      <h2><a href="http://www.w3schools.com/tags/tag_datalist.asp"><code>datalist</code></a><span class="html5">HTML5</span></h2>
       <ul>
         <li>Specifies a list of pre-defined options for an <em>input</em> element</li>
         <li>An autocomplete feature</li>
@@ -1026,7 +1055,7 @@
       </form>            
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-        &lt;form>
+&lt;form>
         &lt;input list="browsers">
         &lt;datalist id="browsers">
         &lt;option value="Internet Explorer">
@@ -1034,14 +1063,15 @@
         &lt;option value="Chrome">
         &lt;option value="Opera">
         &lt;option value="Safari">
-        &lt;/datalist> <br>
-        <input type="submit" value="Submit data" formaction="php/vars.php" formmethod="get">
-        &lt;/form>  
+        &lt;/datalist>
+        &lt;input type="submit" value="Submit data"
+            formaction="php/vars.php" formmethod="get">
+&lt;/form>  
       </code></pre>
     </section>  
 
     <section>
-      <h2><a href="http://www.w3schools.com/tags/tag_output.asp">output</a><span class="html5">HTML5</span></h2>
+      <h2><a href="http://www.w3schools.com/tags/tag_output.asp"><code>output</code></a><span class="html5">HTML5</span></h2>
       <ul>
         <li>Represents the result of a calculation or user action</li>
         <li>Attribute <code>for</code> indicates values contributing to calculation</li>
@@ -1098,7 +1128,7 @@
 
         <!-- form skeleton -->
         <section>
-          <h2>Examples: name vs. id vs. value</h2>
+          <h2>Examples: <code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
 
           <form action="php/vars.php" method="get">
             <input type="text" id="i1" name="input"> <input type="submit" value="Submit">
@@ -1138,7 +1168,7 @@
 
 <!-- form skeleton -->
         <section>
-          <h2>Examples: name vs. id vs. value</h2>
+          <h2>Examples: <code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
 
           <form action="php/vars.php" method="get">
             <input type="text" id="i1" name="input1">
@@ -1161,7 +1191,21 @@
         <button type="submit" form="form2" formaction="php/vars.php" formmethod="get">Submit form2</button>
         <button type="submit" form="form1 form2" formaction="php/vars.php" formmethod="get">Submit form1+form2</button>
 
+      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+&lt;form id="form1">
+  <label>form1:</label> <input type="text" name="form1_input">
+&lt;/form>
+&lt;form id="form2">
+  <label>form2:</label> <input type="text" name="form2_input">
+&lt;/form>
+  &lt;button type="submit" form="form1" formaction="php/vars.php" 
+    formmethod="get">Submit form1</button>
+  &lt;button type="submit" form="form2" formaction="php/vars.php" 
+    formmethod="get">Submit form2</button>
+  &lt;button type="submit" form="form1 form2" formaction="php/vars.php" 
+    formmethod="get">Submit form1+form2</button>
 
+     </code></pre> 
 
           <aside class="notes">
           </aside>

@@ -99,16 +99,19 @@ background:#cccccc; color:#444444;
   line-height: 0.9em;
   letter-spacing: -0.03em;
   text-transform: none;
-  text-shadow: none; }
+  text-shadow: none;
+  color: rgb(236,127,44); }
 
 .reveal h1 {
-  text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2); }
+  text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2); color:rgb(255,255,255);}
+
+
 
 /*********************************************
  * LINKS
  *********************************************/
 .reveal a:not(.image) {
-  color: #e7ad52;
+  color: rgb(80,100,190);
   text-decoration: none;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;
