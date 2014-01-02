@@ -32,7 +32,6 @@ body {
   margin: 55px;
   padding: 55px;
   font-size: 120%;
-  border: 5px dashed white;
   border-collapse:collapse;
 } 
 
@@ -42,7 +41,51 @@ body {
   color: #872323;
 }
 
-.reveal .centerTable { margin: 0px auto; }
+.reveal form {
+  color:#FEFEFE; 
+  width:600px; 
+  margin:0 auto;
+  text-align: left;
+  background-color: #222;
+  padding:10px;
+}
+
+.reveal ul {
+  padding-bottom:25px;
+}
+
+.reveal fieldset { border:2px dashed yellow; padding:5px;}
+
+.reveal fieldset legend {
+  padding-left:5px;
+  padding-right:5px;
+  border:2px dashed yellow;
+  color:yellow;
+  font-size:70%;
+  }
+
+.reveal .exampleForm label {
+    display: inline-block;
+    width: 220px;
+}
+
+.reveal .centerTable { margin: 50px auto; }
+
+.reveal .centerTable td,
+.reveal .centerTable th {padding-bottom: 20px; border-bottom: 3px dashed white; padding-left:20px;}
+.reveal .centerTable th {color: #bbbbbb;background-color:#333333;}
+.reveal .centerTable tr:nth-child(odd)
+{
+background:#aaaaaa; color:#444444;
+}
+.reveal .centerTable tr:nth-child(even)
+{
+background:#cccccc; color:#444444;
+}
+
+
+.reveal .html5 { color:#ff69b4; vertical-align:super; font-size:80%; font-weight:bold;}
+.reveal .special {color:yellow; font-weight:bold;}
 
 .reveal h1,
 .reveal h2,
