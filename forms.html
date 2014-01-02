@@ -14,15 +14,15 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <link rel="stylesheet" href="../css/reveal.min.css">
-  <link rel="stylesheet" href="../css/theme/tudelft.css" id="theme">
+  <link rel="stylesheet" href="css/reveal.min.css">
+  <link rel="stylesheet" href="css/theme/tudelft.css" id="theme">
 
   <!-- For syntax highlighting -->
-  <link rel="stylesheet" href="../lib/css/zenburn.css">
+  <link rel="stylesheet" href="lib/css/zenburn.css">
 
   <!-- If the query includes 'print-pdf', use the PDF print sheet -->
   <script>
-  document.write( '<link rel="stylesheet" href="../css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+  document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
   </script>
 
     <!--[if lt IE 9]>
@@ -120,11 +120,11 @@
           <h2>Calling <code>add.php</code></h2>
 
           <ul>
-            <li><a href="php/add.php?first=3&amp;second=2">add.php?first=3&amp;second=2</a></li>
-            <li><a href="php/add.php">add.php</a></li>
-            <li><a href="php/add.php?first=3.9&amp;second=4.9">add.php?first=3.9&amp;second=4.9</a></li>
-            <li><a href="php/add.php?first=3.blub&amp;second=4blah">add.php?first=3.blub&amp;second=4blah</a></li>
-            <li><a href="php/add.php?first=3.blub&amp;second=blah4">add.php?first=3.blub&amp;second=blah4</a></li>
+            <li><a href="../php/add.php?first=3&amp;second=2">add.php?first=3&amp;second=2</a></li>
+            <li><a href="../php/add.php">add.php</a></li>
+            <li><a href="../php/add.php?first=3.9&amp;second=4.9">add.php?first=3.9&amp;second=4.9</a></li>
+            <li><a href="../php/add.php?first=3.blub&amp;second=4blah">add.php?first=3.blub&amp;second=4blah</a></li>
+            <li><a href="../php/add.php?first=3.blub&amp;second=blah4">add.php?first=3.blub&amp;second=blah4</a></li>
           </ul>  
 
           <aside class="notes">
@@ -144,7 +144,7 @@
             <li style="padding-top:15px">What if a user does not provide the expected input?</li>
 
             <ul>
-              <li><a href="php/add2.php?first=<script>alert('Help!')</script>&amp;second=4">add2.php?first=&lt;script>alert('Help!')&lt;/script>&amp;second=4</a></li>
+              <li><a href="../php/add2.php?first=<script>alert('Help!')</script>&amp;second=4">add2.php?first=&lt;script>alert('Help!')&lt;/script>&amp;second=4</a></li>
               <li>code injection: <code>&lt;script>alert('Help!')&lt;/script></code> as one of the form's parameters</li>
             </ul>
 
@@ -160,13 +160,13 @@
         <section>
           <h2>A simple form</h2>
 
-          <form action="php/vars.php" method="get" target="_blank">
+          <form action="../php/vars.php" method="get" target="_blank">
             Input: <input type="text" name="text_input">
             <input type="submit" value="Submit input">
           </form>
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-            &lt;form action="php/vars.php" method="get" target="_blank">
+            &lt;form action="../php/vars.php" method="get" target="_blank">
             Input: <input type="text" name="text_input">
             <input type="submit" value="Submit input">
             &lt;/form>
@@ -271,7 +271,6 @@
             <li>optgroup</li>
             <li>fieldset</li>
             <li>label</li>
-            <li>hidden</li>
           </ul>
 
           <aside class="notes">
@@ -519,7 +518,7 @@
         <h2>GET</h2>
 
         <div class="exampleForm">
-          <form action="php/vars.php" method="get">
+          <form action="../php/vars.php" method="get">
             <label for="login">Login:</label> <input type="text" name="login"><br>
             <label for="password">Password:</label> <input type="password" name="password"><br>
             <input type="submit" value="Login">
@@ -527,7 +526,7 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+          &lt;form action="../php/vars.php" method="get">
           Login: <input type="text" name="login"><br>
           Password: <input type="password" name="password"><br>
           <input type="submit" value="Login">
@@ -548,7 +547,7 @@
         </ul>
 
         <div class="exampleForm">
-          <form action="php/raw.php" method="post">
+          <form action="../php/raw.php" method="post">
             <label for="login">Login:</label> <input type="text" name="login"><br>
             <label for="password">Password:</label> <input type="password" name="password"><br>
             <input type="submit" value="Login">
@@ -556,7 +555,7 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/raw.php" method="post">
+          &lt;form action="../php/raw.php" method="post">
           Login: <input type="text" name="login"><br>
           Password: <input type="password" name="password"><br>
           <input type="submit" value="Login">
@@ -581,7 +580,7 @@
           <li>Makeup varies depending on type attribute</li>
         </ul>
         <div class="exampleForm">
-          <form action="php/vars.php" method="get">
+          <form action="../php/vars.php" method="get">
             <label for="text_field_name">Text field:</label>     <input type="text" name="text_field_name"><br>
             <label for="passowrd_field_name">Password field:</label> <input type="password" name="password_field_name"><br>
             <label for="gender">Radio buttons:</label> <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
@@ -591,7 +590,7 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+          &lt;form action="../php/vars.php" method="get">
           Text field:     <input type="text" name="text_field_name"><br>
           Password field: <input type="password" name="password_field_name"><br>
           Radio buttons:  <input type="radio" name="gender" value="M">Male 
@@ -619,7 +618,7 @@
         <p>placeholder<span class="html5">HTML5</span>, required<span class="html5">HTML5</span>, pattern<span class="html5">HTML5</span>, maxlength</p>
 
         <div class="exampleForm">
-          <form action="php/vars.ph>" method="get">
+          <form action="../php/vars.ph>" method="get">
             <label for="n">Text field:</label> <input type="text" name="n" placeholder="Add your name" required pattern="[a-z]"><br>
             <label for="p">Password field:</label> <input type="password" name="p" placeholder="Type your password" maxlength="4"><br>
             <label for="gender">Radio buttons:</label> <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
@@ -630,7 +629,7 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-          &lt;form action="php/vars.php" method="get">
+          &lt;form action="../php/vars.php" method="get">
           Text field:     &lt;input type="text" name="n" placeholder="Add your name"
           required pattern="[a-z]"><br>
           Password field: &lt;input type="password" name="p" placeholder="Type your password" 
@@ -655,7 +654,7 @@
         <h2>More input element <a href="http://www.w3schools.com/tags/att_input_type.asp">types</a></h2>
 
         <div class="exampleForm">
-          <form action="php/vars.php" method="get">
+          <form action="../php/vars.php" method="get">
             <label for="u">URL<span class="html5">HTML5</span>:</label> <input type="url" name="u" required placeholder="http://"><br>
             <label for="f">File:</label> <input type="file" name="f"><br>
             <label for="n">Number<span class="html5">HTML5</span>:</label> <input type="number" name="n" min="100" max="200" step="10"><br>
@@ -670,7 +669,7 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+          &lt;form action="../php/vars.php" method="get">
           URL:    <input type="url" name="u" required placeholder="http://"><br>
           File:   <input type="file" name="f"><br>
           Number: <input type="number" name="n" min="100" max="200" step="10"><br>
@@ -689,35 +688,6 @@
           - in Chrome they come out as they are intended
         </aside>
       </section>  
-
-      <!-- hidden -->
-      <section>
-        <h2>hidden</h2>
-
-        <ul>
-          <li>Elements that do not visually appear in the form</li>
-          <li>Cannot be examined or manipulated by the user</li>
-          <li>Useful to track additional information (e.g. which page of a Web portal the user uses a form from)</li>
-        </ul>
-
-        <div class="exampleForm">
-        <form action="php/vars.php" method="get">
-          Text input: <input type="text" name="text_input"><br>
-          Hidden input: <input type="hidden" name="hidden_page" value="3"><br>
-          <input type="submit" value="Submit">
-        </form>
-      </div>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-  Text input: <input type="text" name="text_input"><br>
-  Hidden input: <input type="hidden" name="hidden_page" value="3"><br>
-  <input type="submit" value="Submit">
-&lt;/form>
-      </code></pre>
-      </section>
-
-
 
       <!-- the button -->
       <section>
@@ -753,13 +723,13 @@
         <h2>The <a href="http://www.w3schools.com/tags/tag_textarea.asp">textarea</a> element</h2>
         <p>Multi-line text input</p>
 
-        <form action="php/vars.php" method="get">
+        <form action="../php/vars.php" method="get">
           <textarea rows="4" cols="60" name="ta">Start writing ....</textarea><br>
           <input type="submit" value="Submit data">
         </form>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+          &lt;form action="../php/vars.php" method="get">
           <textarea rows="4" cols="60" name="ta">Start writing ....</textarea><br>
           <input type="submit" value="Submit data">
           &lt;/form>
@@ -778,7 +748,7 @@
 
         <div class="exampleForm">
 
-          <form action="php/vars.php" method="get">
+          <form action="../php/vars.php" method="get">
             <label class="special">bound:</label><br>
             <label for="i1">Item 1:</label> <input type="text" id="i1"><br>
             <label for="i2">Item 2:</label> <input type="text" id="i2"><br>
@@ -788,7 +758,7 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+          &lt;form action="../php/vars.php" method="get">
           <label for="id1">Item 1:</label> <input type="text" id="id1"><br>
           <label for="id2">Item 2:</label> <input type="text" id="id2"><br>
           <label for="id3">Item 3:</label> <input type="text" id="id3"><br>
@@ -809,7 +779,7 @@
         </ul>
 
         <div class="exampleForm">
-          <form action="php/vars.php" method="get">
+          <form action="../php/vars.php" method="get">
             <label class="special">unbound:</label><br>
             <label>Item 1:</label> <input type="text" id="i12"><br>
             <label>Item 2:</label> <input type="text" id="i22"><br>
@@ -819,7 +789,7 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+          &lt;form action="../php/vars.php" method="get">
           <label>Item 1:</label> <input type="text" id="id12"><br>
           <label>Item 2:</label> <input type="text" id="id22"><br>
           <label>Item 3:</label> <input type="text" id="id32">
@@ -840,7 +810,7 @@
         </ul>
 
         <div class="exampleForm">
-          <form action="php/vars.php" method="get">
+          <form action="../php/vars.php" method="get">
             <fieldset name="group1">  
               <legend>Group 1</legend>
               <label>Item 1.1:</label> <input type="text" id="i1.1"><br>
@@ -856,7 +826,7 @@
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+          &lt;form action="../php/vars.php" method="get">
           <fieldset name="group1">  
             <legend>Group 1</legend>
             <label>Item 1.1:</label> <input type="text" id="i1.1"><br>
@@ -882,7 +852,7 @@
           <li>the initially selected value can be set with <code>selected</code></li>
         </ul>
 
-        <form action="php/vars.php" method="get">
+        <form action="../php/vars.php" method="get">
           <select name="car_select" size="3" multiple="multiple">
             <option value="volvo">car: Volvo</option>
             <option value="saab" disabled="disabled">car: Saab</option>
@@ -895,7 +865,7 @@
         </form>            
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-          &lt;form action="php/vars.php" method="get">
+          &lt;form action="../php/vars.php" method="get">
           <select name="car_select" size="3" multiple="multiple">
             <option value="volvo">car: Volvo</option>
             <option value="saab" disabled="disabled">car: Saab</option>
@@ -921,7 +891,7 @@
           <li>All elements of a group can be disabled with a single setting</li>
         </ul>
 
-        <form action="php/vars.php" method="get">
+        <form action="../php/vars.php" method="get">
           <select name="car_select" size="3" multiple="multiple">
            <optgroup label="Swedish Cars">  
             <option value="volvo">Volvo</option>
@@ -938,7 +908,7 @@
       </form>            
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-        &lt;form action="php/vars.php" method="get">
+        &lt;form action="../php/vars.php" method="get">
         <select name="car_select" size="3" multiple="multiple">
           <optgroup label="Swedish Cars">  
             <option value="volvo">Volvo</option>
@@ -979,8 +949,8 @@
           <option value="bmw">BMW</option>
           <option value="vw">VW</option>
         </select>
-        <input type="submit" value="Submit data via GET" formaction="php/vars.php" formmethod="get">
-        <input type="submit" value="Submit data via POST" formaction="php/vars.php" formmethod="post" formtarget="_blank">
+        <input type="submit" value="Submit data via GET" formaction="../php/vars.php" formmethod="get">
+        <input type="submit" value="Submit data via POST" formaction="../php/vars.php" formmethod="post" formtarget="_blank">
       </form>            
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -994,9 +964,9 @@
           <option value="vw">VW</option>
         </select>
         &lt;input type="submit" value="Submit data via GET" 
-        formaction="php/vars.php" formmethod="get">
+        formaction="../php/vars.php" formmethod="get">
         &lt;input type="submit" value="Submit data via POST" 
-        formaction="php/vars.php" formmethod="post" formtarget="_blank">
+        formaction="../php/vars.php" formmethod="post" formtarget="_blank">
         &lt;/form>  
       </code></pre>
       <aside class="notes">
@@ -1022,7 +992,7 @@
           <option value="Opera" />
           <option value="Safari" />
         </datalist> <br>
-        <input type="submit" value="Submit data" formaction="php/vars.php" formmethod="get">
+        <input type="submit" value="Submit data" formaction="../php/vars.php" formmethod="get">
       </form>            
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -1035,7 +1005,7 @@
         &lt;option value="Opera">
         &lt;option value="Safari">
         &lt;/datalist> <br>
-        <input type="submit" value="Submit data" formaction="php/vars.php" formmethod="get">
+        <input type="submit" value="Submit data" formaction="../php/vars.php" formmethod="get">
         &lt;/form>  
       </code></pre>
     </section>  
@@ -1100,79 +1070,57 @@
         <section>
           <h2>Examples: name vs. id vs. value</h2>
 
-          <form action="php/vars.php" method="get">
+          <form action="../php/vars.php" method="get">
             <input type="text" id="i1" name="input"> <input type="submit" value="Submit">
           </form>
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
+&lt;form action="../php/vars.php" method="get">
   <input type="text" id="i1" name="input"> <input type="submit">
 &lt;/form>
      </code></pre>          
 
-          <form action="php/vars.php" method="get">
+          <form action="../php/vars.php" method="get">
             <input type="text" id="i1" name="input">
             <input type="text" id="i2" name="input"> <input type="submit" value="Submit">
           </form>
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
+&lt;form action="../php/vars.php" method="get">
   <input type="text" id="i1" name="input">
   <input type="text" id="i2" name="input"> <input type="submit" value="Submit">
 &lt;/form>  
      </code></pre>  
 
-          <form action="php/vars.php" method="get">
+          <form action="../php/vars.php" method="get">
             <input type="text" id="i1" name="input1">
             <input type="text" id="i2" name="input2"> <input type="submit" value="Submit">
           </form>
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-  <input type="text" id="i1" name="input1">
-  <input type="text" id="i2" name="input2"> <input type="submit" value="Submit">
-&lt;/form>  
-     </code></pre>     
-
-
-          <aside class="notes">
-          </aside>
-        </section>
-
-<!-- form skeleton -->
-        <section>
-          <h2>Examples: name vs. id vs. value</h2>
-
-          <form action="php/vars.php" method="get">
-            <input type="text" id="i1" name="input1">
-            <input type="text" id="i1" name="input2"> <input type="submit" value="Submit">
-          </form>
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
+&lt;form action="../php/vars.php" method="get">
   <input type="text" id="i1" name="input1">
   <input type="text" id="i1" name="input2"> <input type="submit" value="Submit">
 &lt;/form>  
      </code></pre>     
 
-        <form id="form1">
-          <label>form1:</label> <input type="text" name="form1_input">
-        </form>
-        <form id="form2">
-          <label>form2:</label> <input type="text" name="form2_input">
-        </form>
-        <button type="submit" form="form1" formaction="php/vars.php" formmethod="get">Submit form1</button>
-        <button type="submit" form="form2" formaction="php/vars.php" formmethod="get">Submit form2</button>
-        <button type="submit" form="form1 form2" formaction="php/vars.php" formmethod="get">Submit form1+form2</button>
-
-
 
           <aside class="notes">
           </aside>
-        </section>                         
+        </section>         
+
+  <section>
+      <h2>HTML global attributes</span></h2>
+      <ul>
+        <li>Global attributes can be used on any HTML element</li>
+        <li>We cover attributes of interest to forms</li>
+      </ul>
+
+   </section> 
 
  </div>
 
 </div>
 
-<script src="../lib/js/head.min.js"></script>
-<script src="../js/reveal.min.js"></script>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
 
 <script>
 
@@ -1193,12 +1141,12 @@
 
         // Optional libraries used to extend on reveal.js
         dependencies: [
-        { src: '../lib/js/classList.js', condition: function() { return !document.body.classList; } },
-        { src: '../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-        { src: '../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-        { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-        { src: '../plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-        { src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+        { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
         ]
       });
 
