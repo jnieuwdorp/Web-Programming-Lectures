@@ -1099,7 +1099,7 @@
 
         <!-- form skeleton -->
         <section>
-          <h2>name vs. id vs. value</h2>
+          <h2><code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
 
           <ul>
             <li>name</li>
@@ -1139,27 +1139,28 @@
 &lt;/form>
      </code></pre>          
 
-          <form action="php/vars.php" method="get">
+          <form action="php/vars.php" method="get" target="iframe_name_id_value1">
             <input type="text" id="i1" name="input">
             <input type="text" id="i2" name="input"> <input type="submit" value="Submit">
           </form>
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
+&lt;form action="php/vars.php" method="get" target="iframe_name_id_value1">
   <input type="text" id="i1" name="input">
   <input type="text" id="i2" name="input"> <input type="submit" value="Submit">
 &lt;/form>  
      </code></pre>  
 
-          <form action="php/vars.php" method="get">
+          <form action="php/vars.php" method="get" target="iframe_name_id_value1">
             <input type="text" id="i1" name="input1">
             <input type="text" id="i2" name="input2"> <input type="submit" value="Submit">
           </form>
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
+&lt;form action="php/vars.php" method="get" target="iframe_name_id_value1">
   <input type="text" id="i1" name="input1">
   <input type="text" id="i2" name="input2"> <input type="submit" value="Submit">
 &lt;/form>  
      </code></pre>     
+  <iframe name="iframe_name_id_value1" width="600px" height="100px" style="background-color:orange"></iframe>
 
 
           <aside class="notes">
@@ -1170,12 +1171,12 @@
         <section>
           <h2>Examples: <code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
 
-          <form action="php/vars.php" method="get">
+          <form action="php/vars.php" method="get" target="iframe_name_id_value2">
             <input type="text" id="i1" name="input1">
             <input type="text" id="i1" name="input2"> <input type="submit" value="Submit">
           </form>
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
+&lt;form action="php/vars.php" method="get" target="iframe_name_id_value2">
   <input type="text" id="i1" name="input1">
   <input type="text" id="i1" name="input2"> <input type="submit" value="Submit">
 &lt;/form>  
@@ -1187,9 +1188,9 @@
         <form id="form2">
           <label>form2:</label> <input type="text" name="form2_input">
         </form>
-        <button type="submit" form="form1" formaction="php/vars.php" formmethod="get">Submit form1</button>
-        <button type="submit" form="form2" formaction="php/vars.php" formmethod="get">Submit form2</button>
-        <button type="submit" form="form1 form2" formaction="php/vars.php" formmethod="get">Submit form1+form2</button>
+        <button type="submit" form="form1" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2">Submit form1</button>
+        <button type="submit" form="form2" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2">Submit form2</button>
+        <button type="submit" form="form1 form2" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2">Submit form1+form2</button>
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form id="form1">
@@ -1199,13 +1200,16 @@
   <label>form2:</label> <input type="text" name="form2_input">
 &lt;/form>
   &lt;button type="submit" form="form1" formaction="php/vars.php" 
-    formmethod="get">Submit form1</button>
+    formmethod="get" formtarget="iframe_name_id_value2">Submit form1</button>
   &lt;button type="submit" form="form2" formaction="php/vars.php" 
-    formmethod="get">Submit form2</button>
+    formmethod="get" formtarget="iframe_name_id_value2">Submit form2</button>
   &lt;button type="submit" form="form1 form2" formaction="php/vars.php" 
-    formmethod="get">Submit form1+form2</button>
+    formmethod="get" formtarget="iframe_name_id_value2">Submit form1+form2</button>
 
      </code></pre> 
+
+  <iframe name="iframe_name_id_value2" width="600px" height="100px" style="background-color:orange"></iframe>
+
 
           <aside class="notes">
           </aside>
