@@ -151,18 +151,18 @@
 
 &lt;html>
   &lt;body> 
-            The first parameter is: 
-            &lt;?php $a = isset($_GET["first"]) ? htmlspecialchars($_GET["first"]) : 0; 
-              echo $a; 
-              $a = intval($a); 
-              echo ", parsed: ".$a; 
-            ?><br>
-            The second parameter is: 
-            &lt;?= $b = isset($_GET["second"]) ? htmlspecialchars($_GET["second"]) : 0 ?>, 
-            parsed: &lt;?= $b = intval($b); ?>
-            <br>
-            &lt;hr>
-            The sum is: &lt;?= $a+$b ?>
+    The first parameter is: 
+    &lt;?php $a = isset($_GET["first"]) ? htmlspecialchars($_GET["first"]) : 0; 
+      echo $a; 
+      $a = intval($a); 
+      echo ", parsed: ".$a; 
+    ?><br>
+    The second parameter is: 
+    &lt;?= $b = isset($_GET["second"]) ? htmlspecialchars($_GET["second"]) : 0 ?>, 
+      parsed: &lt;?= $b = intval($b); ?>
+      <br>
+    &lt;hr>
+    The sum is: &lt;?= $a+$b ?>
   &lt;/body>
 &lt;/html>
 
@@ -550,7 +550,7 @@
               <li style="list-style-type:none;"><code>search=>life+of+pi</code></li>
               <li><a href="http://www.nu.nl/zoeken/?q=greenpeace">http://www.nu.nl/zoeken/?q=greenpeace</a></li>
               <li style="list-style-type:none;"><code>q=>greenpeace</code></li>
-              <li><a href="www.bing.com/images/search?q=amsterdam&amp;qft=+filterui:color2-bw+filterui:aspect-square">www.bing.com/images/search?q=amsterdam&amp;qft=+filterui:color2-bw+filterui:aspect-square</a></li>
+              <li><a href="http://www.bing.com/images/search?q=amsterdam&amp;qft=+filterui:color2-bw+filterui:aspect-square">http://www.bing.com/images/search?q=amsterdam&amp;qft=+filterui:color2-bw+filterui:aspect-square</a></li>
               <li style="list-style-type:none;"><code>q=>amsterdam,qft=>+filterui:color2-bw+filterui:aspect-square</code></li>
             </ul>
           </li>
@@ -644,13 +644,25 @@ List of all $_POST name/value pairs:
           <li>The <code>action</code> attribute can point to the form's URL (or be blank)</li>
           <li>Advantages: fewer pages to create, easy re-display of (complex) form</li>
           <li>Use GET/POST to branch: a GET shows the form, a POST processed the submitted form</li>
+          <li><a href="php/self.php">Example</a></li>
         </ul>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
-&lt;?php
+&lt;?php 
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+  //normal GET request; display self-submitting form
+  ?>
   <form action="" method="post">
+    <label>Input 1: <input type="text" name="i1"></label><br>
+    <label>Input 2: <input type="text" name="i2"></label><br>
+    <input type="submit" value="Submit to self">
   </form>
-        <a href="php/self.php">Example</a>
+  &lt;?php
+} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
+  //POST request; user is submitting form back to here; process it
+  print "Form input: i1 = ".$_POST["i1"].", i2 = ".$_POST["i2"]."<br>";
+}
+?>
         </code></pre>
       </section>
       
@@ -751,7 +763,7 @@ List of all $_POST name/value pairs:
         <p><code>placeholder</code><span class="html5">HTML5</span>, <code>required</code><span class="html5">HTML5</span>, <code>pattern</code><span class="html5">HTML5</span>, <code>maxlength</code></p>
 
         <div class="exampleForm">
-          <form action="php/vars.php>" method="get" class="pure-form">
+          <form action="php/vars.php" method="get" class="pure-form">
             <label for="n">Text field:</label> <input type="text" name="n" placeholder="Add your name" required pattern="[A-Z][a-z]+"><br>
             <label for="p">Password field:</label> <input type="password" name="p" placeholder="Type your password" maxlength="4"><br>
             <label for="gender">Radio buttons:</label> <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
@@ -764,7 +776,7 @@ List of all $_POST name/value pairs:
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
 &lt;form action="php/vars.php" method="get">
   Text field:&lt;input type="text" name="n" placeholder="Add your name"
-    required pattern="[a-z]">
+    required pattern="[A-Z][a-z]+">
   Password field: &lt;input type="password" name="p" placeholder="Type your password" 
     maxlength="4">
   Radio buttons:<input type="radio" name="gender" value="M">Male 
@@ -994,7 +1006,7 @@ List of all $_POST name/value pairs:
           <form action="php/vars.php" method="get">
             <fieldset name="group1">  
               <legend>Group 1</legend>
-              <label>Item 1.1:</label> <input type="text" id="i1.1"><br>
+              <label>Item 1.1:</label> <input type="text" id="i1.1" name="i1.1"><br>
               <label>Item 1.2:</label> <input type="text" id="i1.2"><br>
             </fieldset><br>
             <fieldset name="group2" disabled="disabled">
@@ -1010,8 +1022,8 @@ List of all $_POST name/value pairs:
 &lt;form action="php/vars.php" method="get">
           <fieldset name="group1">  
             <legend>Group 1</legend>
-            <label>Item 1.1:</label> <input type="text" id="i1.1">
-            <label>Item 1.2:</label> <input type="text" id="i1.2">
+            <label>Item 1.1:</label> <input type="text" id="i1.1" name="i1.1">
+            <label>Item 1.2:</label> <input type="text" id="i1.2"> <!--no name!-->
           </fieldset>
           <fieldset name="group2" disabled="disabled">
             <legend>Group 2</legend>
@@ -1034,7 +1046,7 @@ List of all $_POST name/value pairs:
         </ul>
 
         <form action="php/vars.php" method="get" class="pure-form">
-          <select name="car_select" size="3" multiple="multiple">
+          <select name="car_select[]" size="3" multiple="multiple">
             <option value="volvo">car: Volvo</option>
             <option value="saab" disabled="disabled">car: Saab</option>
             <option value="mercedes" selected="selected">car: Mercedes</option>
@@ -1047,7 +1059,7 @@ List of all $_POST name/value pairs:
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-          <select name="car_select" size="3" multiple="multiple">
+          <select name="car_select[]" size="3" multiple="multiple"><!-- for PHP [] is a must in combination with 'multiple' -->
             <option value="volvo">car: Volvo</option>
             <option value="saab" disabled="disabled">car: Saab</option>
             <option value="mercedes" selected="selected">car: Mercedes</option>
@@ -1065,6 +1077,44 @@ List of all $_POST name/value pairs:
 
       </section>
 
+
+      <section>
+        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select"><code>select</code></a></h2>
+        <p>What happens without <code>[]</code> to <code>$_GET</code> or <code>$_POST</code>?
+
+        <form action="php/vars.php" method="get" class="pure-form">
+          <select name="car_select" size="3" multiple="multiple">
+            <option value="volvo">car: Volvo</option>
+            <option value="saab" disabled="disabled">car: Saab</option>
+            <option value="mercedes" selected="selected">car: Mercedes</option>
+            <option value="audi">car: Audi</option>
+            <option value="bmw">car: BMW</option>
+            <option value="vw">car: VW</option>
+          </select> <br>
+          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
+        </form>            
+
+        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+&lt;form action="php/vars.php" method="get">
+          <select name="car_select" size="3" multiple="multiple"><!-- no square brackets -->
+            <option value="volvo">car: Volvo</option>
+            <option value="saab" disabled="disabled">car: Saab</option>
+            <option value="mercedes" selected="selected">car: Mercedes</option>
+            <option value="audi">car: Audi</option>
+            <option value="bmw">car: BMW</option>
+            <option value="vw">car: VW</option>
+          </select>
+          <input type="submit" value="Submit data">
+&lt;/form>
+        </code></pre>
+        <aside class="notes">
+          On a Mac: hold down "command" to select multiple options.
+          On Windows: hold down "control".
+        </aside>
+
+      </section>
+
+
       <section>
         <h2>Grouping options: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup"><code>optgroup</code></a></h2>
 
@@ -1073,7 +1123,7 @@ List of all $_POST name/value pairs:
         </ul>
 
         <form action="php/vars.php" method="get" class="pure-form">
-          <select name="car_select" size="3" multiple="multiple">
+          <select name="car_select[]" size="3" multiple="multiple">
            <optgroup label="Swedish Cars">  
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -1090,7 +1140,7 @@ List of all $_POST name/value pairs:
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
 &lt;form action="php/vars.php" method="get">
-        <select name="car_select" size="3" multiple="multiple">
+        <select name="car_select[]" size="3" multiple="multiple">
           <optgroup label="Swedish Cars">  
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -1122,7 +1172,7 @@ List of all $_POST name/value pairs:
 
 
       <form class="pure-form">
-        <select name="car_select" size="3" multiple="multiple">
+        <select name="car_select[]" size="3" multiple="multiple">
           <option value="volvo">Volvo</option>
           <option value="saab" disabled="disabled">Saab</option>
           <option value="mercedes" selected="selected">Mercedes</option>
@@ -1158,7 +1208,7 @@ List of all $_POST name/value pairs:
 
       <form class="pure-form">
         <label>Which browser do you use?</label>
-        <input list="browsers_">
+        <input list="browsers_" name="browser_name">
         <datalist id="browsers_">
           <option value="Internet Explorer" />
           <option value="Firefox" />
@@ -1242,6 +1292,7 @@ List of all $_POST name/value pairs:
         </section> 
 
         <!-- form skeleton -->
+<!--        
         <section>
           <h2>Examples: <code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
 
@@ -1281,8 +1332,9 @@ List of all $_POST name/value pairs:
           <aside class="notes">
           </aside>
         </section>
-
+-->
 <!-- form skeleton -->
+<!--
         <section>
           <h2>Examples: <code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
 
@@ -1329,6 +1381,7 @@ List of all $_POST name/value pairs:
           <aside class="notes">
           </aside>
         </section>   
+-->        
   <section>
     <h2>Form controls &amp; CSS</h2>
 
@@ -1375,7 +1428,7 @@ element[attribute="value"] {
     </ul>
 
     <form action="php/vars.php" method="get" class="pure-form">
-      <input type="text" value="This is a text with ' and /";>
+      <input type="text" name="input" value="This is a text with ' and /";>
       <input type="submit" value="Submit" class="pure-button pure-button-primary">
     </form>
   </section>
@@ -1475,7 +1528,7 @@ header("Content-type: video/quicktime");
      <ul>
       <li>Web service example: add two integers, return result in plain text.</li>
       <ul><li><a href="php/add3.php?first=12&amp;second=13">php/add3.php?first=12&amp;second=13</a></li></ul>
-      <li>To check the MIME type, use the <a href="https://support.mozilla.org/en-US/kb/page-info-window-view-technical-details-about-page">Page info window</a>.</li>
+      <li>To check the MIME type, use the <a href="https://support.mozilla.org/en-US/kb/page-info-window-view-technical-details-about-page">Page info window</a> on Firefox.</li>
     </ul>
     </section> 
  
@@ -1485,7 +1538,7 @@ header("Content-type: video/quicktime");
     <ul>
       <li>Application calling a Web service needs to be informed of errors</li>
       <li>Using <code>print</code> is not recommended (can be confused with valid output)</li>
-      <li>Use HTTP error codes instead (<a href="http://en.wikipedia.org/wiki/Http_error_codes">many exist</a>)</li>
+      <li>Use HTTP status codes instead (<a href="http://en.wikipedia.org/wiki/Http_error_codes">many exist</a>)</li>
     </ul>
 
     <table class="centerTable">
@@ -1522,6 +1575,9 @@ header("HTTP/1.1 500 Server Error");
       <li><a href="php/add4.php?first=5&amp;second=100">php/add4.php?first=5&amp;second=100</a></li>
       <li><a href="php/add4.php?first=50&amp;second=100">php/add4.php?first=50&amp;second=100</a></li>
       <li><a href="php/add4.php?second=100">php/add4.php?second=100</a></li>
+    </ul>
+    <p>
+      To check the returned status code, use Firefox's <a href="https://developer.mozilla.org/en/docs/Tools/Web_Console">Web Console</a>.</p>
 </section>       
 
   <section>
@@ -1556,8 +1612,8 @@ foreach ($fruits as $key => $val) {
       <li>Importance of <code>action</code>, <code>target</code> and <code>method</code></li>
       <li>What are the most common UI controls within forms?</li>
       <li>What is new in HTML5?</li>
-      <li>Processing form data on the server</li>
-      <li>Web services</li>
+      <li>Processing form data server-side with PHP</li>
+      <li>Introduction to Web services</li>
     </ul>
   </section>
 
