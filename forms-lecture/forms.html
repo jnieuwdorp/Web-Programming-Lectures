@@ -223,7 +223,7 @@
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="http://www.google.com/search" method="get" target="_blank">
             Input: <input type="text" name="q" />
-            <input type="submit" value="Search Google" />
+            &lt;input type="submit" value="Search Google" />
 &lt;/form>
           </code></pre>
 
@@ -247,7 +247,7 @@
             form element
             form element
             form element
-            <input type="submit" />
+            &lt;input type="submit" />
 &lt;/form>
           </code></pre>
 
@@ -368,8 +368,8 @@
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form autocomplete="on">
-  Item 1: <input type="text" name="item1" />
-  Item 2: <input type="text" name="item2" />
+  Item 1: &lt;input type="text" name="item1" />
+  Item 2: &lt;input type="text" name="item2" />
   &lt;input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
@@ -388,13 +388,13 @@
         <form autocomplete="off" class="pure-form">
           Item 3: <input type="text" name="item3"><br>
           Item 4: <input type="text" name="item4">
-          &lt;input type="submit" value="Submit data" class="pure-button pure-button-primary">
+          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
         </form>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form autocomplete="off">
-  Item 3: <input type="text" name="item3" />
-  Item 4: <input type="text" name="item4" />
+  Item 3: &lt;input type="text" name="item3" />
+  Item 4: &lt;input type="text" name="item4" />
   &lt;input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
@@ -416,7 +416,7 @@
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form>
   E-mail: &lt;input type="email" name="email" />
-  &lt;input type="submit" value="Submit email address" />
+  &lt;input type="submit" value="Submit" />
 &lt;/form> 
         </code></pre>
         <aside class="notes">
@@ -445,7 +445,7 @@
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form novalidate="novalidate">
           E-mail: &lt;input type="email" name="email" />
-          &lt;input type="submit" value="Submit email address" />
+          &lt;input type="submit" value="Submit" />
 &lt;/form> 
         </code></pre>
         <aside class="notes">
@@ -550,7 +550,7 @@
 &lt;form action="php/vars.php" method="get">
           Login: &lt;input type="text" name="login" />
           Password: &lt;input type="password" name="password" />
-          &lt;input type="submit" value="Login">
+          &lt;input type="submit" value="Login" />
 &lt;/form>
         </code></pre>
         <p>
@@ -624,14 +624,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   //normal GET request; display self-submitting form
   ?>
   <form action="" method="post">
-    <label>Input 1: <input type="text" name="i1"></label><br>
-    <label>Input 2: <input type="text" name="i2"></label><br>
-    <input type="submit" value="Submit to self">
+    <label>Input 1: <input type="text" name="i1" /></label><br />
+    <label>Input 2: <input type="text" name="i2" /></label><br />
+    <input type="submit" value="Submit to self" />
   </form>
   &lt;?php
 } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
   //POST request; user is submitting form back to here; process it
-  print "Form input: i1 = ".$_POST["i1"].", i2 = ".$_POST["i2"]."<br>";
+  print "Form input: i1 = ".$_POST["i1"].", i2 = ".$_POST["i2"]."<br />";
 }
 ?>
         </code></pre>
@@ -670,14 +670,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         <h2>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input">input</a> element</h2>
 
         <ul>
-          <li><code>type</code> attribute: specifies the input type (text, checkbox, radio, etc.) </li>
           <li><code>name</code> attribute: name of query parameter to submit</li>
           <li><code>value</code> attribute: control's (initial) text</li>
           <li><code>checkbox</code>: choose none, one or more; <code>radio</code>: choose none or one</li>
         </ul>
         <div class="exampleForm">
           <form action="php/vars.php" method="get" class="pure-form">
-            <label for="text_field_name">Text field:</label>     <input type="text" name="text_field_name" size="10"><br>
+            <label for="text_field_name">Text field:</label><input type="text" name="text_field_name" size="10"><br>
             <label for="passowrd_field_name">Password field:</label> <input type="password" name="password_field_name" size="20"><br>
             <label for="gender">Radio buttons:</label> <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
             <label for="sports">Checkboxes:</label> <input type="checkbox" name="sports" checked="checked">sports <input type="checkbox" name="travel">traveling <input type="checkbox" name="reading">reading<br>
@@ -841,7 +840,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-  Text input: <input type="text" name="text_input" />
+  Text input: &lt;input type="text" name="text_input" />
   &lt;input type="hidden" name="hidden_page" value="3" />
   &lt;input type="submit" value="Submit" />
 &lt;/form>
@@ -856,7 +855,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         <ul>
           <li>A button element has one of three types: <code>button</code>, <code>reset</code>, <code>submit</code></li>
-          <li>Difference to <code>&lt;input type="submit"></code>: content can be placed inside the button element</li>
+          <li>Difference to <code>&lt;input type="submit" /></code>: content can be placed inside the button element</li>
         </ul>
 
         <form class="pure-form">
@@ -1192,7 +1191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form>
-        &lt;input list="browsers" />
+        &lt;input list="browsers" name="browser_name" />
         &lt;datalist id="browsers">
         &lt;option value="Internet Explorer">
         &lt;option value="Firefox">
@@ -1223,7 +1222,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 &lt;form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
   0 &lt;input type="range" id="a" value="50" /> 100 
   + &lt;input type="number" id="b" value="50" size="4" />
-  = &lt;output name="x" for="a b"></output>
+  = &lt;output name="x" for="a b">&lt;/output>
 &lt;/form> 
      </code></pre>
      <aside class="notes">
