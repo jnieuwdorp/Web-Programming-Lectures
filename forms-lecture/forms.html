@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="en">
 
+
+<!-- TODOS
+1. add / at the end of singular elements (at least when showing the code ...)
+    !!! currently not correctly displayed in highlight mode .. escape it!!
+2. in form, use <p> or <div>    
+-->
+
 <head>
   <meta charset="utf-8">
 
@@ -16,6 +23,7 @@
 
   <link rel="stylesheet" href="../css/reveal.min.css">
   <link rel="stylesheet" href="../css/theme/tudelft.css" id="theme">
+  <link rel="stylesheet" href="../lib/css/pure-min.css">
 
   <!-- For syntax highlighting -->
   <link rel="stylesheet" href="../lib/css/zenburn.css">
@@ -23,6 +31,7 @@
   <!-- If the query includes 'print-pdf', use the PDF print sheet -->
   <script>
   document.write( '<link rel="stylesheet" href="../css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+
   </script>
 
     <!--[if lt IE 9]>
@@ -37,13 +46,52 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
         <section data-background-transition="slide" data-background="img/tu_delft_library.jpg" style="background: rgba(0,129,195,.9); color: white" id="presentable" class="bookend">          
-          <h1>TI1505: Web forms</h1>
+          <h1>TI1505: Forms</h1>
           <h3>Claudia Hauff</h3>
+        </section>
+
+        <section>
+          <h2>Today</h2>
+          <ul>
+            <li>How to use HTML <code>form</code>s</li>
+            <li>An overview of common and not so common form elements</li>
+            <li>How to process form data with PHP</li>
+            <li>Introduction to Web services</li>
+          </ul>
+
           <p>
-            <small>Created with <a href="https://github.com/hakimel/reveal.js">reveal.js</a>
-            </small>
+            The lecture today covers chapter 6 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>. The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter06-forms.shtml">here</a>.
           </p>
         </section>
+
+
+        <section>
+          <h2>Data on the Web</h2>
+
+          <ul>
+          <li>
+            Most web sites rely heavily diverse data sources (product descriptions, movie reviews, videos, sound bites, etc.)
+          </li>
+          <li>Users can access data</li>
+          <li>Users can create data</li>
+          <li>Most server-side programs require input parameters to guide their execution</li>
+            <ul>
+              <li>Can be passed via URL: <code>http://www.google.com/search?q=HTML</code></li>
+              <li>PHP can read those parameters, produce parameter-specific output</li>
+            </ul>
+        </ul>
+        </section>   
+
+        <section>
+          <h2>HTML forms</h2>
+
+          <p>A form consists of a group of UI controls that accept information to be send to the web server.</p>
+
+          <img src="img/form1.png" width="700px">
+          <img src="img/form2.png" width="700px">
+          <img src="img/form3.png" width="500px">
+
+        </section>              
 
         <section>
           <h2>HTML5 vs. HTML4.01</h2>
@@ -54,9 +102,15 @@
           </li>
 
           <li>
-            Not all elements and attributes are supported by all modern browser rendering engines. Which browser supports what can be found online, e.g. for <code>&lt;form></code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">here</a> or <a href="http://www.w3schools.com/html/html5_form_attributes.asp">here</a>.
+            Not all elements and attributes are supported by all modern browser rendering engines. Which browser supports what can be found online, e.g. for <code>&lt;form></code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">here</a>.
           </li>
         </ul>
+
+        <h2>HTML vs. XHTML</h2>
+        <p>
+          In HTML, some tags have no end tag, e.g. <code>&lt;br></code>.<br>
+          In XHTML, each tag must be properly closed, e.g. <code>&lt;br /></code>. 
+        </p>
         </section>
 
 
@@ -160,24 +214,32 @@
 
         </section>                 
 
+        <section>
+          <h2>Form basics</h2>
+        </section> 
 
 
         <!-- A very simple HTML form -->
         <section>
           <h2>A simple form</h2>
 
-          <form action="php/vars.php" method="get" target="_blank">
-            Input: <input type="text" name="text_input">
-            <input type="submit" value="Submit input">
+          <form action="http://www.google.com/search" method="get" target="_blank" class="pure-form">
+            Input: <input type="text" name="q"> <input type="submit" value="Search Google" class="pure-button pure-button-primary">
           </form>
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get" target="_blank">
-            Input: <input type="text" name="text_input">
-            <input type="submit" value="Submit input">
+&lt;form action="http://www.google.com/search" method="get" target="_blank">
+            Input: <input type="text" name="q" />
+            <input type="submit" value="Submit input" />
 &lt;/form>
           </code></pre>
 
+          <ul style="padding-top:55px">
+            <li><code>action</code> attribute contains URL of the script that will process the data</li>
+            <li>A web page can contain many forms</li>
+            <li>Form controls should be wrapped in a block element (e.g. <code>div</code> or <code>p</code>)
+            <li style="padding-top:15px">Disclaimer: shown forms were beautified with <a href="http://purecss.io/">Pure</a>. Difference between plain and pure'd HTML forms shown on <a href="http://jsfiddle.net/LSMk8/2/">jsfiddle</a>.</li>
+          </ul>
           <aside class="notes">
           </aside>
         </section>
@@ -211,9 +273,9 @@
             form element
             form element
             form element
-            <input type="submit"  formaction="X1" formmethod="post|get">
-            <input type="submit"  formaction="X2" formmethod="post|get">
-            <input type="submit"  formaction="X3" formmethod="post|get">
+            <input type="submit"  formaction="X1" formmethod="post|get" />
+            <input type="submit"  formaction="X2" formmethod="post|get" />
+            <input type="submit"  formaction="X3" formmethod="post|get" />
 &lt;/form>
           </code></pre>
 
@@ -235,7 +297,7 @@
             form element
 &lt;/form>
             ...
-<input type="submit" form="form1" value="Submit"> 
+<input type="submit" form="form1" value="Submit" /> 
           </code></pre>
 
           <aside class="notes">
@@ -257,36 +319,17 @@
             form element
 &lt;/form>
             ...
-<input type="submit" form="form1 form2" value="Submit">
+<input type="submit" form="form1 form2" value="Submit" />
           </code></pre>
 
           <aside class="notes">
           </aside>
         </section> 
-        
-        <!-- list of form elements -->
-        <section>
-          <h2>Most common form elements</h2>
 
-          <ul>
-            <li>input</li>
-            <li>textarea</li>
-            <li>button</li>
-            <li>select</li>
-            <li>option</li>
-            <li>optgroup</li>
-            <li>fieldset</li>
-            <li>label</li>
-            <li>hidden</li>
-          </ul>
-
-          <aside class="notes">
-          </aside>
-        </section>   
 
         <!-- the most common attributes of <form> -->
         <section>
-          <h2>Attributes of <a href="http://www.w3schools.com/tags/tag_form.asp"><code>form</code></a></h2>
+          <h2>Attributes of <a href="http://www.w3.org/TR/html5/forms.html"><code>form</code></a></h2>
 
           <table class="centerTable">
             <tr><th>attribute</th><th>value</th></tr>
@@ -346,17 +389,17 @@
       <section>
         <h2><code>autocomplete="on"</code></h2>
 
-        <form autocomplete="on">
+        <form autocomplete="on" class="pure-form">
           Item 1: <input type="text" name="item1"><br>
-          Item 2: <input type="text" name="item2"><br>
-          <input type="submit" value="Submit data">
+          Item 2: <input type="text" name="item2">
+          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
         </form>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form autocomplete="on">
-          Item 1: <input type="text" name="item1"><br>
-          Item 2: <input type="text" name="item2"><br>
-          <input type="submit" value="Submit data">
+          Item 1: <input type="text" name="item1" />
+          Item 2: <input type="text" name="item2" />
+          <input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
         <aside class="notes">
@@ -371,17 +414,17 @@
       <section>
         <h2><code>autocomplete="off"</code></h2>
 
-        <form autocomplete="off">
+        <form autocomplete="off" class="pure-form">
           Item 3: <input type="text" name="item3"><br>
-          Item 4: <input type="text" name="item4"><br>
-          <input type="submit" value="Submit data">
+          Item 4: <input type="text" name="item4">
+          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
         </form>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form autocomplete="off">
-          Item 3: <input type="text" name="item3"><br>
-          Item 4: <input type="text" name="item4"><br>
-          <input type="submit" value="Submit data">
+          Item 3: <input type="text" name="item3" />
+          Item 4: <input type="text" name="item4" />
+          <input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
         <aside class="notes">
@@ -394,14 +437,14 @@
       <section>
         <h2>(<code>no</code>)<code>validate</code></h2>
         <p>Rudimentary form of validation!</p>
-        <form>
-          E-mail<span class="html5">HTML5</span>: <input type="email" name="email"><br>
-          <input type="submit" value="Submit email address">
+        <form class="pure-form">
+          E-mail<span class="html5">HTML5</span>: <input type="email" name="email">
+          <input type="submit" value="Submit" class="pure-button pure-button-primary">
         </form> 
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form>
-          E-mail: <input type="email" name="email"><br>
+          E-mail: <input type="email" name="email">
           <input type="submit" value="Submit email address">
 &lt;/form> 
         </code></pre>
@@ -422,15 +465,15 @@
           <li>XHTML: <code>novalidate="novalidate"</code></li>
           <li>HTML5: <code>novalidate</code></li>
         </ul>
-        <form novalidate="novalidate">
-          E-mail<span class="html5">HTML5</span>: <input type="email" name="email"><br>
-          <input type="submit" value="Submit email address">
+        <form novalidate="novalidate" class="pure-form">
+          E-mail<span class="html5">HTML5</span>: <input type="email" name="email">
+          <input type="submit" value="Submit" class="pure-button pure-button-primary">
         </form> 
 
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form novalidate="novalidate">
-          E-mail: <input type="email" name="email"><br>
+          E-mail: <input type="email" name="email">
           <input type="submit" value="Submit email address">
 &lt;/form> 
         </code></pre>
@@ -512,7 +555,7 @@
             </ul>
           </li>
 
-          <li>Parameters limited by the maximum URL length (~2000 characters)</li>
+          <li>Parameters limited by the maximum URL length (~1000-2000 characters)</li>
           <li>Rule: do not pass sensitive data - it is visible through the URL</li>
           <li>Useful for non-secure data, e.g. Google/Bing/... search strings</li>
           <li>Simplifies bookmarking for users</li>
@@ -525,20 +568,38 @@
         <h2>GET</h2>
 
         <div class="exampleForm">
-          <form action="php/vars.php" method="get">
+          <form action="php/vars.php" method="get" class="pure-form">
             <label for="login">Login:</label> <input type="text" name="login"><br>
             <label for="password">Password:</label> <input type="password" name="password"><br>
-            <input type="submit" value="Login">
+            <input type="submit" value="Login" class="pure-button pure-button-primary">
           </form>
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-          Login: <input type="text" name="login"><br>
-          Password: <input type="password" name="password"><br>
+          Login: <input type="text" name="login">
+          Password: <input type="password" name="password">
           <input type="submit" value="Login">
 &lt;/form>
         </code></pre>
+        <p>
+          vars.php
+        </p>
+        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
+&lt;html>
+&lt;body>
+List of all $_GET name/value pairs:
+&lt;?php
+  print_r($_GET);  // for all GET variables
+?>
+
+List of all $_POST name/value pairs:
+&lt;?php
+  print_r($_POST); // for all POST variables
+?>
+&lt;/body>
+&lt;/html>
+        </code></pre>       
       </section>   
 
 
@@ -548,23 +609,23 @@
 
         <ul>
           <li>Name/value pairs not visible in URL</li>
-          <li>No limits on the amount of data that can be sent</li>
+          <li>No limits on the amount of data that can be sent (files should be transmitted this way)</li>
           <li>Preferred option for data transfer</li>
           <li>No bookmarking</li>
         </ul>
 
         <div class="exampleForm">
-          <form action="php/raw.php" method="post">
+          <form action="php/raw.php" method="post" class="pure-form">
             <label for="login">Login:</label> <input type="text" name="login"><br>
             <label for="password">Password:</label> <input type="password" name="password"><br>
-            <input type="submit" value="Login">
+            <input type="submit" value="Login" class="pure-button pure-button-primary">
           </form>
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/raw.php" method="post">
-          Login: <input type="text" name="login"><br>
-          Password: <input type="password" name="password"><br>
+          Login: <input type="text" name="login">
+          Password: <input type="password" name="password">
           <input type="submit" value="Login">
 &lt;/form>
         </code></pre>
@@ -577,85 +638,126 @@
         </code></pre>
       </section> 
 
+      <section>
+        <h2>Submitting a form to self</h2>
+        <ul>
+          <li>The <code>action</code> attribute can point to the form's URL (or be blank)</li>
+          <li>Advantages: fewer pages to create, easy re-display of (complex) form</li>
+          <li>Use GET/POST to branch: a GET shows the form, a POST processed the submitted form</li>
+        </ul>
+
+        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
+&lt;?php
+  <form action="" method="post">
+  </form>
+        <a href="php/self.php">Example</a>
+        </code></pre>
+      </section>
+      
+
+
+
+        <section>
+          <h2>Form controls</h2>
+        </section>         
+        
+        <!-- list of form elements -->
+        <section>
+          <h2>Most common form controls</h2>
+
+          <ul>
+            <li>input</li>
+            <li>textarea</li>
+            <li>button</li>
+            <li>select</li>
+            <li>option</li>
+            <li>optgroup</li>
+            <li>fieldset</li>
+            <li>label</li>
+            <li>hidden</li>
+          </ul>
+
+          <aside class="notes">
+          </aside>
+        </section>   
+
 
       <!-- input element examples -->
       <section>
-        <h2>The input element</h2>
+        <h2>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input">input</a> element</h2>
 
         <ul>
-          <li>Select user information</li>
-          <li>Makeup varies depending on type attribute</li>
+          <li><code>type</code> attribute: specifies the input type (text, checkbox, radio, etc.) </li>
+          <li><code>name</code> attribute: name of query parameter to submit</li>
+          <li><code>value</code> attribute: control's (initial) text</li>
+          <li><code>checkbox</code>: choose none, one or more; <code>radio</code>: choose none or one</li>
         </ul>
         <div class="exampleForm">
-          <form action="php/vars.php" method="get">
-            <label for="text_field_name">Text field:</label>     <input type="text" name="text_field_name"><br>
-            <label for="passowrd_field_name">Password field:</label> <input type="password" name="password_field_name"><br>
+          <form action="php/vars.php" method="get" class="pure-form">
+            <label for="text_field_name">Text field:</label>     <input type="text" name="text_field_name" size="10"><br>
+            <label for="passowrd_field_name">Password field:</label> <input type="password" name="password_field_name" size="20"><br>
             <label for="gender">Radio buttons:</label> <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
-            <label for="hobbies[]">Checkboxes:</label> <input type="checkbox" name="hobbies[]" value="sports">sports <input type="checkbox" name="hobbies[]" value="travel">travel <input type="checkbox" name="hobbies[]" value="reading">reading<br>
-            <input type="submit" value="Submit data">
+            <label for="sports">Checkboxes:</label> <input type="checkbox" name="sports" checked="checked">sports <input type="checkbox" name="travel">traveling <input type="checkbox" name="reading">reading<br>
+            <input type="submit" value="Submit data" class="pure-button pure-button-primary">
           </form>
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-  Text field:     <input type="text" name="text_field_name"><br>
-  Password field: <input type="password" name="password_field_name"><br>
-  Radio buttons:  <input type="radio" name="gender" value="M">Male 
-    <input type="radio" name="gender" value="F">Female<br>
-  Checkboxes:     <input type="checkbox" name="hobbies[]" value="sports">sports 
-    <input type="checkbox" name="hobbies[]" value="travel">travel 
-    <input type="checkbox" name="hobbies[]" value="reading">reading<br>
+  Text field:     <input type="text" name="text_field_name" size="10" />
+  Password field: <input type="password" name="password_field_name" size="20" />
+  Radio buttons:  <input type="radio" name="gender" value="M" />Male 
+                  <input type="radio" name="gender" value="F" />Female
+  Checkboxes:     <input type="checkbox" name="sports" checked="checked"/>sports 
+                  <input type="checkbox" name="travel" />traveling 
+                  <input type="checkbox" name="reading" />reading
   <input type="submit" value="Submit data">
 &lt;/form>
         </code></pre>
-        <p>
-          Checkbox [] brackets in name: use in combination with PHP (next slide).
-        </p>
-
-
         <aside class="notes">
-          Open this page in Firefox/Chrome/Safari - different rendering engines implement different elements.
+          when sent to server, any checked boxes will be sent with value on: 
         </aside>
       </section> 
 
+<!--
       <section>
         <h2>Effect of missing <code>[]</code></h2>
 
         <div class="exampleForm">
-          <form action="php/vars.php" method="get">
+          <form action="php/vars.php" method="get" class="pure-form">
             <label for="text_field_name">Text field:</label>     <input type="text" name="text_field_name"><br>
             ...<br>
             <label for="hobbies">Checkboxes:</label> <input type="checkbox" name="hobbies" value="sports">sports <input type="checkbox" name="hobbies" value="travel">travel <input type="checkbox" name="hobbies" value="reading">reading<br>
-            <input type="submit" value="Submit data">
+            <input type="submit" value="Submit data" class="pure-button pure-button-primary">
           </form>
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-  Text field:     <input type="text" name="text_field_name"><br>
+  Text field:     <input type="text" name="text_field_name" />
   ...
-  Checkboxes:     <input type="checkbox" name="hobbies" value="sports">sports 
-    <input type="checkbox" name="hobbies" value="travel">travel 
-    <input type="checkbox" name="hobbies" value="reading">reading<br>
+  Checkboxes:     <input type="checkbox" name="hobbies" value="sports" />sports 
+    <input type="checkbox" name="hobbies" value="travel" />traveling 
+    <input type="checkbox" name="hobbies" value="reading" />reading
   <input type="submit" value="Submit data">
 &lt;/form>
         </code></pre>
       </section>       
-
+-->
 
       <!-- some attributes of input elements -->
       <section>
-        <h2>Some <code>input</code> tag <a href="http://www.w3schools.com/tags/tag_input.asp">attributes</a></h2>
+        <h2>Some <code>input</code> tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input">attributes</a></h2>
         <p><code>placeholder</code><span class="html5">HTML5</span>, <code>required</code><span class="html5">HTML5</span>, <code>pattern</code><span class="html5">HTML5</span>, <code>maxlength</code></p>
 
         <div class="exampleForm">
-          <form action="php/vars.ph>" method="get">
-            <label for="n">Text field:</label> <input type="text" name="n" placeholder="Add your name" required pattern="[a-z]"><br>
+          <form action="php/vars.php>" method="get" class="pure-form">
+            <label for="n">Text field:</label> <input type="text" name="n" placeholder="Add your name" required pattern="[A-Z][a-z]+"><br>
             <label for="p">Password field:</label> <input type="password" name="p" placeholder="Type your password" maxlength="4"><br>
             <label for="gender">Radio buttons:</label> <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
             <label for="hobbies[]">Checkboxes:</label> <input type="checkbox" name="hobbies[]" value="sports">sports <input type="checkbox" name="hobbies[]" value="travel">travel <input type="checkbox" name="hobbies[]" value="reading" disabled>reading<br>
-            <label for="agree">I agree:</label> <input type="checkbox" name="agree" value="yes" required>yes<br>
-            <input type="image" src="http://openclipart.org/image/800px/svg_to_png/122407/arrow_button.png" height="60" name="submit" alt="submit_button" />
+            <label for="agree">I agree:</label> <input type="checkbox" name="agree" value="yes" required>yes
+            <input type="image" src="http://openclipart.org/image/800px/svg_to_png/122407/arrow_button.png" height="60" name="submit" alt="submit_button" align="right"/>
           </form>
         </div>
 
@@ -676,15 +778,20 @@
 &lt;/form>
         </code></pre>
 
-      </section>    
+        <aside class="notes">
+        To reset the UI controls' state and values, a full refresh is necessary:
+        Firefox Windows: Shift-Ctrl-R
+        Firefox Mac: Shift-Command-R
 
+        </aside>
+      </section>  
 
-      <!-- and another list of input elements -->
+     <!-- and another list of input elements -->
       <section>
-        <h2>More <code>input</code> element <a href="http://www.w3schools.com/tags/att_input_type.asp">types</a></h2>
+        <h2>More <code>input</code> element types</h2>
 
         <div class="exampleForm">
-          <form action="php/vars.php" method="get">
+          <form action="php/vars.php" method="get" class="pure-form">
             <label for="u">URL<span class="html5">HTML5</span>:</label> <input type="url" name="u" required placeholder="http://"><br>
             <label for="f">File:</label> <input type="file" name="f"><br>
             <label for="n">Number<span class="html5">HTML5</span>:</label> <input type="number" name="n" min="100" max="200" step="10"><br>
@@ -692,11 +799,23 @@
             <label for="c">Color<span class="html5">HTML5</span>:</label> <input type="color" name="c"><br>
             <label for="d">Date<span class="html5">HTML5</span>:</label> <input type="date" name="d"><br> 
             <label for="m">Month<span class="html5">HTML5</span>:</label> <input type="month" name="m"><br>
-            <label for="t">Time<span class="html5">HTML5</span>:</label> <input type="time" name="t"><br>
-            <input type="reset" value="Reset form">
-            <input type="submit" value="Submit">
+            <label for="t">Time<span class="html5">HTML5</span>:</label> <input type="time" name="t">
+            <p></p>
+            <input type="reset" value="Reset form" class="pure-button pure-button-secondary">
+            <input type="submit" value="Submit" class="pure-button pure-button-primary">
           </form>
         </div>
+
+        <aside class="notes">
+          - in Firefox most elements are text input elements
+          - in Chrome they come out as they are intended
+        </aside>
+      </section>         
+
+
+      <!-- and another list of input elements -->
+      <section>
+        <h2>More <code>input</code> element types</h2>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
@@ -730,17 +849,17 @@
         </ul>
 
         <div class="exampleForm">
-        <form action="php/vars.php" method="get">
+        <form action="php/vars.php" method="get" class="pure-form">
           Text input: <input type="text" name="text_input"><br>
-          Hidden input: <input type="hidden" name="hidden_page" value="3"><br>
-          <input type="submit" value="Submit">
+          <input type="hidden" name="hidden_page" value="3"><br>
+          <input type="submit" value="Submit" class="pure-button pure-button-primary">
         </form>
       </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-  Text input: <input type="text" name="text_input"><br>
-  Hidden input: <input type="hidden" name="hidden_page" value="3"><br>
+  Text input: <input type="text" name="text_input">
+  <input type="hidden" name="hidden_page" value="3">
   <input type="submit" value="Submit">
 &lt;/form>
       </code></pre>
@@ -750,26 +869,23 @@
 
       <!-- the button -->
       <section>
-        <h2><a href="http://www.w3schools.com/tags/tag_button.asp"><code>button</code></a></h2>
+        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button"><code>button</code></a></h2>
 
         <ul>
           <li>A button element has one of three types: <code>button</code>, <code>reset</code>, <code>submit</code></li>
           <li>Difference to <code>&lt;input type="submit"></code>: content can be placed inside the button element</li>
         </ul>
 
-        <form>
-          <button type="button" style="margin:5px"><a href="http://www.bing.com/">bing.com</a></button><br>
-          <button type="button" style="padding:0;margin:5px;spacing:0" height="10px"><img src="http://openclipart.org/image/800px/svg_to_png/5127/remi_inconnu_Flat_button.png" width="250px"></button><br>
-          <button type="button" style="margin:5px"><p>A paragraph of text</p></button><br>
-          <button type="button" style="margin:5px"><textarea cols="50" rows="2">Some text</textarea></button>
+        <form class="pure-form">
+          <button type="button" class="pure-button"><a href="http://www.bing.com/" style="padding:5px">bing.com</a></button><br>&nbsp;<br>
+          <button type="button" class="pure-button"><p>A paragraph of text</p></button><br>&nbsp;<br>
+          <button type="button" class="pure-button"><textarea cols="50" rows="2">Some text</textarea></button>
         </form>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form>
-  <button type="button"><a href="http://www.bing.com/">bing.com</a></button><br>
-  <button type="button" style="padding:0;margin:0;spacing:0" height="10px">
-    <img src="image.png" width="250px"></button><br>
-  <button type="button"><p>A paragraph of text</p></button><br>
+  <button type="button"><a href="http://www.bing.com/">bing.com</a></button>   
+  <button type="button"><p>A paragraph of text</p></button>
   <button type="button"><textarea cols="50" rows="2">Some text</textarea></button>
 &lt;/form>
         </code></pre>        
@@ -779,12 +895,15 @@
 
       <!-- textarea -->
       <section>
-        <h2><a href="http://www.w3schools.com/tags/tag_textarea.asp"><code>textarea</code></a></h2>
-        <p>Multi-line text input</p>
+        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea"><code>textarea</code></a></h2>
+        <ul>
+          <li>Multi-line text input</li>
+          <li><code>readonly</code> attribute used if text should not be modified</li>
+        </ul>
 
-        <form action="php/vars.php" method="get">
-          <textarea rows="4" cols="60" name="ta">Start writing ....</textarea><br>
-          <input type="submit" value="Submit data">
+        <form action="php/vars.php" method="get" class="pure-form">
+          <textarea rows="4" cols="60" name="ta">Start writing ....</textarea><br>&nbsp;<br>
+          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
         </form>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -798,29 +917,30 @@
 
       <!-- the label element: a binding example -->
       <section>
-        <h2>The <a href="http://www.w3schools.com/tags/tag_label.asp"><code>label</code></a> element</h2>
+        <h2>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label"><code>label</code></a> element</h2>
 
         <ul>
-          <li>Can be bound to an <code>input</code> element with <code>for="element_id"</code></li>
+          <li>Can be bound to an <code>input</code> element with <code>for="element_id"</code> or by placing the control inside <code>&lt;label>...&lt;/label></code></li>
           <li>Useful when navigating by mouse</li>
         </ul>
 
         <div class="exampleForm">
 
-          <form action="php/vars.php" method="get">
-            <label class="special">bound:</label><br>
-            <label for="i1">Item 1:</label> <input type="text" id="i1"><br>
-            <label for="i2">Item 2:</label> <input type="text" id="i2"><br>
-            <label for="i3">Item 3:</label> <input type="text" id="i3"><br>
-            <input type="submit" value="Submit data">
+          <form action="php/vars.php" method="get" class="pure-form">
+            <label for="i1">bound Item 1:</label> <input type="text" id="i1"><br>
+            <label for="i2">bound Item 2:</label> <input type="text" id="i2"><br>
+            <label for="i3">bound Item 3:</label> <input type="text" id="i3"><br>
+            <label>Do you agree? <input type="checkbox" name="agree"></label><br>&nbsp;<br>
+            <input type="submit" value="Submit data" class="pure-button pure-button-primary">
           </form>
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-          <label for="id1">Item 1:</label> <input type="text" id="id1"><br>
-          <label for="id2">Item 2:</label> <input type="text" id="id2"><br>
-          <label for="id3">Item 3:</label> <input type="text" id="id3"><br>
+          <label for="id1">bound Item 1:</label> <input type="text" id="id1">
+          <label for="id2">bound Item 2:</label> <input type="text" id="id2">
+          <label for="id3">bound Item 3:</label> <input type="text" id="id3">
+          <label>Do you agree? <input type="checkbox" name="agree"></label>
           <input type="submit" value="Submit data">
 &lt;/form>
         </code></pre>
@@ -830,7 +950,7 @@
 
       <!-- the label element - unbound -->
       <section>
-        <h2>The <a href="http://www.w3schools.com/tags/tag_label.asp"><code>label</code></a> element</h2>
+        <h2>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label"><code>label</code></a> element</h2>
 
         <ul>
           <li>Can be bound to an <code>input</code> element with <code>for="element_id"</code></li>
@@ -838,20 +958,22 @@
         </ul>
 
         <div class="exampleForm">
-          <form action="php/vars.php" method="get">
-            <label class="special">unbound:</label><br>
-            <label>Item 1:</label> <input type="text" id="i12"><br>
-            <label>Item 2:</label> <input type="text" id="i22"><br>
-            <label>Item 3:</label> <input type="text" id="i32"><br>
-            <input type="submit" value="Submit data">
+          <form action="php/vars.php" method="get" class="pure-form">
+            <label>unbound Item 1:</label> <input type="text" id="i12"><br>
+            <label>unbound Item 2:</label> <input type="text" id="i22"><br>
+            <label>unbound Item 3:</label> <input type="text" id="i32"><br>
+            Do you agree? <input type="checkbox" name="agree"><br>&nbsp;<br>
+
+            <input type="submit" value="Submit data" class="pure-button pure-button-primary">
           </form>
         </div>
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-          <label>Item 1:</label> <input type="text" id="id12"><br>
-          <label>Item 2:</label> <input type="text" id="id22"><br>
-          <label>Item 3:</label> <input type="text" id="id32">
+          <label>unbound Item 1:</label> <input type="text" id="id12">
+          <label>unbound Item 2:</label> <input type="text" id="id22">
+          <label>unbound Item 3:</label> <input type="text" id="id32">
+          Do you agree? <input type="checkbox" name="agree">
           <input type="submit" value="Submit data">
 &lt;/form>
         </code></pre>
@@ -861,7 +983,7 @@
 
       <!-- fieldset -->
       <section>
-        <h2><a href="http://www.w3schools.com/tags/tag_fieldset.asp"><code>fieldset</code></a></h2>
+        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset"><code>fieldset</code></a></h2>
 
         <ul>
           <li>Used to semantically group related elements</li>
@@ -879,8 +1001,8 @@
               <legend>Group 2</legend>
               <label>Item 2.1:</label> <input type="text" id="i2.1"><br>
               <label>Item 2.2:</label> <input type="text" id="i2.2"><br>
-            </fieldset>
-            <input type="submit" value="Submit data">
+            </fieldset><br>
+            <input type="submit" value="Submit data" class="pure-button pure-button-primary">
           </form>
         </div>
 
@@ -903,7 +1025,7 @@
       </section> 
 
       <section>
-        <h2><a href="http://www.w3schools.com/tags/tag_select.asp"><code>select</code></a></h2>
+        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select"><code>select</code></a></h2>
         <ul>
           <li>Drop-down list</li>
           <li>Selected <code>value</code> attribute is submitted</li>
@@ -911,7 +1033,7 @@
           <li>The initially selected value can be set with <code>selected</code></li>
         </ul>
 
-        <form action="php/vars.php" method="get">
+        <form action="php/vars.php" method="get" class="pure-form">
           <select name="car_select" size="3" multiple="multiple">
             <option value="volvo">car: Volvo</option>
             <option value="saab" disabled="disabled">car: Saab</option>
@@ -920,7 +1042,7 @@
             <option value="bmw">car: BMW</option>
             <option value="vw">car: VW</option>
           </select> <br>
-          <input type="submit" value="Submit data">
+          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
         </form>            
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -944,13 +1066,13 @@
       </section>
 
       <section>
-        <h2>Grouping options: <a href="http://www.w3schools.com/tags/tag_optgroup.asp"><code>optgroup</code></a></h2>
+        <h2>Grouping options: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup"><code>optgroup</code></a></h2>
 
         <ul>
           <li>All elements of a group can be disabled with a single setting</li>
         </ul>
 
-        <form action="php/vars.php" method="get">
+        <form action="php/vars.php" method="get" class="pure-form">
           <select name="car_select" size="3" multiple="multiple">
            <optgroup label="Swedish Cars">  
             <option value="volvo">Volvo</option>
@@ -963,7 +1085,7 @@
             <option value="vw">VW</option>
           </optgroup>
         </select><br> 
-        <input type="submit" value="Submit data">
+        <input type="submit" value="Submit data" class="pure-button pure-button-primary">
       </form>            
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
@@ -974,10 +1096,10 @@
             <option value="saab">Saab</option>
           </optgroup>
           &lt;optgroup label="German Cars" disabled>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-          <option value="bmw">BMW</option>
-          <option value="vw">VW</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+            <option value="bmw">BMW</option>
+            <option value="vw">VW</option>
           &lt;/optgroup>
         </select>
         <input type="submit" value="Submit data">
@@ -999,7 +1121,7 @@
       </table>
 
 
-      <form>
+      <form class="pure-form">
         <select name="car_select" size="3" multiple="multiple">
           <option value="volvo">Volvo</option>
           <option value="saab" disabled="disabled">Saab</option>
@@ -1007,23 +1129,16 @@
           <option value="audi">Audi</option>
           <option value="bmw">BMW</option>
           <option value="vw">VW</option>
-        </select>
-        <input type="submit" value="Submit data via GET" formaction="php/vars.php" formmethod="get">
-        <input type="submit" value="Submit data via POST" formaction="php/vars.php" formmethod="post" formtarget="_blank">
+        </select><br>
+        <input type="submit" value="Submit via GET" formaction="php/vars.php" formmethod="get" formtarget="_blank" class="pure-button pure-button-primary">
+        <input type="submit" value="Submit via POST" formaction="php/vars.php" formmethod="post" formtarget="_blank" class="pure-button pure-button-primary">
       </form>            
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form>
-        <select name="car_select" size="3" multiple="multiple">
-          <option value="volvo">Volvo</option>
-          <option value="saab" disabled="disabled">Saab</option>
-          <option value="mercedes" selected="selected">Mercedes</option>
-          <option value="audi">Audi</option>
-          <option value="bmw">BMW</option>
-          <option value="vw">VW</option>
-        </select>
+        ...
         &lt;input type="submit" value="Submit data via GET" 
-          formaction="php/vars.php" formmethod="get">
+          formaction="php/vars.php" formmethod="get" formtarget="_blank">
         &lt;input type="submit" value="Submit data via POST" 
           formaction="php/vars.php" formmethod="post" formtarget="_blank">
 &lt;/form>  
@@ -1034,14 +1149,14 @@
     </section>          
 
     <section>
-      <h2><a href="http://www.w3schools.com/tags/tag_datalist.asp"><code>datalist</code></a><span class="html5">HTML5</span></h2>
+      <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist"><code>datalist</code></a><span class="html5">HTML5</span></h2>
       <ul>
         <li>Specifies a list of pre-defined options for an <em>input</em> element</li>
         <li>An autocomplete feature</li>
         <li>Values not in the list can be submitted</li>
       </ul>
 
-      <form>
+      <form class="pure-form">
         <label>Which browser do you use?</label>
         <input list="browsers_">
         <datalist id="browsers_">
@@ -1051,7 +1166,7 @@
           <option value="Opera" />
           <option value="Safari" />
         </datalist> <br>
-        <input type="submit" value="Submit data" formaction="php/vars.php" formmethod="get">
+        <input type="submit" value="Submit data" formaction="php/vars.php" formmethod="get" class="pure-button pure-button-primary">
       </form>            
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -1071,23 +1186,23 @@
     </section>  
 
     <section>
-      <h2><a href="http://www.w3schools.com/tags/tag_output.asp"><code>output</code></a><span class="html5">HTML5</span></h2>
+      <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output"><code>output</code></a><span class="html5">HTML5</span></h2>
       <ul>
         <li>Represents the result of a calculation or user action</li>
         <li>Attribute <code>for</code> indicates values contributing to calculation</li>
       </ul>
 
-      <form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
-        0<input type="range" id="a" value="50">100
-        +<input type="number" id="b" value="50">
-        =<output name="x" for="a b"></output>
+      <form oninput="x.value=parseInt(a.value)+parseInt(b.value)" class="pure-form">
+        0 <input type="range" id="a" value="50"> 100
+        + <input type="number" id="b" value="50" size="4">
+        = <output name="x" for="a b"></output>
       </form>           
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
-  0<input type="range" id="a" value="50">100 
-  +<input type="number" id="b" value="50">
-  =<output name="x" for="a b"></output>
+  0 <input type="range" id="a" value="50"> 100 
+  + <input type="number" id="b" value="50" size="4">
+  = <output name="x" for="a b"></output>
 &lt;/form> 
      </code></pre>
      <aside class="notes">
@@ -1130,8 +1245,8 @@
         <section>
           <h2>Examples: <code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
 
-          <form action="php/vars.php" method="get">
-            <input type="text" id="i1" name="input"> <input type="submit" value="Submit">
+          <form action="php/vars.php" method="get" class="pure-form">
+            <input type="text" id="i1" name="input"> <input type="submit" value="Submit" class="pure-button pure-button-primary">
           </form>
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
@@ -1139,9 +1254,9 @@
 &lt;/form>
      </code></pre>          
 
-          <form action="php/vars.php" method="get" target="iframe_name_id_value1">
+          <form action="php/vars.php" method="get" target="iframe_name_id_value1" class="pure-form">
             <input type="text" id="i1" name="input">
-            <input type="text" id="i2" name="input"> <input type="submit" value="Submit">
+            <input type="text" id="i2" name="input"> <input type="submit" value="Submit" class="pure-button pure-button-primary">
           </form>
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get" target="iframe_name_id_value1">
@@ -1150,9 +1265,9 @@
 &lt;/form>  
      </code></pre>  
 
-          <form action="php/vars.php" method="get" target="iframe_name_id_value1">
+          <form action="php/vars.php" method="get" target="iframe_name_id_value1" class="pure-form">
             <input type="text" id="i1" name="input1">
-            <input type="text" id="i2" name="input2"> <input type="submit" value="Submit">
+            <input type="text" id="i2" name="input2"> <input type="submit" value="Submit" class="pure-button pure-button-primary">
           </form>
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get" target="iframe_name_id_value1">
@@ -1171,9 +1286,9 @@
         <section>
           <h2>Examples: <code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
 
-          <form action="php/vars.php" method="get" target="iframe_name_id_value2">
+          <form action="php/vars.php" method="get" target="iframe_name_id_value2" class="pure-form">
             <input type="text" id="i1" name="input1">
-            <input type="text" id="i1" name="input2"> <input type="submit" value="Submit">
+            <input type="text" id="i1" name="input2"> <input type="submit" value="Submit" class="pure-button pure-button-primary">
           </form>
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get" target="iframe_name_id_value2">
@@ -1182,15 +1297,15 @@
 &lt;/form>  
      </code></pre>     
 
-        <form id="form1">
+        <form id="form1" class="pure-form">
           <label>form1:</label> <input type="text" name="form1_input">
         </form>
-        <form id="form2">
+        <form id="form2" class="pure-form">
           <label>form2:</label> <input type="text" name="form2_input">
         </form>
-        <button type="submit" form="form1" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2">Submit form1</button>
-        <button type="submit" form="form2" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2">Submit form2</button>
-        <button type="submit" form="form1 form2" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2">Submit form1+form2</button>
+        <button type="submit" form="form1" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2" class="pure-button pure-button-primary"> Submit form1</button>
+        <button type="submit" form="form2" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2" class="pure-button pure-button-primary">Submit form2</button>
+        <button type="submit" form="form1 form2" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2" class="pure-button pure-button-primary">Submit forms 1+2</button>
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form id="form1">
@@ -1204,7 +1319,7 @@
   &lt;button type="submit" form="form2" formaction="php/vars.php" 
     formmethod="get" formtarget="iframe_name_id_value2">Submit form2</button>
   &lt;button type="submit" form="form1 form2" formaction="php/vars.php" 
-    formmethod="get" formtarget="iframe_name_id_value2">Submit form1+form2</button>
+    formmethod="get" formtarget="iframe_name_id_value2">Submit forms 1+2</button>
 
      </code></pre> 
 
@@ -1213,8 +1328,242 @@
 
           <aside class="notes">
           </aside>
-        </section>                         
+        </section>   
+  <section>
+    <h2>Form controls &amp; CSS</h2>
 
+      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="css">
+/* coloring an input box */        
+input[type="text"] {
+    background-color: yellow;
+    border: 2px solid #999;
+    border-radius: 10px;
+}
+/* coloring a button (change when hovering) */
+.coloredButton {
+    background-color:#a44;
+    color:#fff;
+    border:2px dashed #f99;
+}
+ 
+coloredButton:hover {
+    background-color:#fff;
+    color: #a44;
+}
+/* in general */
+element[attribute="value"] {
+  property : value;
+  property : value;
+  ...
+  property : value;
+}
+     </code></pre>  
+<form>
+  <label>Input: <input type="text" style="background-color:yellow;border:2px solid #999; border-radius:10px;"></label><br>
+  <input type="submit" value="Submit data" class="coloredButton">
+</form>        
+
+  <p>A useful tool to play around with the styling of form elements with CSS is <a href="http://yui.github.io/skinbuilder/?mode=pure">Skin Builder</a>.</p>
+  </section>
+
+  <section>
+    <h2>URL encoding</h2>
+    <ul>
+      <li>Not all characters are allowed as query parameters: " ", "/", "="</li>
+      <li>Browser encodes these characters automatically</li>
+      <li>PHP's <code>$_GET</code> and <code>$_POST</code> contain decoded values</li>
+    </ul>
+
+    <form action="php/vars.php" method="get" class="pure-form">
+      <input type="text" value="This is a text with ' and /";>
+      <input type="submit" value="Submit" class="pure-button pure-button-primary">
+    </form>
+  </section>
+
+  <section>
+    <h2>Processing form input in PHP</h2>
+  </section>
+
+  <section>
+    <h2><a href="http://www.php.net/manual/en/language.variables.superglobals.php">Superglobals</a></h2>
+          <table class="centerTable" style="font-size:80%">
+            <tr><th>associative array</th><th></th></tr>
+            <tr><td><code>$_GET, $_POST</code></td><td>params passed to GET/POST</td></tr>
+            <tr><td><code>$_SERVER, $_ENV</code></td><td>infos about the Web server</td></tr>
+            <tr><td><code>$_FILES</code></td><td>files uploaded with the request</td></tr>
+            <tr><td><code>$_SESSION, $_COOKIE</td><td>cookies used to identify the user</td></tr>
+          </table>
+
+          <form action="php/superglobals.php" method="post" enctype="multipart/form-data" class="pure-form">
+            <p>
+              <label>text_input: <input type="text" name="text_input" value="blub..."></label>
+
+              <label style="margin:10px; display:inline-block">file_input: <input type="file" name="file_input"></label>
+              <input type="submit" value="Submit" class="pure-button pure-button-primary">
+            </p>
+          </form>
+
+                <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+&lt;form action="php/superglobals.php" method="post" enctype="multipart/form-data">
+  <label>text_input: <input type="text" name="text_input" value="blub..."></label>
+  <label>file_input: <input type="file" name="file_input"></label>
+  <input type="submit" value="Submit">
+&lt;/form> 
+     </code></pre>
+  </section>
+
+  <section>
+    <h2>Processing an uploaded file in PHP</h2>
+    <ul>
+      <li>Each element in <code>$_FILES</code> is an associative array with entries:
+        <ul><li><code>name</code> (filename)</li>
+          <li><code>type</code> (<a href="http://en.wikipedia.org/wiki/Internet_media_type">MIME type</a>, e.g. audio/ogg)</li>
+          <li><code>size</code></li>
+          <li><code>tmp_name</code> (location of uploaded file on the server)</li>
+        </ul>
+      <li>Accessing those entries in PHP:<br><code>$_FILES["file_input"]["tmp_name"]</code></li>
+    </ul>
+
+    <p>PHP snippet to deal with uploaded files: use <a href="http://nl3.php.net/is_uploaded_file">is_uploaded_file</a> and <a href="http://nl3.php.net/move_uploaded_file">move_uploaded_file</a>:
+  <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
+$input = $_POST["text_input"];
+if(is_uploaded_file($_FILES["file_input"]["tmp_name"])) {
+  move_uploaded_file($_FILES["file_input"]["tmp_name"], "$input/upload_file");
+  print "File uploaded to $input/upload_file";
+}
+else {
+  print "Error while uploading.";
+}
+     </code></pre>
+
+  </section>
+
+  <section>
+    <h2>Web services</h2>
+  </section>
+
+  <section>
+    <h2>Web services</h2>
+    <blockquote>Web services extend the World Wide Web infrastructure to provide the means for software to <strong>connect</strong> to other software applications. Applications access Web services via <strong>ubiquitous Web protocols</strong> and data formats such as HTTP, XML, and SOAP, with no need to worry about how each Web service is implemented. (<a href="http://msdn.microsoft.com/en-us/library/ms950421.aspx">Source</a>)</blockquote>
+    <ul>
+      <li>Web services can be written in PHP</li>
+      <li>Web services usually take as input parameters and produce corresponding output</li>
+      <li>Output of a Web service may not be HTML, but text, XML, jpg, etc.</li>
+    </ul>
+    </section>
+
+<section>
+    <h2>Setting the output type</h2>
+
+    <ul>
+      <li>Output of PHP is assumed to be HTML (unless stated otherwise)</li>
+      <li>Output type can be set in PHP via <code>header()</code> (<a href="http://en.wikipedia.org/wiki/Internet_media_type">MIME</a> types)</li>
+      <li><code>header()</code> must be called before any output is produced</li>
+    </ul>
+
+  <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
+//in general
+header("Content-type: type/subtype");
+//specific examples
+header("Content-type: text/plain");
+header("Content-type: text/html");
+header("Content-type: text/css");
+header("Content-type: image/jpeg");
+header("Content-type: video/quicktime");
+     </code></pre>
+     <p>&nbsp;</p>
+     <ul>
+      <li>Web service example: add two integers, return result in plain text.</li>
+      <ul><li><a href="php/add3.php?first=12&amp;second=13">php/add3.php?first=12&amp;second=13</a></li></ul>
+      <li>To check the MIME type, use the <a href="https://support.mozilla.org/en-US/kb/page-info-window-view-technical-details-about-page">Page info window</a>.</li>
+    </ul>
+    </section> 
+ 
+<section>
+    <h2>Errors in Web services</h2>
+
+    <ul>
+      <li>Application calling a Web service needs to be informed of errors</li>
+      <li>Using <code>print</code> is not recommended (can be confused with valid output)</li>
+      <li>Use HTTP error codes instead (<a href="http://en.wikipedia.org/wiki/Http_error_codes">many exist</a>)</li>
+    </ul>
+
+    <table class="centerTable">
+      <tr><th>code</th><th></th></tr>
+      <tr><td>2XX</td><td>Nothing wrong here</td></tr>
+      <tr><td>3XX</td><td>Redirection, e.g. moved page (permanently or temporarily)</td></tr>
+      <tr><td>4XX</td><td>Client error</td></tr>
+      <tr><td>403</td><td>Access forbidden</td></tr>
+      <tr><td>404</td><td>Resource not found</td></tr>
+      <tr><td>5XX</td><td>Server error</td></tr>
+    </table>    
+</section>  
+
+
+<section>
+    <h2>Reporting errors in Web services</h2>
+
+  <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
+//in general
+header("HTTP/1.1 code description");
+//specific example: invalid data (numbers between 1-10 are accepted)
+if($_POST["first"]<1 || $_POST["first"]>10) {
+  header("HTTP/1.1 400 Invalid Request");
+  die("An HTTP error 400 occurred.");
+}
+//other error codes
+header("HTTP/1.1 403 Forbidden");
+header("HTTP/1.1 404 File Not Found");
+header("HTTP/1.1 500 Server Error");
+     </code></pre>
+     <p>&nbsp;</p>
+     <p>Example calls of <code>add4.php</code> with invalid/valid data</p>
+     <ul>
+      <li><a href="php/add4.php?first=5&amp;second=100">php/add4.php?first=5&amp;second=100</a></li>
+      <li><a href="php/add4.php?first=50&amp;second=100">php/add4.php?first=50&amp;second=100</a></li>
+      <li><a href="php/add4.php?second=100">php/add4.php?second=100</a></li>
+</section>       
+
+  <section>
+    <h2>Tying up a loose end: associative arrays in PHP</h2>
+  </section>
+
+  <section>
+    <h2>Access &amp; Looping</h2>
+    <table class="centerTable" style="font-size:80%">
+      <tr><th>name</th><th></th></tr>
+      <tr><td><a href="http://nl1.php.net/isset">isset</a>, <a href="http://nl1.php.net/array_key_exists">array_key_exists</a></td><td>whether the array contains a value for the given key</td></tr>
+      <tr><td><a href="http://nl1.php.net/array_keys">array_keys</a>, <a href="http://nl1.php.net/array_values">array_values</a></td><td>an array containing all keys or all values in the associative array</td></tr>
+      <tr><td><a href="http://nl1.php.net/asort">asort</a>, <a href="http://nl1.php.net/arsort">arsort</a></td><td>sorts by value, in normal or reverse order</td></tr>
+      <tr><td><a href="http://nl1.php.net/ksort">ksort</a>, <a href="http://nl1.php.net/krsort">krsort</a></td><td>sorts by key, in normal or reverse order</td></tr>
+    </table>
+    <p><small>Table taken from <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter06-forms.shtml#slide50">here</a>.</small></p>
+
+    <h2><code>foreach</code></h2>
+    <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
+$fruits = array("d" => "lemon", "a" => "orange", "b" => "banana", "c" => "apple");
+asort($fruits);
+foreach ($fruits as $key => $val) {
+    print "$key = $val\n";
+}
+     </code></pre>  
+</section>
+
+  <section>
+    <h2>Summary</h2>
+    <ul>
+      <li>What is a Web form?</li>
+      <li>Importance of <code>action</code>, <code>target</code> and <code>method</code></li>
+      <li>What are the most common UI controls within forms?</li>
+      <li>What is new in HTML5?</li>
+      <li>Processing form data on the server</li>
+      <li>Web services</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>THE END</h2>
+  </section>
  </div>
 
 </div>

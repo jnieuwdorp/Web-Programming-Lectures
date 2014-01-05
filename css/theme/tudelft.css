@@ -28,12 +28,24 @@ body {
  * HEADERS
  *********************************************/
 
+/* Button 6d */
+.reveal .coloredButton {
+    background-color:#a44;
+    color:#fff;
+    border:2px dashed #f99;
+}
+ 
+.reveal .coloredButton:hover {
+    background-color:#fff;
+    color: #a44;
+}
+
 .reveal  table {
   margin: 55px;
   padding: 55px;
   font-size: 120%;
   border-collapse:collapse;
-} 
+}
 
 .reveal sup {
   font-weight: bold;
@@ -41,9 +53,18 @@ body {
   color: #872323;
 }
 
+.reveal .importantImg {
+  width:50px;
+  vertical-align: bottom;
+  border:none;
+  padding:0px;
+  margin:0px;
+  background-color:black;
+}
+
 .reveal form {
   color:#FEFEFE; 
-  width:600px; 
+  width:850px; 
   margin:0 auto;
   text-align: left;
   background-color: #222;
@@ -63,6 +84,28 @@ body {
   color:yellow;
   font-size:70%;
   }
+
+/* source of blockquote styling: http://css-tricks.com/snippets/css/simple-and-nice-blockquote-styling/ */
+.reveal blockquote {
+  background: #555;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+  text-align: left;
+  width:850px;
+}
+.reveal blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+.reveal blockquote p {
+  display: inline;
+}  
 
 .reveal .exampleForm label {
     display: inline-block;
