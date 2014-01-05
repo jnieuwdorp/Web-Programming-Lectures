@@ -1,13 +1,6 @@
 <!doctype html>
 <html lang="en">
 
-
-<!-- TODOS
-1. add / at the end of singular elements (at least when showing the code ...)
-    !!! currently not correctly displayed in highlight mode .. escape it!!
-2. in form, use <p> or <div>    
--->
-
 <head>
   <meta charset="utf-8">
 
@@ -230,7 +223,7 @@
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="http://www.google.com/search" method="get" target="_blank">
             Input: <input type="text" name="q" />
-            <input type="submit" value="Submit input" />
+            <input type="submit" value="Search Google" />
 &lt;/form>
           </code></pre>
 
@@ -254,7 +247,7 @@
             form element
             form element
             form element
-            <input type="submit">
+            <input type="submit" />
 &lt;/form>
           </code></pre>
 
@@ -303,28 +296,6 @@
           <aside class="notes">
           </aside>
         </section>                
-
-        <!-- form skeleton -->
-        <section>
-          <h2>or <span class="html5">HTML5</span></h2>
-
-          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-&lt;form id="form1">
-            form element
-            form element
-&lt;/form>
-            ...
-&lt;form id="form2">
-            form element
-            form element
-&lt;/form>
-            ...
-<input type="submit" form="form1 form2" value="Submit" />
-          </code></pre>
-
-          <aside class="notes">
-          </aside>
-        </section> 
 
 
         <!-- the most common attributes of <form> -->
@@ -397,9 +368,9 @@
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form autocomplete="on">
-          Item 1: <input type="text" name="item1" />
-          Item 2: <input type="text" name="item2" />
-          <input type="submit" value="Submit data" />
+  Item 1: <input type="text" name="item1" />
+  Item 2: <input type="text" name="item2" />
+  <input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
         <aside class="notes">
@@ -422,9 +393,9 @@
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form autocomplete="off">
-          Item 3: <input type="text" name="item3" />
-          Item 4: <input type="text" name="item4" />
-          <input type="submit" value="Submit data" />
+  Item 3: <input type="text" name="item3" />
+  Item 4: <input type="text" name="item4" />
+  <input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
         <aside class="notes">
@@ -444,8 +415,8 @@
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form>
-          E-mail: <input type="email" name="email">
-          <input type="submit" value="Submit email address">
+  E-mail: <input type="email" name="email" />
+  <input type="submit" value="Submit email address" />
 &lt;/form> 
         </code></pre>
         <aside class="notes">
@@ -473,8 +444,8 @@
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form novalidate="novalidate">
-          E-mail: <input type="email" name="email">
-          <input type="submit" value="Submit email address">
+          E-mail: <input type="email" name="email" />
+          <input type="submit" value="Submit email address" />
 &lt;/form> 
         </code></pre>
         <aside class="notes">
@@ -577,8 +548,8 @@
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-          Login: <input type="text" name="login">
-          Password: <input type="password" name="password">
+          Login: <input type="text" name="login" />
+          Password: <input type="password" name="password" />
           <input type="submit" value="Login">
 &lt;/form>
         </code></pre>
@@ -624,9 +595,9 @@ List of all $_POST name/value pairs:
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/raw.php" method="post">
-          Login: <input type="text" name="login">
-          Password: <input type="password" name="password">
-          <input type="submit" value="Login">
+          Login: <input type="text" name="login" />
+          Password: <input type="password" name="password" />
+          <input type="submit" value="Login" />
 &lt;/form>
         </code></pre>
         <p>raw.php</p>
@@ -720,7 +691,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   Password field: <input type="password" name="password_field_name" size="20" />
   Radio buttons:  <input type="radio" name="gender" value="M" />Male 
                   <input type="radio" name="gender" value="F" />Female
-  Checkboxes:     <input type="checkbox" name="sports" checked="checked"/>sports 
+  Checkboxes:     <input type="checkbox" name="sports" checked="checked" />sports 
                   <input type="checkbox" name="travel" />traveling 
                   <input type="checkbox" name="reading" />reading
   <input type="submit" value="Submit data">
@@ -776,15 +747,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
 &lt;form action="php/vars.php" method="get">
   Text field:&lt;input type="text" name="n" placeholder="Add your name"
-    required pattern="[A-Z][a-z]+">
+    required pattern="[A-Z][a-z]+" />
   Password field: &lt;input type="password" name="p" placeholder="Type your password" 
-    maxlength="4">
-  Radio buttons:<input type="radio" name="gender" value="M">Male 
-    <input type="radio" name="gender" value="F">Female
-  Checkboxes: <input type="checkbox" name="hobbies[]" value="sports">sports 
-    <input type="checkbox" name="hobbies[]" value="travel">travel 
-    &lt;input type="checkbox" name="hobbies[]" value="reading" disabled>reading
-  I agree: &lt;input type="checkbox" name="agree" value="yes" required>yes
+    maxlength="4" />
+  Radio buttons:<input type="radio" name="gender" value="M" />Male 
+    <input type="radio" name="gender" value="F" />Female
+  Checkboxes: <input type="checkbox" name="hobbies[]" value="sports" />sports 
+    <input type="checkbox" name="hobbies[]" value="travel" />travel 
+    &lt;input type="checkbox" name="hobbies[]" value="reading" disabled />reading
+  I agree: &lt;input type="checkbox" name="agree" value="yes" required />yes
           &lt;input type="image" src="arrow_button.png" height="60" name="submit" 
           alt="submit button" />
 &lt;/form>
@@ -831,16 +802,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-          URL:    <input type="url" name="u" required placeholder="http://">
-          File:   <input type="file" name="f">
-          Number: <input type="number" name="n" min="100" max="200" step="10">
-          Range:  <input type="range" name="r" min="100" max="200" step="5">
-          Color:  <input type="color" name="c">
-          Date:   <input type="date" name="d"> 
-          Month:  <input type="month" name="m">
-          Time:   <input type="time" name="t">
-          <input type="reset" value="Reset form">
-          <input type="submit" value="Submit">
+          URL:    <input type="url" name="u" required placeholder="http://" />
+          File:   <input type="file" name="f" />
+          Number: <input type="number" name="n" min="100" max="200" step="10" />
+          Range:  <input type="range" name="r" min="100" max="200" step="5" />
+          Color:  <input type="color" name="c" />
+          Date:   <input type="date" name="d" /> 
+          Month:  <input type="month" name="m" />
+          Time:   <input type="time" name="t" />
+          <input type="reset" value="Reset form" />
+          <input type="submit" value="Submit" />
 &lt;/form>
         </code></pre>
 
@@ -870,9 +841,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-  Text input: <input type="text" name="text_input">
-  <input type="hidden" name="hidden_page" value="3">
-  <input type="submit" value="Submit">
+  Text input: <input type="text" name="text_input" />
+  <input type="hidden" name="hidden_page" value="3" />
+  <input type="submit" value="Submit" />
 &lt;/form>
       </code></pre>
       </section>
@@ -921,7 +892,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
           <textarea rows="4" cols="60" name="ta">Start writing ....</textarea>
-          <input type="submit" value="Submit data">
+          <input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
 
@@ -949,11 +920,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-          <label for="id1">bound Item 1:</label> <input type="text" id="id1">
-          <label for="id2">bound Item 2:</label> <input type="text" id="id2">
-          <label for="id3">bound Item 3:</label> <input type="text" id="id3">
-          <label>Do you agree? <input type="checkbox" name="agree"></label>
-          <input type="submit" value="Submit data">
+          <label for="id1">bound Item 1:</label> <input type="text" id="id1" />
+          <label for="id2">bound Item 2:</label> <input type="text" id="id2" />
+          <label for="id3">bound Item 3:</label> <input type="text" id="id3" />
+          <label>Do you agree? <input type="checkbox" name="agree" /></label>
+          <input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
 
@@ -982,11 +953,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-          <label>unbound Item 1:</label> <input type="text" id="id12">
-          <label>unbound Item 2:</label> <input type="text" id="id22">
-          <label>unbound Item 3:</label> <input type="text" id="id32">
-          Do you agree? <input type="checkbox" name="agree">
-          <input type="submit" value="Submit data">
+          <label>unbound Item 1:</label> <input type="text" id="id12" />
+          <label>unbound Item 2:</label> <input type="text" id="id22" />
+          <label>unbound Item 3:</label> <input type="text" id="id32" />
+          Do you agree? <input type="checkbox" name="agree" />
+          <input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
 
@@ -1022,15 +993,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 &lt;form action="php/vars.php" method="get">
           <fieldset name="group1">  
             <legend>Group 1</legend>
-            <label>Item 1.1:</label> <input type="text" id="i1.1" name="i1.1">
-            <label>Item 1.2:</label> <input type="text" id="i1.2"> <!--no name!-->
+            <label>Item 1.1:</label> <input type="text" id="i1.1" name="i1.1" />
+            <label>Item 1.2:</label> <input type="text" id="i1.2" /> <!--no name!-->
           </fieldset>
-          <fieldset name="group2" disabled="disabled">
+          <fieldset name="group2" disabled="disabled" />
             <legend>Group 2</legend>
-            <label>Item 2.1:</label> <input type="text" id="i2.1">
-            <label>Item 2.2:</label> <input type="text" id="i2.2">
+            <label>Item 2.1:</label> <input type="text" id="i2.1" />
+            <label>Item 2.2:</label> <input type="text" id="i2.2" />
           </fieldset>
-          <input type="submit" value="Submit data">
+          <input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
 
@@ -1067,7 +1038,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <option value="bmw">car: BMW</option>
             <option value="vw">car: VW</option>
           </select>
-          <input type="submit" value="Submit data">
+          <input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
         <aside class="notes">
@@ -1104,7 +1075,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <option value="bmw">car: BMW</option>
             <option value="vw">car: VW</option>
           </select>
-          <input type="submit" value="Submit data">
+          <input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
         <aside class="notes">
@@ -1152,7 +1123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <option value="vw">VW</option>
           &lt;/optgroup>
         </select>
-        <input type="submit" value="Submit data">
+        <input type="submit" value="Submit data" />
 &lt;/form>
       </code></pre>
       <aside class="notes">
@@ -1188,9 +1159,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 &lt;form>
         ...
         &lt;input type="submit" value="Submit data via GET" 
-          formaction="php/vars.php" formmethod="get" formtarget="_blank">
+          formaction="php/vars.php" formmethod="get" formtarget="_blank" />
         &lt;input type="submit" value="Submit data via POST" 
-          formaction="php/vars.php" formmethod="post" formtarget="_blank">
+          formaction="php/vars.php" formmethod="post" formtarget="_blank" />
 &lt;/form>  
       </code></pre>
       <aside class="notes">
@@ -1221,7 +1192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form>
-        &lt;input list="browsers">
+        &lt;input list="browsers" />
         &lt;datalist id="browsers">
         &lt;option value="Internet Explorer">
         &lt;option value="Firefox">
@@ -1230,7 +1201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         &lt;option value="Safari">
         &lt;/datalist>
         &lt;input type="submit" value="Submit data"
-            formaction="php/vars.php" formmethod="get">
+            formaction="php/vars.php" formmethod="get" />
 &lt;/form>  
       </code></pre>
     </section>  
@@ -1250,8 +1221,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
       <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
-  0 <input type="range" id="a" value="50"> 100 
-  + <input type="number" id="b" value="50" size="4">
+  0 <input type="range" id="a" value="50" /> 100 
+  + <input type="number" id="b" value="50" size="4" />
   = <output name="x" for="a b"></output>
 &lt;/form> 
      </code></pre>
@@ -1458,9 +1429,9 @@ element[attribute="value"] {
 
                 <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/superglobals.php" method="post" enctype="multipart/form-data">
-  <label>text_input: <input type="text" name="text_input" value="blub..."></label>
-  <label>file_input: <input type="file" name="file_input"></label>
-  <input type="submit" value="Submit">
+  <label>text_input: <input type="text" name="text_input" value="blub..." /></label>
+  <label>file_input: <input type="file" name="file_input" /></label>
+  <input type="submit" value="Submit" />
 &lt;/form> 
      </code></pre>
   </section>
