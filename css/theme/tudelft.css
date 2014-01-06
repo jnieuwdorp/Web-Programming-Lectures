@@ -154,7 +154,7 @@ background:#cccccc; color:#444444;
  * LINKS
  *********************************************/
 .reveal a:not(.image) {
-  color: rgb(80,100,190);
+  color: rgb(120,120,255);
   text-decoration: none;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;
