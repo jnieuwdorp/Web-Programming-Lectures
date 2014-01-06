@@ -768,7 +768,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
      <!-- and another list of input elements -->
       <section>
         <h2>More <code>input</code> element types</h2>
-
+        <p>View this slide in Chrome and Firefox</
         <div class="exampleForm">
           <form action="php/vars.php" method="get" class="pure-form">
             <label for="u">URL<span class="html5">HTML5</span>:</label> <input type="url" name="u" required placeholder="http://"><br>
@@ -916,11 +916,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-          <label for="id1">bound Item 1:</label> &lt;input type="text" id="id1" name="id1" />
-          <label for="id2">bound Item 2:</label> &lt;input type="text" id="id2" name="id2" />
-          <label for="id3">bound Item 3:</label> &lt;input type="text" id="id3" name="id3"  />
-          <label>Do you agree? &lt;input type="checkbox" name="agree" /></label>
-          &lt;input type="submit" value="Submit data" />
+    <label for="id1">bound Item 1:</label> &lt;input type="text" id="id1" name="id1" />
+    <label for="id2">bound Item 2:</label> &lt;input type="text" id="id2" name="id2" />
+    <label for="id3">bound Item 3:</label> &lt;input type="text" id="id3" name="id3"  />
+    <label>Do you agree? &lt;input type="checkbox" name="agree" /></label>
+    &lt;input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
 
@@ -949,11 +949,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-          <label>unbound Item 1:</label> &lt;input type="text" id="id12" name="id12" />
-          <label>unbound Item 2:</label> &lt;input type="text" id="id22" name="id22" />
-          <label>unbound Item 3:</label> &lt;input type="text" id="id32" name="id32" />
-          Do you agree? &lt;input type="checkbox" name="agree" />
-          &lt;input type="submit" value="Submit data" />
+    <label>unbound Item 1:</label> &lt;input type="text" id="id12" name="id12" />
+    <label>unbound Item 2:</label> &lt;input type="text" id="id22" name="id22" />
+    <label>unbound Item 3:</label> &lt;input type="text" id="id32" name="id32" />
+    Do you agree? &lt;input type="checkbox" name="agree" />
+    &lt;input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
 
@@ -991,12 +991,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       <legend>Group 1</legend>
       <label>Item 1.1:</label> &lt;input type="text" id="i1.1" name="i1.1" />
       <label>Item 1.2:</label> &lt;input type="text" id="i1.2" /> <!--no name!-->
-    </fieldset>
+    &lt;/fieldset>
     &lt;fieldset name="group2" disabled="disabled" >
       <legend>Group 2</legend>
       <label>Item 2.1:</label> &lt;input type="text" id="i2.1" />
       <label>Item 2.2:</label> &lt;input type="text" id="i2.2" />
-    </fieldset>
+    &lt;/fieldset>
     &lt;input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
@@ -1063,15 +1063,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/vars.php" method="get">
-    <select name="car_select" size="3" multiple="multiple"><!-- no square brackets -->
-        <option value="volvo">car: Volvo</option>
-        <option value="saab" disabled="disabled">car: Saab</option>
-        <option value="mercedes" selected="selected">car: Mercedes</option>
-        <option value="audi">car: Audi</option>
-        <option value="bmw">car: BMW</option>
-        <option value="vw">car: VW</option>
-    </select>
-    &lt;input type="submit" value="Submit data" />
+  <select name="car_select" size="3" multiple="multiple"><!-- no [] -->
+    <option value="volvo">car: Volvo</option>
+    <option value="saab" disabled="disabled">car: Saab</option>
+    <option value="mercedes" selected="selected">car: Mercedes</option>
+    <option value="audi">car: Audi</option>
+    <option value="bmw">car: BMW</option>
+    <option value="vw">car: VW</option>
+  </select>
+  &lt;input type="submit" value="Submit data" />
 &lt;/form>
         </code></pre>
         <aside class="notes">
@@ -1425,7 +1425,8 @@ element[attribute="value"] {
 
                 <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;form action="php/superglobals.php" method="post" enctype="multipart/form-data">
-  <label>text_input: &lt;input type="text" name="text_input" value="blub..." /></label>
+  <label>text_input: &lt;input type="text" name="text_input" 
+          value="blub..." /></label>
   <label>file_input: &lt;input type="file" name="file_input" /></label>
   &lt;input type="submit" value="Submit" />
 &lt;/form> 
