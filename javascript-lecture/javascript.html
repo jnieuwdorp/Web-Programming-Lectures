@@ -98,6 +98,9 @@ function changeColor() {
           </p>
         </section>
 
+		<section>
+		<h2>On a high level ... </h2>
+		</section>
 
         <section>
           <h2>JavaScript: a Client-side technology</h2>
@@ -181,8 +184,6 @@ function changeColor() {
           </aside>
         </section>
 
-
-
         <!-- a quick recap of PHP -->
         <section>
           <h2>JavaScript vs. PHP</h2>
@@ -201,7 +202,9 @@ function changeColor() {
         </section>
 
 
-
+		<section>
+		<h2>JavaScript: where to store</h2>
+		</section>
 
         <!-- Effect on PHP script on various (in)valid parameters -->
         <section>
@@ -274,35 +277,11 @@ function helloWorld()
           </aside>
         </section>      
         
-<section>
-<h2>Popups</h2>
-<ul>
-<li><code>alert</code> (a message, "OK" as only option)</li>
-<li><code>confirm</code> (a message, "OK" and "Cancel" as options)</li>
-<li><code>prompt</code> (a message, asks for user input)</li>
-</ul>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-
-var x = alert('This is a message');
-// x is undefined
-
-var x = confirm('This is a message');
-// x is either true or false
-
-var x = prompt('This is a message');
-// x contains the returned string (null if nothing was entered)
-
-</code></pre>
-
-<button onclick="alert('Alert message');" class="pure-button pure-button-primary">Alert</button>
-
-<button onclick="confirm('Confirm message');" class="pure-button pure-button-success">Confirm</button>
-
-<button onclick="prompt('Promt message');" class="pure-button pure-button-warning">Prompt</button>
-
-</section>                  
-
-
+        
+        		<section>
+		<h2>JavaScript: the language</h2>
+		</section>
+		
         <!-- the most common attributes of <form> -->
         <section>
           <h2>Variables in JavaScript</h2>
@@ -325,40 +304,6 @@ var average = 8.5; //same type as grade
           <aside class="notes">
           </aside>
         </section>   
-
-<section>
-	<h2>Examples of <code>typeof</code></h2>
-<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-// Numbers
-typeof 10 === 'number';
-typeof 8.5 === 'number';
-typeof Infinity === 'number';
-typeof NaN === 'number'; // important to remember!
-
-// Strings
-typeof "test_string" === 'string';
-typeof (typeof 1) === 'string'; // typeof always return a string
-
-// Booleans
-typeof true === 'boolean';
-typeof false === 'boolean';
-
-// Undefined
-typeof undefined === 'undefined';
-typeof not_defined_before === 'undefined'; // undefined variable
-
-// Objects
-typeof {a:5} === 'object';
-typeof [10, 9, 8] === 'object'; 
-typeof new Date() === 'object';
-
-// Functions
-typeof function(){} === 'function';
-typeof Math.cos === 'function';
-          </code></pre>
-          <p><small>Inspired by the list <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof">here</a>. </small></p>	
-</section>          
-
 
 <section>
 	<h2><code>String</code></h2>
@@ -401,6 +346,301 @@ var num3 = num1 + num2; //&quot;1020&quot;, different from PHP!!
 	</ul>
 </section>
 -->
+          
+<section>
+	<h2>In general: JavaScript functions</h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+function name(arg1,arg2,arg3,...,argn)
+{
+   statement;
+   statement;
+   statement;
+}
+
+//concrete example
+function  add(x,y)
+{
+   return x+y;
+}
+          </code></pre>
+</section>
+
+<section>
+	<h2>Comments</h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+// the same as in Java, either single line
+
+/* or
+   multi
+   line
+   comments
+*/	
+</code></pre>
+<p>Don't get confused by the commenting mess!</p>
+<ul>
+<li>HTML: <code>&lt;!-- commenting here --> </code></li>
+<li>CSS/JS/PHP: <code>/* commenting here */ </code></li>
+<li>Java/JS/PHP: <code>// commenting here </code></li>
+<li>PHP: <code># commenting here </code></li>
+</ul>
+</section>
+
+<section>
+	<h2><code>typeof(Number)</code></h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+var grade = "10";
+var average = 8.5;
+var combined1 = grade * average; // 85
+var combined2 = grade + average; // "108.5"
+var combined3 = (grade + average)*2; //217
+</code></pre>
+
+<ul>
+<li>Integers and floats (doubles) are of the same type</li>
+<li>Standard math operators: <code>+ - * / += ++</code>, etc.</li>
+<li>Automatic conversion (with a small danger: last line above)</li>
+</ul>
+
+</section>
+
+<section>
+	<h2><code>typeof(String)</code></h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+//explicit conversion to numbers
+var age = "75, Tom Jones";
+var n1 = parseInt(name); //75
+var n2 = parseFloat("nothing1.22"); //NaN
+
+//string elements
+var properName = "Tom Jones";
+var firstLetter = properName.charAt(0);
+var firstLetter = properName[0]; //alternative way to access, might fail
+var lastLetter = properName.charAt(properName.length-1);
+</code></pre>
+
+</section>
+
+
+
+<section>
+	<h2>Examples of <code>typeof</code></h2>
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+// Numbers
+typeof 10 === 'number';
+typeof 8.5 === 'number';
+typeof Infinity === 'number';
+typeof NaN === 'number'; // important to remember!
+
+// Strings
+typeof "test_string" === 'string';
+typeof (typeof 1) === 'string'; // typeof always return a string
+
+// Booleans
+typeof true === 'boolean';
+typeof false === 'boolean';
+
+// Undefined
+typeof undefined === 'undefined';
+typeof not_defined_before === 'undefined'; // undefined variable
+
+// Objects
+typeof {a:5} === 'object';
+typeof [10, 9, 8] === 'object'; 
+typeof new Date() === 'object';
+
+// Functions
+typeof function(){} === 'function';
+typeof Math.cos === 'function';
+          </code></pre>
+          <p><small>Inspired by the list <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof">here</a>. </small></p>	
+</section>          
+
+
+
+
+<section>
+	<h2><code>null</code> vs. <code>undefined</code></h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var grade1 = null;
+var grade2 = 9;
+var averageGrade;
+
+// at this point
+// grade1 == null
+// averageGrade is undefined
+</code></pre>
+
+</section>
+
+<section>
+<h2>Logical operators</h2>
+
+<p>JavaScript has two <em>is equal</em> operators:
+ <ul style="list-style:none">
+ 	<li><code>==</code> &nbsp;&nbsp;comparison of value</li>
+ 	<li><code>===</code> comparison of value &amp; type</li>
+ </ul>
+ <br>
+ This is an artifact of loose typing. </p>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var x = 5;
+var y = 5;
+var z = "5";
+var a = null;
+var b; //undefined
+var c = "5b";
+
+x == y;  // true
+x === y; // true
+x == z;  // true
+x === z; // false (wrong type)
+x == a;  // false
+x == b;  // false
+a == b;  // true !!
+a != b;  // false
+a === b; // false (not of the same type)
+a !== b; // true 
+x == c;  // false
+</code></pre>
+The usual <code>&lt;, &gt; &lt;= &gt;=</code> exist as well.
+</section>
+
+
+
+<section>
+	<h2><code>for</code> loop</h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+//you know this already from Java
+var sum = 0;
+for(var i = 0; i < 5; i++) 
+{
+  sum += i;
+}
+
+//reverse a string
+var s1 = "Hello World";
+var s2 = "";
+for (var i = s1.length-1; i>=0; i--) 
+{
+  s2 += s1.charAt(i);
+}
+//s2: "dlroW olleH"
+</code></pre>
+
+</section>
+
+<section>
+<h2><code>while loops</code></h2>
+<ul>
+<li>You should know this from Java</li>
+</ul>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+while(condition)
+{
+   statements;
+}
+
+do(condition)
+{
+   statements;
+} while(condition);
+
+//break &amp; continue also exist
+</code></pre>
+</section>
+
+<section>
+<h2><code>if ... else</code></h2>
+<ul>
+<li>You should know this from Java</li>
+<li>Almost anything can be a <code>condition</code></li>
+</ul>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+if(condition)
+{
+   statements;
+}
+else if(condition)
+{
+   statements;
+}
+else
+{
+   statements;
+}
+</code></pre>
+</section>
+
+<section>
+<h2><code>if ... else</code></h2>
+<ul>
+<li>False: <code>0, 0.0, NaN, "", null, undefined</code> (but not <code>"0"</code>)</li>
+<li>True: anything else</li>
+<li>Do not make too many assumptions, check if you are unsure</li>
+<li>A <code>!!</code> (or <code>!</code>) is a casted (inverted) Boolean</li>
+</ul>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+//anything can be used as a Boolean
+
+var x = true; 		// evaluates to true
+var y = 0;
+var z = 1;
+var name = "Tom";
+var c = "0";
+
+if(x)              { /* we end up here */ }
+if(x == true)      { /* we end up here */ }
+if(y)              { /* we do not end up here */ }
+if(z)              { /* we end up here */ }
+if(name)           { /* we end up here */ }
+if(name==true)     { /* we do not end up here */ }
+if(c)              { /* we end up here */ }
+
+//casted Boolean
+var bx = !!(z); // true, typeof(z): number, typeof(bx): boolean
+</code></pre>
+
+<aside class="notes">
+var x = 5;
+var bx = !!(x); // true
+var bx = !(x); // false
+</aside>
+
+</section>
+
+
+
+<section>
+<h2>Events</h2>
+</section>
+
+<section>
+<h2>Popups are initiated by events (clicks)</h2>
+<ul>
+<li><code>alert</code> (a message, "OK" as only option)</li>
+<li><code>confirm</code> (a message, "OK" and "Cancel" as options)</li>
+<li><code>prompt</code> (a message, asks for user input)</li>
+</ul>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+
+var x = alert('This is a message');
+// x is undefined
+
+var x = confirm('This is a message');
+// x is either true or false
+
+var x = prompt('This is a message');
+// x contains the returned string (null if nothing was entered)
+
+</code></pre>
+
+<button onclick="alert('Alert message');" class="pure-button pure-button-primary">Alert</button>
+
+<button onclick="confirm('Confirm message');" class="pure-button pure-button-success">Confirm</button>
+
+<button onclick="prompt('Promt message');" class="pure-button pure-button-warning">Prompt</button>
+
+</section> 
 
 <section>
 	<h2>A responsive UI control</h2>
@@ -428,23 +668,8 @@ var num3 = num1 + num2; //&quot;1020&quot;, different from PHP!!
           </code></pre>
 </section>
 
-<section>
-	<h2>In general: JavaScript functions</h2>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-function name(arg1,arg2,arg3,...,argn)
-{
-   statement;
-   statement;
-   statement;
-}
+   
 
-//concrete example
-function  add(x,y)
-{
-   return x+y;
-}
-          </code></pre>
-</section>
 
 <section>
 	<h2>Handling events</h2>
@@ -463,6 +688,11 @@ function  add(x,y)
 <button onclick="alert('Tom'.substring(0,1))" class="pure-button pure-button-primary">First letter of 'Tom'</button>
  
  <p>Advice: user <code>alert()</code> <b>VERY</b> sparingly.</p>
+</section>
+
+
+<section>
+<h2>Document Object Model: how to "find" elements in a page
 </section>
 
 <section>
@@ -571,7 +801,8 @@ var name = document.getElementById("id")
   var tmp = span1.innerHTML;
   span1.innerHTML = span2.innerHTML;
   span2.innerHTML = tmp;
-">Swap the span content&lt;/button>
+">
+ content&lt;/button>
 &lt;span id="span1" style="background-color:red"> &lt;b>Hello&lt;/b> &lt;/span>
 &lt;span id="span2" style="background-color:green">World&lt;/span>
           </code></pre>
@@ -583,8 +814,8 @@ var tmp = span1.innerHTML;
 span1.innerHTML = span2.innerHTML;
 span2.innerHTML = tmp;
 ">Swap the span content</button>&nbsp;&nbsp;
-<span id="span1" style="background-color:red"> <b>Hello</b> </span> &nbsp;&nbsp;
-<span id="span2" style="background-color:green"> World </span>
+<span id="span1" style="background-color:red; padding:5px"> <b>Hello</b> </span> &nbsp;&nbsp;
+<span id="span2" style="background-color:green; padding:5px"> World </span>
 
 <ul style="margin-top:25px">
 <li>Form controls: use <code>value</code> to change the text</li>
@@ -675,229 +906,8 @@ function changeColor() {
 
 
 <section>
-	<h2><code>typeof(Number)</code></h2>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-var grade = "10";
-var average = 8.5;
-var combined1 = grade * average; // 85
-var combined2 = grade + average; // "108.5"
-var combined3 = (grade + average)*2; //217
-</code></pre>
-
-<ul>
-<li>Integers and floats (doubles) are of the same type</li>
-<li>Standard math operators: <code>+ - * / += ++</code>, etc.</li>
-<li>Automatic conversion (with a small danger: last line above)</li>
-</ul>
-
+<h2>Arrays</h2>
 </section>
-
-
-<section>
-	<h2>Comments</h2>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-// the same as in Java, either single line
-
-/* or
-   multi
-   line
-   comments
-*/	
-</code></pre>
-<p>Don't get confused by the commenting mess!</p>
-<ul>
-<li>HTML: <code>&lt;!-- commenting here --> </code></li>
-<li>CSS/JS/PHP: <code>/* commenting here */ </code></li>
-<li>Java/JS/PHP: <code>// commenting here </code></li>
-<li>PHP: <code># commenting here </code></li>
-</ul>
-</section>
-
-
-<section>
-	<h2><code>typeof(String)</code></h2>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-//explicit conversion to numbers
-var age = "75, Tom Jones";
-var n1 = parseInt(name); //75
-var n2 = parseFloat("nothing1.22"); //NaN
-
-//string elements
-var properName = "Tom Jones";
-var firstLetter = properName.charAt(0);
-var firstLetter = properName[0]; //alternative way to access, might fail
-var lastLetter = properName.charAt(properName.length-1);
-</code></pre>
-
-</section>
-
-<section>
-	<h2><code>for</code> loop</h2>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-//you know this already from Java
-var sum = 0;
-for(var i = 0; i < 5; i++) 
-{
-  sum += i;
-}
-
-//reverse a string
-var s1 = "Hello World";
-var s2 = "";
-for (var i = s1.length-1; i>=0; i--) 
-{
-  s2 += s1.charAt(i);
-}
-//s2: "dlroW olleH"
-</code></pre>
-
-</section>
-
-<section>
-	<h2>Calculations with <code>Math</code></h2>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-//Math is an object
-var roundOff = Math.floor(3.9888); //3
-var roundUp  = Math.ceil(3.00001); //4
-var rounded = Math.round(3.001); //3
-var absolute = Math.abs(-3.444); //3.444
-var maximum = Math.max(4,2); //4
-var randVal = Math.random(); //returns a value in [0,1)
-
-//more of the usual suspects
-</code></pre>
-
-<p>Tip: use Firebug/WebConsole for a complete overview</p>
-
-</section>
-
-<section>
-	<h2><code>null</code> vs. <code>undefined</code></h2>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-var grade1 = null;
-var grade2 = 9;
-var averageGrade;
-
-// at this point
-// grade1 == null
-// averageGrade is undefined
-</code></pre>
-
-</section>
-
-<section>
-<h2>Logical operators</h2>
-
-<p>JavaScript has two <em>is equal</em> operators:
- <ul style="list-style:none">
- 	<li><code>==</code> &nbsp;&nbsp;comparison of value</li>
- 	<li><code>===</code> comparison of value &amp; type</li>
- </ul>
- <br>
- This is an artifact of loose typing. </p>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-var x = 5;
-var y = 5;
-var z = "5";
-var a = null;
-var b; //undefined
-var c = "5b";
-
-x == y;  // true
-x === y; // true
-x == z;  // true
-x === z; // false (wrong type)
-x == a;  // false
-x == b;  // false
-a == b;  // true !!
-a != b;  // false
-a === b; // false (not of the same type)
-a !== b; // true 
-x == c;  // false
-</code></pre>
-The usual <code>&lt;, &gt; &lt;= &gt;=</code> exist as well.
-</section>
-
-<section>
-<h2><code>if ... else</code></h2>
-<ul>
-<li>You should know this from Java</li>
-<li>Almost anything can be a <code>condition</code></li>
-</ul>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-if(condition)
-{
-   statements;
-}
-else if(condition)
-{
-   statements;
-}
-else
-{
-   statements;
-}
-</code></pre>
-</section>
-
-<section>
-<h2><code>while loops</code></h2>
-<ul>
-<li>You should know this from Java</li>
-</ul>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-while(condition)
-{
-   statements;
-}
-
-do(condition)
-{
-   statements;
-} while(condition);
-
-//break &amp; continue also exist
-</code></pre>
-</section>
-
-<section>
-<h2><code>if ... else</code></h2>
-<ul>
-<li>False: <code>0, 0.0, NaN, "", null, undefined</code> (but not <code>"0"</code>)</li>
-<li>True: anything else</li>
-<li>Do not make too many assumptions, check if you are unsure</li>
-<li>A <code>!!</code> (or <code>!</code>) is a casted (inverted) Boolean</li>
-</ul>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-//anything can be used as a Boolean
-
-var x = true; 		// evaluates to true
-var y = 0;
-var z = 1;
-var name = "Tom";
-var c = "0";
-
-if(x)              { /* we end up here */ }
-if(x == true)      { /* we end up here */ }
-if(y)              { /* we do not end up here */ }
-if(z)              { /* we end up here */ }
-if(name)           { /* we end up here */ }
-if(name==true)     { /* we do not end up here */ }
-if(c)              { /* we end up here */ }
-
-//casted Boolean
-var bx = !!(z); // true, typeof(z): number, typeof(bx): boolean
-</code></pre>
-
-<aside class="notes">
-var x = 5;
-var bx = !!(x); // true
-var bx = !(x); // false
-</aside>
-
-</section>
-
-
 
 <section>
 <h2>Arrays</h2>
@@ -995,6 +1005,31 @@ function example()
 </ul>
 
 </section>
+
+
+<section>
+<h2>The rest ...</h2>
+</section>
+
+
+<section>
+	<h2>Calculations with <code>Math</code></h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+//Math is an object
+var roundOff = Math.floor(3.9888); //3
+var roundUp  = Math.ceil(3.00001); //4
+var rounded = Math.round(3.001); //3
+var absolute = Math.abs(-3.444); //3.444
+var maximum = Math.max(4,2); //4
+var randVal = Math.random(); //returns a value in [0,1)
+
+//more of the usual suspects
+</code></pre>
+
+<p>Tip: use Firebug/WebConsole for a complete overview</p>
+
+</section>
+
 
 <section>
 <h2><code>Date</code> object</h2>
