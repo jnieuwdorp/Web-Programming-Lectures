@@ -23,6 +23,31 @@ body {
   color: white;
   background: #e7ad52;
   text-shadow: none; }
+  
+.reveal        .pure-button-success,
+.reveal        .pure-button-error,
+.reveal        .pure-button-warning,
+.reveal        .pure-button-secondary {
+            color: white;
+            border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+.reveal        .pure-button-success {
+            background: rgb(28, 184, 65); /* this is a green */
+        }
+
+.reveal        .pure-button-error {
+            background: rgb(202, 60, 60); /* this is a maroon */
+        }
+
+.reveal        .pure-button-warning {
+            background: rgb(223, 117, 20); /* this is an orange */
+        }
+
+.reveal        .pure-button-secondary {
+            background: rgb(66, 184, 221); /* this is a light blue */
+        }  
 
 /*********************************************
  * HEADERS

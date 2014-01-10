@@ -93,7 +93,7 @@ function changeColor() {
         <section>
           <h2>Today: a whirlwind tour of JavaScript</h2>
           <p>
-            The lecture today covers chapter 8 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>. The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter08-javascript.shtml">here</a>.
+            The lecture today covers chapter 8 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>, 2nd Edition (chapter 7 in the 1st edition). The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter08-javascript.shtml">here</a>.
           </p>
         </section>
 
@@ -137,15 +137,15 @@ function changeColor() {
       <section>
         <h2>JavaScript is ...</h2>
         <ul>
-          <li>a client-side technology</li>
-          <li>not related at all to the programming language Java</li>
-          <li>not equally supported in all browsers (follows int the footsteps of CSS, HTML)</li>
-          <li>used to make the Web experience more interactive</li>
+          <li>A client-side technology</li>
+          <li>Very different from the programming language Java</li>
+          <li>Not equally well supported in all browsers (follows in the footsteps of CSS, HTML5)</li>
+          <li style="padding-top:20px">Used to make the Web experience more interactive</li>
             <ul>
               <li>Alter page appearance based on events <button onclick="helloWorld()" class="pure-button pure-button-primary">e.g. a button click</button></li>
               <li>Alter interaction based on <a onclick="browserAlert()">browser type</a>, <a onclick="languageAlert()">language</a> or <a onclick="cookieAlert()">cookie usage</a></li>
               <li>Calculations are performed on the client:
-                  <form id="calc_form">
+                  <form id="calc_form"  style="margin-top:20px">
                     <input type="text" pattern="[0-9]+" required id="x" name="x" size="5"> x
                     <input type="text" pattern="[0-9]+" required id="y" name="y" size="5">
                     <button onclick="multiplyAlert(calc_form.elements['x'].value,calc_form.elements['y'].value)" class="pure-button pure-button-primary">Compute</button>
@@ -168,10 +168,10 @@ function changeColor() {
             <table class="centerTable">
             <tr><th>JavaScript</th><th>OO [Java]</th></tr>
             <tr><td>interpreted</td><td>compiled</td></tr>
-            <tr><td>program is readible (<a href="http://jscompress.com/">more or less</a>, <a href="https://raw.github.com/jquery/jquery/master/src/core/ready.js">example</a>)</td><td>byte code</td></tr>
+            <tr><td>program is readible (<a href="http://jscompress.com/">more or less</a>)</td><td>byte code</td></tr>
             <tr><td>fewer data types</td><td>--</td></tr>
             <tr><td>variables don't have to be declared</td><td>variables need to be declared</td></tr>
-            <tr><td>silent errors</td><td><code>Errors</code> and <code>Exceptions</code></td></tr>
+            <tr><td>silent errors (WebConsole/Firebug are your friends!)</td><td><code>Errors</code> and <code>Exceptions</code></td></tr>
             <tr><td>focus on functions</td><td>focus on classes &amp; objects</td></tr>
             <tr><td>most often coupled with CSS &amp; HTML</td><td>--</td></tr>
           </table>
@@ -222,25 +222,26 @@ function changeColor() {
         <section>
           <h2>JavaScript embedded in HTML</h2>
 
-          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-          <p><a href="helloworld.html">helloworld.html</a></p>
-&lt;!DOCTYPE html>
-&lt;html>
-&lt;head>
-&lt;script>
+<p><a href="helloworld.html">helloworld.html</a></p>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+          
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;script&gt;
   function helloWorld()
   {
-    alert("Hello World!");
+    alert(&quot;Hello World!&quot;);
   }
-&lt;/script>
-&lt;/head>
+&lt;/script&gt;
+&lt;/head&gt;
 
-&lt;body>
-  &lt;button onclick="helloWorld()">Hello World Button</button>
-&lt;/body>
-&lt;/html>
+&lt;body&gt;
+  &lt;button onclick=&quot;helloWorld()&quot;&gt;Hello World Button&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;
           </code></pre>
-<p>bad style: no separation of presentation, content and interaction</p>
+<p>Bad style: no separation of presentation, content and interaction</p>
           <aside class="notes">
           </aside>
         </section>  
@@ -248,44 +249,57 @@ function changeColor() {
         <section>
           <h2>JavaScript in a separate file</h2>
 			<p><a href="helloworld2.html">helloworld2.html</a></p>
-          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-&lt;!DOCTYPE html>
-&lt;html>
-&lt;head>
-&lt;script src="helloworld.js" type="text/javascript"></script>
-&lt;/head>
-&lt;body>
-  &lt;button onclick="helloWorld()">Hello World Button</button>
-&lt;/body>
-&lt;/html>
-          </code></pre>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+   &lt;script src=&quot;helloworld.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+   &lt;button onclick=&quot;helloWorld()&quot;&gt;Hello World Button&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </code></pre>
+          
           <p>helloWorld.js</p>
-          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
 function helloWorld()
 {
-  alert("Hello World!");
+  alert(&quot;Hello World!&quot;);
 }
           </code></pre>          
 
           <aside class="notes">
           </aside>
-        </section>  
+        </section>      
+        
+<section>
+<h2>Popups</h2>
+<ul>
+<li><code>alert</code> (a message, "OK" as only option)</li>
+<li><code>confirm</code> (a message, "OK" and "Cancel" as options)</li>
+<li><code>prompt</code> (a message, asks for user input)</li>
+</ul>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
 
-        <!-- form skeleton -->
-        <section>
-          <h2>JavaScript's <code>alert</code></h2>
-			
-			<ul>
-				<li>Pop's up a message</li>
-				<li>Style cannot be changed through CSS (defined by OS)</li>
-			</ul>
-          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-alert("content goes here");
-          </code></pre>
+var x = alert('This is a message');
+// x is undefined
 
-          <aside class="notes">
-          </aside>
-        </section>                
+var x = confirm('This is a message');
+// x is either true or false
+
+var x = prompt('This is a message');
+// x contains the returned string (null if nothing was entered)
+
+</code></pre>
+
+<button onclick="alert('Alert message');" class="pure-button pure-button-primary">Alert</button>
+
+<button onclick="confirm('Confirm message');" class="pure-button pure-button-success">Confirm</button>
+
+<button onclick="prompt('Promt message');" class="pure-button pure-button-warning">Prompt</button>
+
+</section>                  
 
 
         <!-- the most common attributes of <form> -->
@@ -304,8 +318,7 @@ var average = 8.5; //same type as grade
 <li><code>Array</code></li>
 <li><code>Object</code></li>
 <li><code>Function</code></li>
-<li><code>Null</code></li>
-<li><code>Undefined</code></li>
+<li><code>Null, Undefined</code></li>
 </ul>
 <p>If unsure, use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof">typeof</a></p>
           <aside class="notes">
@@ -342,22 +355,24 @@ typeof new Date() === 'object';
 typeof function(){} === 'function';
 typeof Math.cos === 'function';
           </code></pre>
-</section>          	
+          <p><small>Inspired by the list <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof">here</a>. </small></p>	
+</section>          
+
 
 <section>
 	<h2><code>String</code></h2>
 	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-var name = "Tom Jones";
-var firstName = name.substring(0, name.indexOf(" ")); //"Tom"
+var name = &quot;Tom Jones&quot;;
+var firstName = name.substring(0, name.indexOf(&quot; &quot;)); //&quot;Tom&quot;
 var nameLength = name.length; //9 (a property, not a method)
 var nickname = 'Tommy'; //also possible
-var combined = name + " with nick " + nickname;
-var num1 = "10";
+var combined = name + &quot; with nick &quot; + nickname;
+var num1 = &quot;10&quot;;
 var num2 = 20;
-var num3 = num1 + num2; //"1020", different from PHP!!
+var num3 = num1 + num2; //&quot;1020&quot;, different from PHP!!
           </code></pre>
          	<ul><li>The typical string functions as known from other languages are available: <code>charAt, indexOf, lastIndexOf, replace, split, substring, toLowerCase, toUpperCase</code></li>
-         	<li>Use the <a href="https://getfirebug.com/">Firebug</a> console to test your JavaScript!</li></ul>
+         	<li>Use the <a href="https://getfirebug.com/">Firebug</a> console or Firefox's WebConsole to test your JavaScript!</li></ul>
  
  <aside class="notes">
  	- open Firebug console
@@ -371,9 +386,9 @@ var num3 = num1 + num2; //"1020", different from PHP!!
 <ul>
 <li>No difference when in global scope</li>
 <li>Within functions, <code>var</code> creates a local variable</li>
-<li>Within functions, no <code>var</code> goes up to global scope to find it<li>
+<li>Within functions, no <code>var</code> goes up to global scope to find it</li>
 </section>
-
+<!--
 <section>
 	<h2>JavaScript is event-driven</h2>
 	<img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_3_event.png">
@@ -384,30 +399,31 @@ var num3 = num1 + num2; //"1020", different from PHP!!
 	<li>Event-driven programming: programming style driven by user events</li>
 	</ul>
 </section>
+-->
 
 <section>
 	<h2>A responsive UI control</h2>
 <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-&lt;!DOCTYPE html>
-&lt;html>
-&lt;head>
-&lt;script>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;script&gt;
 	function helloWorld()
 	{
-		alert("Hello World!");
+		alert(&quot;Hello World!&quot;);
 	}
-&lt;/script>
-&lt;/head>
-&lt;body>
-   &lt;button onclick="helloWorld()">Hello World Button&lt;/button>
-   <!-- Steps
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+   &lt;button onclick=&quot;helloWorld()&quot;&gt;Hello World Button&lt;/button&gt;
+   &lt;!-- Steps
    	1. pick a control (the button)
    	2. pick an event (click)
    	3. write a JavaScipt function: what should happen if the event occurs?
    	4. attach the function to the event ON the control
-    -->
-&lt;/body>
-&lt;/html>
+    --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
           </code></pre>
 </section>
 
@@ -431,13 +447,13 @@ function  add(x,y)
 
 <section>
 	<h2>Handling events</h2>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-&lt;element onclick="function_name();"> //just one of many event handlers
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+&lt;element onclick=&quot;function_name();&quot;&gt; //just one of many event handlers
 
 //specific examples
-&lt;button onclick="alert(5+4)">alert(5+4)&lt;/button>   
-&lt;button onclick="alert('5'+4)">alert('5'+4)&lt;/button>
-&lt;button onclick="alert('Tom'.substring(0,1))">First letter of 'Tom'&lt;/button>
+&lt;button onclick=&quot;alert(5+4)&quot;&gt;alert(5+4)&lt;/button&gt;   
+&lt;button onclick=&quot;alert('5'+4)&quot;&gt;alert('5'+4)&lt;/button&gt;
+&lt;button onclick=&quot;alert('Tom'.substring(0,1))&quot;&gt;First letter of 'Tom'&lt;/button&gt;
           </code></pre>
 
 <button onclick="alert(5+4)" class="pure-button pure-button-primary">alert(5+4)</button>   <p></p>
@@ -484,35 +500,48 @@ function  add(x,y)
 	<p>Every element on a Web page is associated with a DOM object</p>
 	
 	<img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_5_dom.png">
-	<br><small>Image source: Web Programming Step by Step</small>
+	<br><small>Image source: <a href="http://www.webstepbook.com/supplements-2ed">Web Programming Step by Step</a></small>
 	
 	<p>Tools exist to view DOM elements of Web pages, for example <a href="https://addons.mozilla.org/en-US/firefox/addon/dom-inspector-6622/">DOM Inspector</a> (<a href="simple_dom.html">test it</a>)</p>
 </section>
 
 <section>
 	<h2>document.getElementById</h2>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
 //general way of accessing DOM elements
-var name = document.getElementById("id") 
+var name = document.getElementById(&quot;id&quot;) 
 
 //specific example
-&lt;button onclick="
-   var tb = document.getElementById('out');
-   tb.value = 'Hello World!';"
-   >Say Hello World!&lt;/button>
-&lt;input type="text" id="out">
+&lt;button onclick=&quot;
+	var tb = document.getElementById('out');
+	tb.value = 'Hello World!';&quot; &gt;Say Hello World!&lt;/button&gt;
+&lt;input type=&quot;text&quot; id=&quot;out&quot;&gt;
           </code></pre>
 <button autocomplete="off" onclick="
 	var tb = document.getElementById('out');
 	tb.value = 'Hello World!';" class="pure-button pure-button-primary">Say Hello World!</button>
 <input type="text" id="out">
+
+<p>
+&nbsp;</p>
+<p>
+&nbsp;</p>
+<h4>The short version (well-known through <a href="http://jquery.com/">jQuery</a> or <a href="http://prototypejs.org/">prototype</a>)</h4>
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+function $(id) 
+{
+   return document.getElementById(id);
+}
+</code></pre>
+
+
 </section>
 
 
 <section>
 	<h2>document.getElementById</h2>
 	<p>What happens if the <code>id</code> is not unique?</p>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
 //general way of accessing DOM elements
 //returned is the DOM object for an element with the id
 var name = document.getElementById("id") 
@@ -536,11 +565,11 @@ var name = document.getElementById("id")
 	<h2>Not just forms ...</h2>
 	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
 &lt;button onclick="
-var span1 = document.getElementById('span1');
-var span2 = document.getElementById('span2');
-var tmp = span1.innerHTML;
-span1.innerHTML = span2.innerHTML;
-span2.innerHTML = tmp;
+  var span1 = document.getElementById('span1');
+  var span2 = document.getElementById('span2');
+  var tmp = span1.innerHTML;
+  span1.innerHTML = span2.innerHTML;
+  span2.innerHTML = tmp;
 ">Swap the span content&lt;/button>
 &lt;span id="span1" style="background-color:red"> &lt;b>Hello&lt;/b> &lt;/span>
 &lt;span id="span2" style="background-color:green">World&lt;/span>
@@ -556,10 +585,10 @@ span2.innerHTML = tmp;
 <span id="span1" style="background-color:red"> <b>Hello</b> </span> &nbsp;&nbsp;
 <span id="span2" style="background-color:green"> World </span>
 
-<ul>
-<li>form controls: use <code>value</code> to change the text</li>
-<li>other elements: use <code>innerHTML</code> to change the text</li>
-<li>arbitrary HTML can be injected into the page via <code>innerHTML</code> (don't overdo it)</li>
+<ul style="margin-top:25px">
+<li>Form controls: use <code>value</code> to change the text</li>
+<li>Other elements: use <code>innerHTML</code> to change the text</li>
+<li>Arbitrary HTML can be injected into the page via <code>innerHTML</code> (don't overdo it)</li>
 </ul>
 
 </section>
@@ -574,6 +603,7 @@ span2.innerHTML = tmp;
    &lt;img id="worldImage" src="images/1.jpg" />
 &lt;/div>
 </code></pre>
+
 
 <table class="centerTable">
             <tr><th>Property</th><th>Example</th></tr>
@@ -614,18 +644,17 @@ span2.innerHTML = tmp;
 <section>
 <h2>Style adjustments</h2>
 
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html,javascript" >
-&lt;!-- HTML -->	
-<button id="button1">I am changing colors</button>
-
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript" >
 /* JavaScript */
 window.onload = function() {
-  document.getElementById("clickme").onclick = changeColor;
+  document.getElementById("button1").onclick = changeColor;
 };
 function changeColor() {
-  var clickMe = document.getElementById("clickme");
-  clickMe.style.color = "red";
+  var b1 = document.getElementById("button1");
+  b1.style.color = "red";
 }
+
+&lt;button id="button1">I am changing colors&lt;/button>
 </pre></code>
 
 <button id="button1" class="pure-button pure-button-primary">I am changing colors</button>
@@ -737,7 +766,7 @@ var randVal = Math.random(); //returns a value in [0,1)
 //more of the usual suspects
 </code></pre>
 
-<p>Tip: use Firebug for a complete overview</p>
+<p>Tip: use Firebug/WebConsole for a complete overview</p>
 
 </section>
 
@@ -753,20 +782,15 @@ var averageGrade;
 // averageGrade is undefined
 </code></pre>
 
-<ul>
-<li><code>undefined</code>: has not been referenced before, it does not exist
-<li><code>null</code>: it exists, but the value is unknown
-</li>
-</ul>
-
 </section>
 
 <section>
 <h2>Logical operators</h2>
 
-<p>JavaScript has both:
- <ul style="list-style:none"><li><code>==</code> (comparison of value)</li>
- <li><code>===</code> (comparison of value &amp; type)</li>
+<p>JavaScript has two <em>is equal</em> operators:
+ <ul style="list-style:none">
+ 	<li><code>==</code> &nbsp;&nbsp;comparison of value</li>
+ 	<li><code>===</code> comparison of value &amp; type</li>
  </ul>
  <br>
  This is an artifact of loose typing. </p>
@@ -816,11 +840,31 @@ else
 </section>
 
 <section>
+<h2><code>while loops</code></h2>
+<ul>
+<li>You should know this from Java</li>
+</ul>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+while(condition)
+{
+   statements;
+}
+
+do(condition)
+{
+   statements;
+} while(condition);
+
+//break &amp; continue also exist
+</code></pre>
+</section>
+
+<section>
 <h2><code>if ... else</code></h2>
 <ul>
 <li>False: <code>0, 0.0, NaN, "", null, undefined</code> (but not <code>"0"</code>)</li>
 <li>True: anything else</li>
-<li>Do not make too many assumptions, check if you are unsure (Firebug)</li>
+<li>Do not make too many assumptions, check if you are unsure</li>
 <li>A <code>!!</code> (or <code>!</code>) is a casted (inverted) Boolean</li>
 </ul>
 	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
@@ -852,47 +896,6 @@ var bx = !(x); // false
 
 </section>
 
-
-<section>
-<h2><code>while loops</code></h2>
-<ul>
-<li>You should know this from Java</li>
-</ul>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-while(condition)
-{
-   statements;
-}
-
-do(condition)
-{
-   statements;
-} while(condition);
-
-//break &amp; continue also exist
-</code></pre>
-</section>
-
-<section>
-<h2>Popups</h2>
-<ul>
-<li><code>alert</code> (a message, "OK" as only option)</li>
-<li><code>confirm</code> (a message, "OK" and "Cancel" as options)</li>
-<li><code>prompt</code> (a message, asks for user input)</li>
-</ul>
-	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-
-var x = alert('This is a message');
-// x is undefined
-
-var x = confirm('This is a message');
-// x is either true or false
-
-var x = prompt('This is a message');
-// x contains the returned string (null if nothing was entered)
-
-</code></pre>
-</section>
 
 
 <section>
@@ -953,7 +956,7 @@ grades["test"];      // returns 20
 
 
 <section>
-<h2>A bit more about strings</h2>
+<h2>A bit more about arrays</h2>
 
 <p>Mixed type ability gives a hint: arrays are the workhorse of JavaScript, simulate lists, queues, stacks (we know this already from PHP)</p>
 	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
@@ -985,7 +988,7 @@ function example()
 
 <button onclick='exampleCall("This","is","a","test");' class="pure-button pure-button-primary">This is a test</button>
 
-<ul>
+<ul style="margin-top:25px">
 <li>Every function contains <code>arguments</code>, array with passed parameters</li>
 <li>Nice: functions can have varying numbers of parameters</li>
 </ul>
@@ -1107,8 +1110,6 @@ var p = new Point(10,20);
 </li>
 </ul>
 </section>
-
-
 
   <section>
     <h2>THE END</h2>
