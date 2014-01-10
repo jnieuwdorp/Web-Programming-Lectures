@@ -4,3 +4,4 @@ In order to properly see the effects, the src needs to be hosted on a PHP-enable
 
 #Slides
 + <a href="forms-lecture/forms.html">Web forms</a>
++ <a href="javascript-lecture/javascript.html">JavaScript</a>
