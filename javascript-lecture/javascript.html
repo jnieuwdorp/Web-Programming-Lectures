@@ -30,6 +30,14 @@
   {
     alert("Hello World!");
   }
+  
+  function exampleCall()
+{
+   for(var i=0; i < arguments.length; i++)
+   {
+      alert(arguments[i]);
+   }
+}
 
   function browserAlert()
   {
@@ -55,6 +63,14 @@
   {
     alert("Result of "+x+" x "+y+" = "+x*y);
   }
+  
+  window.onload = function() {
+  document.getElementById("button1").onclick = changeColor;
+};
+function changeColor() {
+  var clickMe = document.getElementById("button1");
+  clickMe.style.color = "red";
+}
 
   </script>
 
@@ -75,11 +91,7 @@
         </section>
 
         <section>
-          <h2>Today</h2>
-          <ul>
-            <li>JavaScript</li>
-          </ul>
-
+          <h2>Today: a whirlwind tour of JavaScript</h2>
           <p>
             The lecture today covers chapter 8 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>. The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter08-javascript.shtml">here</a>.
           </p>
@@ -139,6 +151,7 @@
                     <button onclick="multiplyAlert(calc_form.elements['x'].value,calc_form.elements['y'].value)" class="pure-button pure-button-primary">Compute</button>
                   </form>
               </li>
+              </ul>
         </ul>
         <aside class="notes">
           try, 5 x 4
@@ -176,12 +189,9 @@
             <table class="centerTable">
             <tr><th>JavaScript</th><th>PHP</th></tr>
             <tr><td>interpreted</td><td>interpreted</td></tr>
-            <tr><td>program is readible (<a href="http://jscompress.com/">more or less</a>, <a href="https://raw.github.com/jquery/jquery/master/src/core/ready.js">example</a>)</td><td>byte code</td></tr>
-            <tr><td>fewer data types</td><td>--</td></tr>
-            <tr><td>variables don't have to be declared</td><td>variables need to be declared</td></tr>
-            <tr><td>silent errors</td><td><code>Errors</code> and <code>Exceptions</code></td></tr>
-            <tr><td>focus on functions</td><td>focus on classes &amp; objects</td></tr>
-            <tr><td>most often coupled with CSS &amp; HTML</td><td>--</td></tr>
+            <tr><td>leans towards OO</td><td>more procedural</td></tr>
+            <tr><td>focus: UI, document-user interaction</td><td>focus: files/forms, HTML output</td></tr>
+            <tr><td>runs on the browser (client)</td><td>runs on the Web server</td></tr>
           </table>
 
 
@@ -194,127 +204,83 @@
 
         <!-- Effect on PHP script on various (in)valid parameters -->
         <section>
-          <h2>Calling <code>add.php</code></h2>
-
-          <ul>
-            <li><a href="php/add.php?first=3&amp;second=2">add.php?first=3&amp;second=2</a></li>
-            <li><a href="php/add.php">add.php</a></li>
-            <li><a href="php/add.php?first=3.9&amp;second=4.9">add.php?first=3.9&amp;second=4.9</a></li>
-            <li><a href="php/add.php?first=3.blub&amp;second=4blah">add.php?first=3.blub&amp;second=4blah</a></li>
-            <li><a href="php/add.php?first=3.blub&amp;second=blah4">add.php?first=3.blub&amp;second=blah4</a></li>
-          </ul>  
-
-          <aside class="notes">
-            relative links point to http://www.st.ewi.tudelft.nl/~hauff/Web-Programming-Lectures/php/
-          </aside>
-        </section> 
-
-
-
-        <!-- What is the purpose of htmlspecialchars -->
-        <section>
-          <h2><code>htmlspecialchars()</code></h2>
-
-          <ul>
-            <li>Function converts special characters &lt; and &gt; into <code>&amp;lt;</code> and <code>&amp;gt;</code></li>
-
-            <li style="padding-top:15px">What if a user does not provide the expected input?</li>
-
-            <ul>
-              <li><a href="php/add2.php?first=<script>alert('Help!')</script>&amp;second=4">add2.php?first=&lt;script>alert('Help!')&lt;/script>&amp;second=4</a></li>
-              <li>code injection: <code>&lt;script>alert('Help!')&lt;/script></code> as one of the form's parameters</li>
-            </ul>
-
-            <li style="padding-top:15px">A malicious user can execute <a href="http://www.sitepoint.com/php-security-cross-site-scripting-attacks-xss/">cross-site scripting attacks (XSS)</a></li>
-            <li>Use <a href="http://nl3.php.net/htmlspecialchars">htmlspecialchars</a> to avoid such problems (in combination with <a href="http://nl3.php.net/strip_tags">strip_tags</a>, <a href="http://nl3.php.net/trim">trim</a>, etc.)</li>
-          </ul>  
-
-        </section>                 
-
-        <section>
-          <h2>Form basics</h2>
-        </section> 
-
-
-        <!-- A very simple HTML form -->
-        <section>
-          <h2>A simple form</h2>
-
-          <form action="http://www.google.com/search" method="get" target="_blank" class="pure-form">
-            Input: <input type="text" name="q"> <input type="submit" value="Search Google" class="pure-button pure-button-primary">
-          </form>
+          <h2>The <code>script</code> tag</h2>
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="http://www.google.com/search" method="get" target="_blank">
-            Input: <input type="text" name="q" />
-            &lt;input type="submit" value="Search Google" />
-&lt;/form>
+&lt;script src="javascript_code.js" type="text/javascript"></script>
           </code></pre>
 
           <ul style="padding-top:55px">
-            <li><code>action</code> attribute contains URL of the script that will process the data</li>
-            <li>A web page can contain many forms</li>
-            <li>Form controls should be wrapped in a block element (e.g. <code>div</code> or <code>p</code>)
-            <li style="padding-top:15px">Disclaimer: shown forms were beautified with <a href="http://purecss.io/">Pure</a>. Difference between plain and pure'd HTML forms shown on <a href="http://jsfiddle.net/LSMk8/2/">jsfiddle</a>.</li>
+            <li><code>script</code> inside HTML's <code>&lt;head></code> and <code>&lt;/head></code></li>
+            <li>JavaScript code usually kept in one (or more) separate files</li>
+            <li>JavaScript can also be directly embedded in HTML (avoid if possible)</li>
           </ul>
           <aside class="notes">
           </aside>
         </section>
 
-
-        <!-- form skeleton -->
         <section>
-          <h2>In general</h2>
+          <h2>JavaScript embedded in HTML</h2>
 
-          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="X" method="post|get">
-            form element
-            form element
-            form element
-            &lt;input type="submit" />
-&lt;/form>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+          <p><a href="helloworld.html">helloworld.html</a></p>
+&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+&lt;script>
+  function helloWorld()
+  {
+    alert("Hello World!");
+  }
+&lt;/script>
+&lt;/head>
+
+&lt;body>
+  &lt;button onclick="helloWorld()">Hello World Button</button>
+&lt;/body>
+&lt;/html>
           </code></pre>
+<p>bad style: no separation of presentation, content and interaction</p>
+          <aside class="notes">
+          </aside>
+        </section>  
+
+        <section>
+          <h2>JavaScript in a separate file</h2>
+			<p><a href="helloworld2.html">helloworld2.html</a></p>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+&lt;script src="helloworld.js" type="text/javascript"></script>
+&lt;/head>
+&lt;body>
+  &lt;button onclick="helloWorld()">Hello World Button</button>
+&lt;/body>
+&lt;/html>
+          </code></pre>
+          <p>helloWorld.js</p>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+function helloWorld()
+{
+  alert("Hello World!");
+}
+          </code></pre>          
 
           <aside class="notes">
-            Note that more than one submit button is of course possible.
-            In HTML5, the action/method part is not bound to the form anymore but can also be bound to the button(s).
           </aside>
         </section>  
 
         <!-- form skeleton -->
         <section>
-          <h2>In general <span class="html5">HTML5</span></h2>
-
+          <h2>JavaScript's <code>alert</code></h2>
+			
+			<ul>
+				<li>Pop's up a message</li>
+				<li>Style cannot be changed through CSS (defined by OS)</li>
+			</ul>
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form>
-            form element
-            form element
-            form element
-            &lt;input type="submit"  formaction="X1" formmethod="post|get" />
-            &lt;input type="submit"  formaction="X2" formmethod="post|get" />
-            &lt;input type="submit"  formaction="X3" formmethod="post|get" />
-&lt;/form>
-          </code></pre>
-
-          <aside class="notes">
-            Note that more than one submit button is of course possible.
-            In HTML5, the action/method part is not bound to the form anymore but can also be bound to the button(s).
-
-            In HTML5, new form elements were added and new attributes were added to existing form elements (other attributes were removed).
-          </aside>
-        </section>  
-
-        <!-- form skeleton -->
-        <section>
-          <h2>or <span class="html5">HTML5</span></h2>
-
-          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form id="form1">
-            form element
-            form element
-&lt;/form>
-            ...
-&lt;input type="submit" form="form1" value="Submit" /> 
+alert("content goes here");
           </code></pre>
 
           <aside class="notes">
@@ -324,1292 +290,825 @@
 
         <!-- the most common attributes of <form> -->
         <section>
-          <h2>Attributes of <a href="http://www.w3.org/TR/html5/forms.html"><code>form</code></a></h2>
+          <h2>Variables in JavaScript</h2>
 
-          <table class="centerTable">
-            <tr><th>attribute</th><th>value</th></tr>
-            <tr><td>target</td><td>response location</td></tr>
-            <tr><td>action</td><td>URL</td></tr>
-            <tr><td>autocomplete<span class="html5">HTML5</span></td><td><em>on</em> or <em>off</em></td></tr>
-            <tr><td>method</td><td><em>get</em> or <em>post</em></td></tr>
-            <tr><td>name</td><td>name of the form</td></tr>
-            <tr><td>novalidate<span class="html5">HTML5</span></td><td>novalidate</td></tr>
-          </table>
-
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var name = "Tom"; //variables are declared with 'var' (case sensitive)
+var grade = 9; //loosely typed (not specified, but still there)
+var average = 8.5; //same type as grade
+          </code></pre>
+<p>Types in JavaScript:</p>
+<ul><li><code>Number</code></li>
+<li><code>Boolean</code></li>
+<li><code>String</code></li>
+<li><code>Array</code></li>
+<li><code>Object</code></li>
+<li><code>Function</code></li>
+<li><code>Null</code></li>
+<li><code>Undefined</code></li>
+</ul>
+<p>If unsure, use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof">typeof</a></p>
           <aside class="notes">
           </aside>
         </section>   
 
-
-        <!-- An overview of the target attribute -->
-        <section>
-          <h2>Attribute of <code>form</code>: <code>target</code></h2>
-
-
-          <table class="centerTable">
-            <tr><td><a href="forms.html" target="_self">_self</a></td><td>current browsing context (default)</td></tr>
-            <tr><td><a href="forms.html" target="_blank">_blank</a></td><td>response in a new window or tab</td></tr>
-            <tr><td><a href="forms.html" target="_parent">_parent</a></td><td>response in the parent frame</td></tr>
-            <tr><td><a href="forms.html" target="_top">_top</a></td><td>response in the full body of the window</td></tr>
-            <tr><td><a href="forms.html" target="my_iframe">framename</a></td><td>response in a named iframe</td></tr>
-          </table>
-
-          <p>iframe named <code>my_iframe</code>:</p>
-          <iframe name="my_iframe" width="600px" height="100px" style="background-color:orange"></iframe>
-        </section> 
-
-
-        <section>
-          <h2><code>_self</code>,  <code>_top</code> and <code>_parent</code></h2>
-          <p>
-            <code>&lt;a href ... &gt;</code> and <code>&lt;form&gt;</code> both have the <em>target</em> attribute.
-          </p>
-          <p>&nbsp;</p>
-
-          <iframe name="f1" width="600px" height="100px" style="background-color:red" srcdoc="<p>Calling <a href='forms.html' target='_self'>forms.html</a> with <b>_self</b>!</p>"></iframe>
-
-          <iframe name="f3" width="600px" height="200px" style="background-color:green" srcdoc="
-          <html><body>
-          <iframe width='280px' name='f3.1' style='background-color:lightgreen' src='forms_helper1.html'></iframe>
-          <iframe width='280px' name='f3.2' style='background-color:springgreen'></iframe>
-        </body></html>
-        "></iframe>
-
-        <iframe name="f2" width="600px" height="100px" style="background-color:yellow" srcdoc="<p>Calling <a href='forms.html' target='_top'>forms.html</a> with <b>_top</b>!</p>"></iframe>
-
-      </section>
-
-
-      <!-- example of autocomplete -->
-      <section>
-        <h2><code>autocomplete="on"</code></h2>
-
-        <form autocomplete="on" class="pure-form">
-          Item 1: <input type="text" name="item1"><br>
-          Item 2: <input type="text" name="item2">
-          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-        </form>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form autocomplete="on">
-  Item 1: &lt;input type="text" name="item1" />
-  Item 2: &lt;input type="text" name="item2" />
-  &lt;input type="submit" value="Submit data" />
-&lt;/form>
-        </code></pre>
-        <aside class="notes">
-          - add content in the first try
-          - reload
-          - add the same content (autocomplete becomes clear)
-        </aside>
-      </section> 
-
-
-      <!-- example of autocomplete off -->
-      <section>
-        <h2><code>autocomplete="off"</code></h2>
-
-        <form autocomplete="off" class="pure-form">
-          Item 3: <input type="text" name="item3"><br>
-          Item 4: <input type="text" name="item4">
-          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-        </form>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form autocomplete="off">
-  Item 3: &lt;input type="text" name="item3" />
-  Item 4: &lt;input type="text" name="item4" />
-  &lt;input type="submit" value="Submit data" />
-&lt;/form>
-        </code></pre>
-        <aside class="notes">
-          as in previous slide (this time no autocomplete appears)
-        </aside>
-      </section> 
-
-
-      <!-- example of the impact of the lack of novalidate -->
-      <section>
-        <h2>(<code>no</code>)<code>validate</code></h2>
-        <p>Rudimentary form of validation!</p>
-        <form class="pure-form">
-          E-mail<span class="html5">HTML5</span>: <input type="email" name="email">
-          <input type="submit" value="Submit" class="pure-button pure-button-primary">
-        </form> 
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form>
-  E-mail: &lt;input type="email" name="email" />
-  &lt;input type="submit" value="Submit" />
-&lt;/form> 
-        </code></pre>
-        <aside class="notes">
-          try to add an invalid email address and click submit ...
-          claudia
-          claudia@h
-          claudia@hauff
-        </aside>
-      </section> 
-
-
-      <!-- example of the impact of novalidate -->
-      <section>
-        <h2><code>novalidate</code></h2>
-        <ul>
-          <li>If added as attribute, the form input is not validated</li>
-          <li>XHTML: <code>novalidate="novalidate"</code></li>
-          <li>HTML5: <code>novalidate</code></li>
-        </ul>
-        <form novalidate="novalidate" class="pure-form">
-          E-mail<span class="html5">HTML5</span>: <input type="email" name="email">
-          <input type="submit" value="Submit" class="pure-button pure-button-primary">
-        </form> 
-
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form novalidate="novalidate">
-          E-mail: &lt;input type="email" name="email" />
-          &lt;input type="submit" value="Submit" />
-&lt;/form> 
-        </code></pre>
-        <aside class="notes">
-          add an invalid email address
-        </aside>
-      </section> 
-
-
-      <!-- an argument why client-side validation may not be as simple -->
-      <section>
-        <h2>Validate yourself</h2>
-
-        <ul>
-          <li>On the client (can be disabled) and server</li>
-          <li>Not always as straight-forward as it seems</li>
-          <li>For email addresses an official standard exists: <a href="http://tools.ietf.org/html/rfc5322#section-3.4">RFC 5322</a></li>
-          <li style="list-style-type:none;">
-            <ul>
-              <li>Beware: validates email addresses that do not exist in practice</li>
-              <li>Use a library for more than basic validation if possible</li>
-            </ul>
-          </li>
-        </ul>
-        <p>
-          RFC 5322 implemented as regex (<a href="http://www.regular-expressions.info/email.html">source</a>):
-        </p>
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-          (?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*
-          |  "(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]
-          |  \\[\x01-\x09\x0b\x0c\x0e-\x7f])*")
-
-          @ (?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?
-
-          |  \[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}
-          (?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:
-          (?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]
-          |  \\[\x01-\x09\x0b\x0c\x0e-\x7f])+)
-          \])
-        </code></pre>
-        <p>To test your own JavaScript regular expressions, try <a href="http://regexpal.com/">regexpal</a> (comes in handy later in the course).</p>
-      </section> 
-
-
-      <!-- overview of GET vs. POST -->
-      <section>
-        <h2>GET vs. POST</h2>
-
-        <ul>
-          <li>GET/POST create an associative name/value array</li>
-          <li style="list-style-type:none;">
-            <ul>
-              <li>name: name of form control</li>
-              <li>value: input data</li>
-              <li>examples: <code>first=>3</code>, <code>second=>4</code></li>
-            </ul>
-          </li>
-          <li>In PHP accessed through <code>$_GET</code> and <code>$_POST</code> (<a href="http://www.php.net/manual/en/language.variables.superglobals.php">superglobals</a>)</li>
-          <li><code>$_GET</code> passed via URL parameters</li>
-          <li><code>$_POST</code> passed within HTTP request</li>
-        </ul>
-
-      </section> 
-
-
-      <!-- more details on GET -->
-      <section>
-        <h2>GET</h2>
-        <ul>
-          <li>Pattern: <code>URL?name1=value1&amp;name2=value2&amp;name3=value3&amp;...</code></li>
-          <li style="list-style-type:none;">
-            <ul>
-              <li><a href="http://www.rottentomatoes.com/search/?search=life+of+pi">http://www.rottentomatoes.com/search/?search=life+of+pi</a></li>
-              <li style="list-style-type:none;"><code>search=>life+of+pi</code></li>
-              <li><a href="http://www.nu.nl/zoeken/?q=greenpeace">http://www.nu.nl/zoeken/?q=greenpeace</a></li>
-              <li style="list-style-type:none;"><code>q=>greenpeace</code></li>
-              <li><a href="http://www.bing.com/images/search?q=amsterdam&amp;qft=+filterui:color2-bw+filterui:aspect-square">http://www.bing.com/images/search?q=amsterdam&amp;qft=+filterui:color2-bw+filterui:aspect-square</a></li>
-              <li style="list-style-type:none;"><code>q=>amsterdam,qft=>+filterui:color2-bw+filterui:aspect-square</code></li>
-            </ul>
-          </li>
-
-          <li>Parameters limited by the maximum URL length (~1000-2000 characters)</li>
-          <li>Rule: do not pass sensitive data - it is visible through the URL</li>
-          <li>Useful for non-secure data, e.g. Google/Bing/... search strings</li>
-          <li>Simplifies bookmarking for users</li>
-        </ul>
-      </section>   
-
-
-      <!-- more details on GET II -->
-      <section>
-        <h2>GET</h2>
-
-        <div class="exampleForm">
-          <form action="php/vars.php" method="get" class="pure-form">
-            <label for="login">Login:</label> <input type="text" name="login"><br>
-            <label for="password">Password:</label> <input type="password" name="password"><br>
-            <input type="submit" value="Login" class="pure-button pure-button-primary">
-          </form>
-        </div>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-          Login: &lt;input type="text" name="login" />
-          Password: &lt;input type="password" name="password" />
-          &lt;input type="submit" value="Login" />
-&lt;/form>
-        </code></pre>
-        <p>
-          vars.php
-        </p>
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
-&lt;html>
-&lt;body>
-List of all $_GET name/value pairs:
-&lt;?php
-  print_r($_GET);  // for all GET variables
-?>
-
-List of all $_POST name/value pairs:
-&lt;?php
-  print_r($_POST); // for all POST variables
-?>
-&lt;/body>
-&lt;/html>
-        </code></pre>       
-      </section>   
-
-
-      <!-- details on POST -->
-      <section>
-        <h2>POST</h2>
-
-        <ul>
-          <li>Name/value pairs not visible in URL</li>
-          <li>No limits on the amount of data that can be sent (files should be transmitted this way)</li>
-          <li>No bookmarking</li>
-        </ul>
-
-        <div class="exampleForm">
-          <form action="php/raw.php" method="post" class="pure-form">
-            <label for="login">Login:</label> <input type="text" name="login"><br>
-            <label for="password">Password:</label> <input type="password" name="password"><br>
-            <input type="submit" value="Login" class="pure-button pure-button-primary">
-          </form>
-        </div>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/raw.php" method="post">
-          Login: &lt;input type="text" name="login" />
-          Password: &lt;input type="password" name="password" />
-          &lt;input type="submit" value="Login" />
-&lt;/form>
-        </code></pre>
-        <p>raw.php</p>
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
-&lt;?php
-          $request_body = @file_get_contents('php://input');
-          echo $request_body;
-?>
-        </code></pre>
-      </section> 
-
-      <section>
-        <h2>Submitting a form to self</h2>
-        <ul>
-          <li>The <code>action</code> attribute can point to the form's URL (or be blank)</li>
-          <li>Advantages: fewer pages to create, easy re-display of (complex) form</li>
-          <li>Use GET/POST to branch: a GET shows the form, a POST processed the submitted form</li>
-          <li><a href="php/self.php">Example</a></li>
-        </ul>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
-&lt;?php 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-  //normal GET request; display self-submitting form
-  ?>
-  <form action="" method="post">
-    <label>Input 1: &lt;input type="text" name="i1" /></label>&lt;br />
-    <label>Input 2: &lt;input type="text" name="i2" /></label>&lt;br />
-    &lt;input type="submit" value="Submit to self" />
-  </form>
-  &lt;?php
-} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-  //POST request; user is submitting form back to here; process it
-  print "Form input: i1 = ".$_POST["i1"].", i2 = ".$_POST["i2"]."<br />";
-}
-?>
-        </code></pre>
-      </section>
-      
-
-
-
-        <section>
-          <h2>Form controls</h2>
-        </section>         
-        
-        <!-- list of form elements -->
-        <section>
-          <h2>Most common form controls</h2>
-
-          <ul>
-            <li>input</li>
-            <li>textarea</li>
-            <li>button</li>
-            <li>select</li>
-            <li>option</li>
-            <li>optgroup</li>
-            <li>fieldset</li>
-            <li>label</li>
-            <li>hidden</li>
-          </ul>
-
-          <aside class="notes">
-          </aside>
-        </section>   
-
-
-      <!-- input element examples -->
-      <section>
-        <h2>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input">input</a> element</h2>
-
-        <ul>
-          <li><code>name</code> attribute: name of query parameter to submit</li>
-          <li><code>value</code> attribute: control's (initial) text</li>
-          <li><code>checkbox</code>: choose none, one or more; <code>radio</code>: choose none or one</li>
-        </ul>
-        <div class="exampleForm">
-          <form action="php/vars.php" method="get" class="pure-form">
-            <label for="text_field_name">Text field:</label> <input type="text" name="text_field_name" size="10"><br>
-            <label for="passowrd_field_name">Password field:</label> <input type="password" name="password_field_name" size="20"><br>
-            <label for="gender">Radio buttons:</label> <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
-            <label for="sports">Checkboxes:</label> <input type="checkbox" name="sports" checked="checked">sports <input type="checkbox" name="travel">traveling <input type="checkbox" name="reading">reading<br>
-            <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-          </form>
-        </div>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-  Text field:     &lt;input type="text" name="text_field_name" size="10" />
-  Password field: &lt;input type="password" name="password_field_name" size="20" />
-  Radio buttons:  &lt;input type="radio" name="gender" value="M" />Male 
-                  &lt;input type="radio" name="gender" value="F" />Female
-  Checkboxes:     &lt;input type="checkbox" name="sports" checked="checked" />sports 
-                  &lt;input type="checkbox" name="travel" />traveling 
-                  &lt;input type="checkbox" name="reading" />reading
-  &lt;input type="submit" value="Submit data">
-&lt;/form>
-        </code></pre>
-        <aside class="notes">
-          when sent to server, any checked boxes will be sent with value on: 
-        </aside>
-      </section> 
-
-<!--
-      <section>
-        <h2>Effect of missing <code>[]</code></h2>
-
-        <div class="exampleForm">
-          <form action="php/vars.php" method="get" class="pure-form">
-            <label for="text_field_name">Text field:</label>     <input type="text" name="text_field_name"><br>
-            ...<br>
-            <label for="hobbies">Checkboxes:</label> <input type="checkbox" name="hobbies" value="sports">sports <input type="checkbox" name="hobbies" value="travel">travel <input type="checkbox" name="hobbies" value="reading">reading<br>
-            <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-          </form>
-        </div>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-  Text field:     <input type="text" name="text_field_name" />
-  ...
-  Checkboxes:     <input type="checkbox" name="hobbies" value="sports" />sports 
-    <input type="checkbox" name="hobbies" value="travel" />traveling 
-    <input type="checkbox" name="hobbies" value="reading" />reading
-  <input type="submit" value="Submit data">
-&lt;/form>
-        </code></pre>
-      </section>       
--->
-
-      <!-- some attributes of input elements -->
-      <section>
-        <h2>Some <code>input</code> tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input">attributes</a></h2>
-        <p><code>placeholder</code><span class="html5">HTML5</span>, <code>required</code><span class="html5">HTML5</span>, <code>pattern</code><span class="html5">HTML5</span>, <code>maxlength</code></p>
-
-        <div class="exampleForm">
-          <form action="php/vars.php" method="get" class="pure-form">
-            <label for="n">Text field:</label> <input type="text" name="n" placeholder="Add your name" required pattern="[A-Z][a-z]+"><br>
-            <label for="p">Password field:</label> <input type="password" name="p" placeholder="Type your password" maxlength="4"><br>
-            <label for="gender">Radio buttons:</label> <input type="radio" name="gender" value="M">Male <input type="radio" name="gender" value="F">Female<br>
-            <label for="hobbies[]">Checkboxes:</label> <input type="checkbox" name="hobbies[]" value="sports">sports <input type="checkbox" name="hobbies[]" value="travel">travel <input type="checkbox" name="hobbies[]" value="reading" disabled>reading<br>
-            <label for="agree">I agree:</label> <input type="checkbox" name="agree" value="yes" required>yes
-            <input type="image" src="http://openclipart.org/image/800px/svg_to_png/122407/arrow_button.png" height="60" name="submit" alt="submit_button" align="right"/>
-          </form>
-        </div>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-&lt;form action="php/vars.php" method="get">
-  Text field:&lt;input type="text" name="n" placeholder="Add your name"
-    required pattern="[A-Z][a-z]+" />
-  Password field: &lt;input type="password" name="p" placeholder="Type your password" 
-    maxlength="4" />
-  Radio buttons:&lt;input type="radio" name="gender" value="M" />Male 
-    &lt;input type="radio" name="gender" value="F" />Female
-  Checkboxes: &lt;input type="checkbox" name="hobbies[]" value="sports" />sports 
-    &lt;input type="checkbox" name="hobbies[]" value="travel" />travel 
-    &lt;input type="checkbox" name="hobbies[]" value="reading" disabled />reading
-  I agree: &lt;input type="checkbox" name="agree" value="yes" required />yes
-          &lt;input type="image" src="arrow_button.png" height="60" name="submit" 
-          alt="submit button" />
-&lt;/form>
-        </code></pre>
-
-        <aside class="notes">
-        To reset the UI controls' state and values, a full refresh is necessary:
-        Firefox Windows: Shift-Ctrl-R
-        Firefox Mac: Shift-Command-R
-
-        </aside>
-      </section>  
-
-     <!-- and another list of input elements -->
-      <section>
-        <h2>More <code>input</code> element types</h2>
-        <p>View this slide in Chrome and Firefox</p>
-        <div class="exampleForm">
-          <form action="php/vars.php" method="get" class="pure-form">
-            <label for="u">URL<span class="html5">HTML5</span>:</label> <input type="url" name="u" required placeholder="http://"><br>
-            <label for="f">File:</label> <input type="file" name="f"><br>
-            <label for="n">Number<span class="html5">HTML5</span>:</label> <input type="number" name="n" min="100" max="200" step="10"><br>
-            <label for="r">Range<span class="html5">HTML5</span>:</label> <input type="range" name="r" min="100" max="200" step="5"><br>
-            <label for="c">Color<span class="html5">HTML5</span>:</label> <input type="color" name="c"><br>
-            <label for="d">Date<span class="html5">HTML5</span>:</label> <input type="date" name="d"><br> 
-            <label for="m">Month<span class="html5">HTML5</span>:</label> <input type="month" name="m"><br>
-            <label for="t">Time<span class="html5">HTML5</span>:</label> <input type="time" name="t">
-            <p></p>
-            <input type="reset" value="Reset form" class="pure-button pure-button-secondary">
-            <input type="submit" value="Submit" class="pure-button pure-button-primary">
-          </form>
-        </div>
-
-        <aside class="notes">
-          - in Firefox most elements are text input elements
-          - in Chrome they come out as they are intended
-        </aside>
-      </section>         
-
-
-      <!-- and another list of input elements -->
-      <section>
-        <h2>More <code>input</code> element types</h2>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-          URL:    &lt;input type="url" name="u" required placeholder="http://" />
-          File:   &lt;input type="file" name="f" />
-          Number: &lt;input type="number" name="n" min="100" max="200" step="10" />
-          Range:  &lt;input type="range" name="r" min="100" max="200" step="5" />
-          Color:  &lt;input type="color" name="c" />
-          Date:   &lt;input type="date" name="d" /> 
-          Month:  &lt;input type="month" name="m" />
-          Time:   &lt;input type="time" name="t" />
-          &lt;input type="reset" value="Reset form" />
-          &lt;input type="submit" value="Submit" />
-&lt;/form>
-        </code></pre>
-
-        <aside class="notes">
-          - in Firefox most elements are text input elements
-          - in Chrome they come out as they are intended
-        </aside>
-      </section>  
-
-      <!-- hidden -->
-      <section>
-        <h2><code>input</code> attribute <code>hidden</code></h2>
-
-        <ul>
-          <li>Element does not appear visually in the form</li>
-          <li>Cannot be examined or manipulated by the user</li>
-          <li>Useful to track additional information (e.g. which page of a Web portal the user uses a form from)</li>
-        </ul>
-
-        <div class="exampleForm">
-        <form action="php/vars.php" method="get" class="pure-form">
-          Text input: <input type="text" name="text_input"><br>
-          <input type="hidden" name="hidden_page" value="3"><br>
-          <input type="submit" value="Submit" class="pure-button pure-button-primary">
-        </form>
-      </div>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-  Text input: &lt;input type="text" name="text_input" />
-  &lt;input type="hidden" name="hidden_page" value="3" />
-  &lt;input type="submit" value="Submit" />
-&lt;/form>
-      </code></pre>
-      </section>
-
-
-
-      <!-- the button -->
-      <section>
-        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button"><code>button</code></a></h2>
-
-        <ul>
-          <li>A button element has one of three types: <code>button</code>, <code>reset</code>, <code>submit</code></li>
-          <li>Difference to <code>&lt;input type="submit" /></code>: content can be placed inside the button element</li>
-        </ul>
-
-        <form class="pure-form">
-          <button type="button" class="pure-button"><a href="http://www.bing.com/" style="padding:5px">bing.com</a></button><br>&nbsp;<br>
-          <button type="button" class="pure-button"><p>A paragraph of text</p></button><br>&nbsp;<br>
-          <button type="button" class="pure-button"><textarea cols="50" rows="2">Some text</textarea></button>
-        </form>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form>
-  <button type="button"><a href="http://www.bing.com/">bing.com</a></button>   
-  <button type="button"><p>A paragraph of text</p></button>
-  <button type="button"><textarea cols="50" rows="2">Some text</textarea></button>
-&lt;/form>
-        </code></pre>        
-
-      </section>      
-
-
-      <!-- textarea -->
-      <section>
-        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea"><code>textarea</code></a></h2>
-        <ul>
-          <li>Multi-line text input</li>
-          <li><code>readonly</code> attribute used if text should not be modified</li>
-        </ul>
-
-        <form action="php/vars.php" method="get" class="pure-form">
-          <textarea rows="4" cols="60" name="ta">Start writing ....</textarea><br>&nbsp;<br>
-          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-        </form>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-          <textarea rows="4" cols="60" name="ta">Start writing ....</textarea>
-          &lt;input type="submit" value="Submit data" />
-&lt;/form>
-        </code></pre>
-
-      </section> 
-
-      <!-- the label element: a binding example -->
-      <section>
-        <h2>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label"><code>label</code></a> element</h2>
-
-        <ul>
-          <li>Can be bound to an <code>input</code> element with <code>for="element_id"</code> or by placing the control inside <code>&lt;label>...&lt;/label></code></li>
-          <li>Useful when navigating by mouse</li>
-        </ul>
-
-        <div class="exampleForm">
-
-          <form action="php/vars.php" method="get" class="pure-form">
-            <label for="i1">bound Item 1:</label> <input type="text" id="i1" name="i1"><br>
-            <label for="i2">bound Item 2:</label> <input type="text" id="i2" name="i2"><br>
-            <label for="i3">bound Item 3:</label> <input type="text" id="i3" name="i3"><br>
-            <label>Do you agree? <input type="checkbox" name="agree"></label><br>&nbsp;<br>
-            <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-          </form>
-        </div>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-    <label for="id1">bound Item 1:</label> &lt;input type="text" id="id1" name="id1" />
-    <label for="id2">bound Item 2:</label> &lt;input type="text" id="id2" name="id2" />
-    <label for="id3">bound Item 3:</label> &lt;input type="text" id="id3" name="id3"  />
-    <label>Do you agree? &lt;input type="checkbox" name="agree" /></label>
-    &lt;input type="submit" value="Submit data" />
-&lt;/form>
-        </code></pre>
-
-      </section> 
-
-
-      <!-- the label element - unbound -->
-      <section>
-        <h2>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label"><code>label</code></a> element</h2>
-
-        <ul>
-          <li>Can be bound to an <code>input</code> element with <code>for="element_id"</code></li>
-          <li>Useful when navigating by mouse</li>
-        </ul>
-
-        <div class="exampleForm">
-          <form action="php/vars.php" method="get" class="pure-form">
-            <label>unbound Item 1:</label> <input type="text" id="i12" name"i12"><br>
-            <label>unbound Item 2:</label> <input type="text" id="i22" name="i22"><br>
-            <label>unbound Item 3:</label> <input type="text" id="i32" name="i32"><br>
-            Do you agree? <input type="checkbox" name="agree"><br>&nbsp;<br>
-
-            <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-          </form>
-        </div>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-    <label>unbound Item 1:</label> &lt;input type="text" id="id12" name="id12" />
-    <label>unbound Item 2:</label> &lt;input type="text" id="id22" name="id22" />
-    <label>unbound Item 3:</label> &lt;input type="text" id="id32" name="id32" />
-    Do you agree? &lt;input type="checkbox" name="agree" />
-    &lt;input type="submit" value="Submit data" />
-&lt;/form>
-        </code></pre>
-
-      </section> 
-
-
-      <!-- fieldset -->
-      <section>
-        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset"><code>fieldset</code></a></h2>
-
-        <ul>
-          <li>Used to semantically group related elements</li>
-          <li><code>&lt;legend></code> defines a caption for the group</li>
-        </ul>
-
-        <div class="exampleForm">
-          <form action="php/vars.php" method="get">
-            <fieldset name="group1">  
-              <legend>Group 1</legend>
-              <label>Item 1.1:</label> <input type="text" id="i1.1" name="i1.1"><br>
-              <label>Item 1.2:</label> <input type="text" id="i1.2"><br>
-            </fieldset><br>
-            <fieldset name="group2" disabled="disabled">
-              <legend>Group 2</legend>
-              <label>Item 2.1:</label> <input type="text" id="i2.1"><br>
-              <label>Item 2.2:</label> <input type="text" id="i2.2"><br>
-            </fieldset><br>
-            <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-          </form>
-        </div>
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-    &lt;fieldset name="group1">  
-      <legend>Group 1</legend>
-      <label>Item 1.1:</label> &lt;input type="text" id="i1.1" name="i1.1" />
-      <label>Item 1.2:</label> &lt;input type="text" id="i1.2" /> <!--no name!-->
-    &lt;/fieldset>
-    &lt;fieldset name="group2" disabled="disabled" >
-      <legend>Group 2</legend>
-      <label>Item 2.1:</label> &lt;input type="text" id="i2.1" />
-      <label>Item 2.2:</label> &lt;input type="text" id="i2.2" />
-    &lt;/fieldset>
-    &lt;input type="submit" value="Submit data" />
-&lt;/form>
-        </code></pre>
-
-      </section> 
-
-      <section>
-        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select"><code>select</code></a></h2>
-        <ul>
-          <li>Drop-down list</li>
-          <li>Selected <code>value</code> attribute is submitted</li>
-          <li>Multiple values can be selected if <code>multiple</code> is specified</li>
-          <li>The initially selected value can be set with <code>selected</code></li>
-        </ul>
-
-        <form action="php/vars.php" method="get" class="pure-form">
-          <select name="car_select[]" size="3" multiple="multiple">
-            <option value="volvo">car: Volvo</option>
-            <option value="saab" disabled="disabled">car: Saab</option>
-            <option value="mercedes" selected="selected">car: Mercedes</option>
-            <option value="audi">car: Audi</option>
-            <option value="bmw">car: BMW</option>
-            <option value="vw">car: VW</option>
-          </select> <br>
-          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-        </form>            
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-    <select name="car_select[]" size="3" multiple="multiple"><!-- for PHP [] is a must in combination with 'multiple' -->
-        <option value="volvo">car: Volvo</option>
-        <option value="saab" disabled="disabled">car: Saab</option>
-        <option value="mercedes" selected="selected">car: Mercedes</option>
-        <option value="audi">car: Audi</option>
-        <option value="bmw">car: BMW</option>
-        <option value="vw">car: VW</option>
-    </select>
-    &lt;input type="submit" value="Submit data" />
-&lt;/form>
-        </code></pre>
-        <aside class="notes">
-          On a Mac: hold down "command" to select multiple options.
-          On Windows: hold down "control".
-        </aside>
-
-      </section>
-
-
-      <section>
-        <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select"><code>select</code></a></h2>
-        <p>What happens without <code>[]</code> to <code>$_GET</code> or <code>$_POST</code>?
-
-        <form action="php/vars.php" method="get" class="pure-form">
-          <select name="car_select" size="3" multiple="multiple">
-            <option value="volvo">car: Volvo</option>
-            <option value="saab" disabled="disabled">car: Saab</option>
-            <option value="mercedes" selected="selected">car: Mercedes</option>
-            <option value="audi">car: Audi</option>
-            <option value="bmw">car: BMW</option>
-            <option value="vw">car: VW</option>
-          </select> <br>
-          <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-        </form>            
-
-        <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-  <select name="car_select" size="3" multiple="multiple"><!-- no [] -->
-    <option value="volvo">car: Volvo</option>
-    <option value="saab" disabled="disabled">car: Saab</option>
-    <option value="mercedes" selected="selected">car: Mercedes</option>
-    <option value="audi">car: Audi</option>
-    <option value="bmw">car: BMW</option>
-    <option value="vw">car: VW</option>
-  </select>
-  &lt;input type="submit" value="Submit data" />
-&lt;/form>
-        </code></pre>
-        <aside class="notes">
-          On a Mac: hold down "command" to select multiple options.
-          On Windows: hold down "control".
-        </aside>
-
-      </section>
-
-
-      <section>
-        <h2>Grouping options: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup"><code>optgroup</code></a></h2>
-
-        <ul>
-          <li>All elements of a group can be disabled with a single setting</li>
-        </ul>
-
-        <form action="php/vars.php" method="get" class="pure-form">
-          <select name="car_select[]" size="3" multiple="multiple">
-           <optgroup label="Swedish Cars">  
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-          </optgroup>
-          <optgroup label="German Cars" disabled>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-            <option value="bmw">BMW</option>
-            <option value="vw">VW</option>
-          </optgroup>
-        </select><br> 
-        <input type="submit" value="Submit data" class="pure-button pure-button-primary">
-      </form>            
-
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-&lt;form action="php/vars.php" method="get">
-        <select name="car_select[]" size="3" multiple="multiple">
-          <optgroup label="Swedish Cars">  
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-          </optgroup>
-          &lt;optgroup label="German Cars" disabled>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-            <option value="bmw">BMW</option>
-            <option value="vw">VW</option>
-          &lt;/optgroup>
-        </select>
-        &lt;input type="submit" value="Submit data" />
-&lt;/form>
-      </code></pre>
-      <aside class="notes">
-      </aside>
-
-    </section>
-
-    <section>
-      <h2>Moving form attributes<span class="html5">HTML5</span></h2>
-      <p>Before HTML5: attributes within the <code>form</code> tag.</p>
-      <table class="centerTable" style="font-size:75%; margin:15px auto">
-        <tr><td>formaction</td><td>where to send the data to</td></tr>
-        <tr><td>formmethod</td><td><em>get</em> or <em>post</em></td></tr>
-        <tr><td>formnovalidate</td><td>perform validation?</td></tr>
-        <tr><td>formtarget</td><td>where to display the response</td></tr>
-      </table>
-
-
-      <form class="pure-form">
-        <select name="car_select[]" size="3" multiple="multiple">
-          <option value="volvo">Volvo</option>
-          <option value="saab" disabled="disabled">Saab</option>
-          <option value="mercedes" selected="selected">Mercedes</option>
-          <option value="audi">Audi</option>
-          <option value="bmw">BMW</option>
-          <option value="vw">VW</option>
-        </select><br>
-        <input type="submit" value="Submit via GET" formaction="php/vars.php" formmethod="get" formtarget="_blank" class="pure-button pure-button-primary">
-        <input type="submit" value="Submit via POST" formaction="php/vars.php" formmethod="post" formtarget="_blank" class="pure-button pure-button-primary">
-      </form>            
-
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form>
-        ...
-        &lt;input type="submit" value="Submit data via GET" 
-          formaction="php/vars.php" formmethod="get" formtarget="_blank" />
-        &lt;input type="submit" value="Submit data via POST" 
-          formaction="php/vars.php" formmethod="post" formtarget="_blank" />
-&lt;/form>  
-      </code></pre>
-      <aside class="notes">
-      </aside>
-
-    </section>          
-
-    <section>
-      <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist"><code>datalist</code></a><span class="html5">HTML5</span></h2>
-      <ul>
-        <li>Specifies a list of pre-defined options for an <em>input</em> element</li>
-        <li>An autocomplete feature</li>
-        <li>Values not in the list can be submitted</li>
-      </ul>
-
-      <form class="pure-form">
-        <label>Which browser do you use?</label>
-        <input list="browsers_" name="browser_name">
-        <datalist id="browsers_">
-          <option value="Internet Explorer" />
-          <option value="Firefox" />
-          <option value="Chrome" />
-          <option value="Opera" />
-          <option value="Safari" />
-        </datalist> <br>
-        <input type="submit" value="Submit data" formaction="php/vars.php" formmethod="get" class="pure-button pure-button-primary">
-      </form>            
-
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form>
-        &lt;input list="browsers" name="browser_name" />
-        &lt;datalist id="browsers">
-        &lt;option value="Internet Explorer">
-        &lt;option value="Firefox">
-        &lt;option value="Chrome">
-        &lt;option value="Opera">
-        &lt;option value="Safari">
-        &lt;/datalist>
-        &lt;input type="submit" value="Submit data"
-            formaction="php/vars.php" formmethod="get" />
-&lt;/form>  
-      </code></pre>
-    </section>  
-
-    <section>
-      <h2><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output"><code>output</code></a><span class="html5">HTML5</span></h2>
-      <ul>
-        <li>Represents the result of a calculation or user action</li>
-        <li>Attribute <code>for</code> indicates values contributing to calculation</li>
-      </ul>
-
-      <form oninput="x.value=parseInt(a.value)+parseInt(b.value)" class="pure-form">
-        0 <input type="range" id="a" value="50"> 100
-        + <input type="number" id="b" value="50" size="4">
-        = <output name="x" for="a b"></output>
-      </form>           
-
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
-  0 &lt;input type="range" id="a" value="50" /> 100 
-  + &lt;input type="number" id="b" value="50" size="4" />
-  = &lt;output name="x" for="a b">&lt;/output>
-&lt;/form> 
-     </code></pre>
-     <aside class="notes">
-     </aside>
-
-   </section> 
-
-
-
-        <!-- form skeleton -->
-        <section>
-          <h2><code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
-
-          <ul>
-            <li>name</li>
-          <ul>
-            <li>Tags: <code>form, input, select, textarea</code> (and some other non-form related elements)</li>
-            <li>Need not be unique</li>
-            <li>Name/value pairs transmitted through forms</li>
-          </ul>
-
-          <li>id</li>
-          <ul>
-            <li>Global attribute: can be assigned to any element</li>
-            <li>Must be unique</li>
-            <li>CSS: <code>#</code></li>
-          </ul>
-
-          <li>value</li>
-          <ul>
-            <li>Name/value pairs transmitted through forms</li>
-          </ul>
-        </ul>
-
-          <aside class="notes">
-          </aside>
-        </section> 
-
-        <!-- form skeleton -->
-<!--        
-        <section>
-          <h2>Examples: <code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
-
-          <form action="php/vars.php" method="get" class="pure-form">
-            <input type="text" id="i1" name="input"> <input type="submit" value="Submit" class="pure-button pure-button-primary">
-          </form>
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get">
-  <input type="text" id="i1" name="input"> <input type="submit">
-&lt;/form>
-     </code></pre>          
-
-          <form action="php/vars.php" method="get" target="iframe_name_id_value1" class="pure-form">
-            <input type="text" id="i1" name="input">
-            <input type="text" id="i2" name="input"> <input type="submit" value="Submit" class="pure-button pure-button-primary">
-          </form>
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get" target="iframe_name_id_value1">
-  <input type="text" id="i1" name="input">
-  <input type="text" id="i2" name="input"> <input type="submit" value="Submit">
-&lt;/form>  
-     </code></pre>  
-
-          <form action="php/vars.php" method="get" target="iframe_name_id_value1" class="pure-form">
-            <input type="text" id="i1" name="input1">
-            <input type="text" id="i2" name="input2"> <input type="submit" value="Submit" class="pure-button pure-button-primary">
-          </form>
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get" target="iframe_name_id_value1">
-  <input type="text" id="i1" name="input1">
-  <input type="text" id="i2" name="input2"> <input type="submit" value="Submit">
-&lt;/form>  
-     </code></pre>     
-  <iframe name="iframe_name_id_value1" width="600px" height="100px" style="background-color:orange"></iframe>
-
-
-          <aside class="notes">
-          </aside>
-        </section>
--->
-<!-- form skeleton -->
-<!--
-        <section>
-          <h2>Examples: <code>name</code> vs. <code>id</code> vs. <code>value</code></h2>
-
-          <form action="php/vars.php" method="get" target="iframe_name_id_value2" class="pure-form">
-            <input type="text" id="i1" name="input1">
-            <input type="text" id="i1" name="input2"> <input type="submit" value="Submit" class="pure-button pure-button-primary">
-          </form>
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/vars.php" method="get" target="iframe_name_id_value2">
-  <input type="text" id="i1" name="input1">
-  <input type="text" id="i1" name="input2"> <input type="submit" value="Submit">
-&lt;/form>  
-     </code></pre>     
-
-        <form id="form1" class="pure-form">
-          <label>form1:</label> <input type="text" name="form1_input">
-        </form>
-        <form id="form2" class="pure-form">
-          <label>form2:</label> <input type="text" name="form2_input">
-        </form>
-        <button type="submit" form="form1" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2" class="pure-button pure-button-primary"> Submit form1</button>
-        <button type="submit" form="form2" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2" class="pure-button pure-button-primary">Submit form2</button>
-        <button type="submit" form="form1 form2" formaction="php/vars.php" formmethod="get" formtarget="iframe_name_id_value2" class="pure-button pure-button-primary">Submit forms 1+2</button>
-
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form id="form1">
-  <label>form1:</label> <input type="text" name="form1_input">
-&lt;/form>
-&lt;form id="form2">
-  <label>form2:</label> <input type="text" name="form2_input">
-&lt;/form>
-  &lt;button type="submit" form="form1" formaction="php/vars.php" 
-    formmethod="get" formtarget="iframe_name_id_value2">Submit form1</button>
-  &lt;button type="submit" form="form2" formaction="php/vars.php" 
-    formmethod="get" formtarget="iframe_name_id_value2">Submit form2</button>
-  &lt;button type="submit" form="form1 form2" formaction="php/vars.php" 
-    formmethod="get" formtarget="iframe_name_id_value2">Submit forms 1+2</button>
-
-     </code></pre> 
-
-  <iframe name="iframe_name_id_value2" width="600px" height="100px" style="background-color:orange"></iframe>
-
-
-          <aside class="notes">
-          </aside>
-        </section>   
--->        
-  <section>
-    <h2>Form controls &amp; CSS</h2>
-
-      <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="css">
-/* coloring an input box */        
-input[type="text"] {
-    background-color: yellow;
-    border: 2px solid #999;
-    border-radius: 10px;
-}
-/* coloring a button (change when hovering) */
-.coloredButton {
-    background-color:#a44;
-    color:#fff;
-    border:2px dashed #f99;
-}
+<section>
+	<h2>Examples of <code>typeof</code></h2>
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+// Numbers
+typeof 10 === 'number';
+typeof 8.5 === 'number';
+typeof Infinity === 'number';
+typeof NaN === 'number'; // important to remember!
+
+// Strings
+typeof "test_string" === 'string';
+typeof (typeof 1) === 'string'; // typeof always return a string
+
+// Booleans
+typeof true === 'boolean';
+typeof false === 'boolean';
+
+// Undefined
+typeof undefined === 'undefined';
+typeof not_defined_before === 'undefined'; // undefined variable
+
+// Objects
+typeof {a:5} === 'object';
+typeof [10, 9, 8] === 'object'; 
+typeof new Date() === 'object';
+
+// Functions
+typeof function(){} === 'function';
+typeof Math.cos === 'function';
+          </code></pre>
+</section>          	
+
+<section>
+	<h2><code>String</code></h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var name = "Tom Jones";
+var firstName = name.substring(0, name.indexOf(" ")); //"Tom"
+var nameLength = name.length; //9 (a property, not a method)
+var nickname = 'Tommy'; //also possible
+var combined = name + " with nick " + nickname;
+var num1 = "10";
+var num2 = 20;
+var num3 = num1 + num2; //"1020", different from PHP!!
+          </code></pre>
+         	<ul><li>The typical string functions as known from other languages are available: <code>charAt, indexOf, lastIndexOf, replace, split, substring, toLowerCase, toUpperCase</code></li>
+         	<li>Use the <a href="https://getfirebug.com/">Firebug</a> console to test your JavaScript!</li></ul>
  
-coloredButton:hover {
-    background-color:#fff;
-    color: #a44;
-}
-/* in general */
-element[attribute="value"] {
-  property : value;
-  property : value;
-  ...
-  property : value;
-}
-     </code></pre>  
-<form>
-  <label>Input: <input type="text" style="background-color:yellow;border:2px solid #999; border-radius:10px;"></label><br>
-  <input type="submit" value="Submit data" class="coloredButton">
-</form>        
-
-  <p>A useful tool to play around with the styling of form elements with CSS is <a href="http://yui.github.io/skinbuilder/?mode=pure">Skin Builder</a>.</p>
-  </section>
-
-  <section>
-    <h2>URL encoding</h2>
-    <ul>
-      <li>Not all characters are allowed as query parameters: " ", "/", "="</li>
-      <li>Browser encodes these characters automatically</li>
-      <li>PHP's <code>$_GET</code> and <code>$_POST</code> contain decoded values</li>
-    </ul>
-
-    <form action="php/vars.php" method="get" class="pure-form">
-      <input type="text" name="input" value="This is a text with ' and /";>
-      <input type="submit" value="Submit" class="pure-button pure-button-primary">
-    </form>
-  </section>
-
-  <section>
-    <h2>Processing form input in PHP</h2>
-  </section>
-
-  <section>
-    <h2><a href="http://www.php.net/manual/en/language.variables.superglobals.php">Superglobals</a></h2>
-          <table class="centerTable" style="font-size:80%">
-            <tr><th>associative array</th><th></th></tr>
-            <tr><td><code>$_GET, $_POST</code></td><td>params passed to GET/POST</td></tr>
-            <tr><td><code>$_SERVER, $_ENV</code></td><td>infos about the Web server</td></tr>
-            <tr><td><code>$_FILES</code></td><td>files uploaded with the request</td></tr>
-            <tr><td><code>$_SESSION, $_COOKIE</td><td>cookies used to identify the user</td></tr>
-          </table>
-
-          <form action="php/superglobals.php" method="post" enctype="multipart/form-data" class="pure-form">
-            <p>
-              <label>text_input: <input type="text" name="text_input" value="blub..."></label>
-
-              <label style="margin:10px; display:inline-block">file_input: <input type="file" name="file_input"></label>
-              <input type="submit" value="Submit" class="pure-button pure-button-primary">
-            </p>
-          </form>
-
-                <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-&lt;form action="php/superglobals.php" method="post" enctype="multipart/form-data">
-  <label>text_input: &lt;input type="text" name="text_input" 
-          value="blub..." /></label>
-  <label>file_input: &lt;input type="file" name="file_input" /></label>
-  &lt;input type="submit" value="Submit" />
-&lt;/form> 
-     </code></pre>
-  </section>
-
-  <section>
-    <h2>Processing an uploaded file in PHP</h2>
-    <ul>
-      <li>Each element in <code>$_FILES</code> is an associative array with entries:
-        <ul><li><code>name</code> (filename)</li>
-          <li><code>type</code> (<a href="http://en.wikipedia.org/wiki/Internet_media_type">MIME type</a>, e.g. audio/ogg)</li>
-          <li><code>size</code></li>
-          <li><code>tmp_name</code> (location of uploaded file on the server)</li>
-        </ul>
-      <li>Accessing those entries in PHP:<br><code>$_FILES["file_input"]["tmp_name"]</code></li>
-    </ul>
-
-    <p>PHP snippet to deal with uploaded files: use <a href="http://nl3.php.net/is_uploaded_file">is_uploaded_file</a> and <a href="http://nl3.php.net/move_uploaded_file">move_uploaded_file</a>:
-  <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
-$input = $_POST["text_input"];
-if(is_uploaded_file($_FILES["file_input"]["tmp_name"])) {
-  move_uploaded_file($_FILES["file_input"]["tmp_name"], "$input/upload_file");
-  print "File uploaded to $input/upload_file";
-}
-else {
-  print "Error while uploading.";
-}
-     </code></pre>
-
-  </section>
-
-  <section>
-    <h2>Web services</h2>
-  </section>
-
-  <section>
-    <h2>Web services</h2>
-    <blockquote>Web services extend the World Wide Web infrastructure to provide the means for software to <strong>connect</strong> to other software applications. Applications access Web services via <strong>ubiquitous Web protocols</strong> and data formats such as HTTP, XML, and SOAP, with no need to worry about how each Web service is implemented. (<a href="http://msdn.microsoft.com/en-us/library/ms950421.aspx">Source</a>)</blockquote>
-    <ul>
-      <li>Web services can be written in PHP</li>
-      <li>Web services usually take as input parameters and produce corresponding output</li>
-      <li>Output of a Web service may not be HTML, but text, XML, jpg, etc.</li>
-    </ul>
-    </section>
-
-<section>
-    <h2>Setting the output type</h2>
-
-    <ul>
-      <li>Output of PHP is assumed to be HTML (unless stated otherwise)</li>
-      <li>Output type can be set in PHP via <code>header()</code> (<a href="http://en.wikipedia.org/wiki/Internet_media_type">MIME</a> types)</li>
-      <li><code>header()</code> must be called before any output is produced</li>
-    </ul>
-
-  <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
-//in general
-header("Content-type: type/subtype");
-//specific examples
-header("Content-type: text/plain");
-header("Content-type: text/html");
-header("Content-type: text/css");
-header("Content-type: image/jpeg");
-header("Content-type: video/quicktime");
-     </code></pre>
-     <p>&nbsp;</p>
-     <ul>
-      <li>Web service example: add two integers, return result in plain text.</li>
-      <ul><li><a href="php/add3.php?first=12&amp;second=13">php/add3.php?first=12&amp;second=13</a></li></ul>
-      <li>To check the MIME type, use the <a href="https://support.mozilla.org/en-US/kb/page-info-window-view-technical-details-about-page">Page info window</a> on Firefox.</li>
-    </ul>
-    </section> 
- 
-<section>
-    <h2>Errors in Web services</h2>
-
-    <ul>
-      <li>Application calling a Web service needs to be informed of errors</li>
-      <li>Using <code>print</code> is not recommended (can be confused with valid output)</li>
-      <li>Use HTTP status codes instead (<a href="http://en.wikipedia.org/wiki/Http_error_codes">many exist</a>)</li>
-    </ul>
-
-    <table class="centerTable">
-      <tr><th>code</th><th></th></tr>
-      <tr><td>2XX</td><td>Nothing wrong here</td></tr>
-      <tr><td>3XX</td><td>Redirection, e.g. moved page (permanently or temporarily)</td></tr>
-      <tr><td>4XX</td><td>Client error</td></tr>
-      <tr><td>403</td><td>Access forbidden</td></tr>
-      <tr><td>404</td><td>Resource not found</td></tr>
-      <tr><td>5XX</td><td>Server error</td></tr>
-    </table>    
-</section>  
-
-
-<section>
-    <h2>Reporting errors in Web services</h2>
-
-  <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
-//in general
-header("HTTP/1.1 code description");
-//specific example: invalid data (numbers between 1-10 are accepted)
-if($_POST["first"]<1 || $_POST["first"]>10) {
-  header("HTTP/1.1 400 Invalid Request");
-  die("An HTTP error 400 occurred.");
-}
-//other error codes
-header("HTTP/1.1 403 Forbidden");
-header("HTTP/1.1 404 File Not Found");
-header("HTTP/1.1 500 Server Error");
-     </code></pre>
-     <p>&nbsp;</p>
-     <p>Example calls of <code>add4.php</code> with invalid/valid data</p>
-     <ul>
-      <li><a href="php/add4.php?first=5&amp;second=100">php/add4.php?first=5&amp;second=100</a></li>
-      <li><a href="php/add4.php?first=50&amp;second=100">php/add4.php?first=50&amp;second=100</a></li>
-      <li><a href="php/add4.php?second=100">php/add4.php?second=100</a></li>
-    </ul>
-    <p>
-      To check the returned status code, use Firefox's <a href="https://developer.mozilla.org/en/docs/Tools/Web_Console">Web Console</a>.</p>
-</section>       
-
-  <section>
-    <h2>Tying up a loose end: associative arrays in PHP</h2>
-  </section>
-
-  <section>
-    <h2>Access &amp; Looping</h2>
-    <table class="centerTable" style="font-size:80%">
-      <tr><th>name</th><th></th></tr>
-      <tr><td><a href="http://nl1.php.net/isset">isset</a>, <a href="http://nl1.php.net/array_key_exists">array_key_exists</a></td><td>whether the array contains a value for the given key</td></tr>
-      <tr><td><a href="http://nl1.php.net/array_keys">array_keys</a>, <a href="http://nl1.php.net/array_values">array_values</a></td><td>an array containing all keys or all values in the associative array</td></tr>
-      <tr><td><a href="http://nl1.php.net/asort">asort</a>, <a href="http://nl1.php.net/arsort">arsort</a></td><td>sorts by value, in normal or reverse order</td></tr>
-      <tr><td><a href="http://nl1.php.net/ksort">ksort</a>, <a href="http://nl1.php.net/krsort">krsort</a></td><td>sorts by key, in normal or reverse order</td></tr>
-    </table>
-    <p><small>Table taken from <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter06-forms.shtml#slide50">here</a>.</small></p>
-
-    <h2><code>foreach</code></h2>
-    <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="php">
-$fruits = array("d" => "lemon", "a" => "orange", "b" => "banana", "c" => "apple");
-asort($fruits);
-foreach ($fruits as $key => $val) {
-    print "$key = $val\n";
-}
-     </code></pre>  
+ <aside class="notes">
+ 	- open Firebug console
+ 	- make an error
+ </aside>
 </section>
 
-  <section>
-    <h2>Summary</h2>
-    <ul>
-      <li>What is a Web form?</li>
-      <li>Importance of <code>action</code>, <code>target</code> and <code>method</code></li>
-      <li>What are the most common UI controls within forms?</li>
-      <li>What is new in HTML5?</li>
-      <li>Processing form data server-side with PHP</li>
-      <li>Introduction to Web services</li>
-    </ul>
-  </section>
+<section>
+<h2><code>var</code> vs. no <code>var</code></h2>
+
+<ul>
+<li>No difference when in global scope</li>
+<li>Within functions, <code>var</code> creates a local variable</li>
+<li>Within functions, no <code>var</code> goes up to global scope to find it<li>
+</section>
+
+<section>
+	<h2>JavaScript is event-driven</h2>
+	<img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_3_event.png">
+	<small>Image source: Web Programming Step by Step</small>
+	
+	<ul>
+	<li>JavaScript snippets in response to <b>events</b> (user actions)</li>
+	<li>Event-driven programming: programming style driven by user events</li>
+	</ul>
+</section>
+
+<section>
+	<h2>A responsive UI control</h2>
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+&lt;script>
+	function helloWorld()
+	{
+		alert("Hello World!");
+	}
+&lt;/script>
+&lt;/head>
+&lt;body>
+   &lt;button onclick="helloWorld()">Hello World Button&lt;/button>
+   <!-- Steps
+   	1. pick a control (the button)
+   	2. pick an event (click)
+   	3. write a JavaScipt function: what should happen if the event occurs?
+   	4. attach the function to the event ON the control
+    -->
+&lt;/body>
+&lt;/html>
+          </code></pre>
+</section>
+
+<section>
+	<h2>In general: JavaScript functions</h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+function name(arg1,arg2,arg3,...,argn)
+{
+   statement;
+   statement;
+   statement;
+}
+
+//concrete example
+function  add(x,y)
+{
+   return x+y;
+}
+          </code></pre>
+</section>
+
+<section>
+	<h2>Handling events</h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+&lt;element onclick="function_name();"> //just one of many event handlers
+
+//specific examples
+&lt;button onclick="alert(5+4)">alert(5+4)&lt;/button>   
+&lt;button onclick="alert('5'+4)">alert('5'+4)&lt;/button>
+&lt;button onclick="alert('Tom'.substring(0,1))">First letter of 'Tom'&lt;/button>
+          </code></pre>
+
+<button onclick="alert(5+4)" class="pure-button pure-button-primary">alert(5+4)</button>   <p></p>
+<button onclick="alert('5'+4)" class="pure-button pure-button-primary">alert('5'+4)</button>
+<p></p>
+<button onclick="alert('Tom'.substring(0,1))" class="pure-button pure-button-primary">First letter of 'Tom'</button>
+ 
+ <p>Advice: user <code>alert()</code> <b>VERY</b> sparingly.</p>
+</section>
+
+<section>
+	<h2><a href="https://developer.mozilla.org/en/docs/DOM">DOM</a>: Document Object Model</h2>
+	<p>DOM: a set of JavaScript objects which represent each element on a Web page</p>
+	<img src="img/dom.png">
+</section>
+
+<section>
+	<h2><a href="https://developer.mozilla.org/en/docs/DOM">DOM</a>: Document Object Model</h2>
+	<ul>
+	<li>Extract an element's state
+		<ul>
+			<li>Is the checkbox checked?</li>
+			<li>Is the button disabled?</li>
+			<li>Is a <code>&lt;h1&gt;</code> appearing on the page?</li>
+			</ul>
+	<li>Change an element's state
+		<ul>
+			<li>Check a checkbox</li>
+			<li>Disable a button</li>
+			<li>Create an <code>&lt;h1&gt;</code> element on a page if none exists</li>
+		</ul>
+	<li>Change an element's style
+		<ul>
+			<li>Change the color of a button</li>
+			<li>Change the size of a paragraph</li>
+			<li>Change the background color of the page</li>
+		</ul>		
+	</ul>
+</section>
+
+<section>
+	<h2>DOM element objects</h2>
+	
+	<p>Every element on a Web page is associated with a DOM object</p>
+	
+	<img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_5_dom.png">
+	<br><small>Image source: Web Programming Step by Step</small>
+	
+	<p>Tools exist to view DOM elements of Web pages, for example <a href="https://addons.mozilla.org/en-US/firefox/addon/dom-inspector-6622/">DOM Inspector</a> (<a href="simple_dom.html">test it</a>)</p>
+</section>
+
+<section>
+	<h2>document.getElementById</h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+//general way of accessing DOM elements
+var name = document.getElementById("id") 
+
+//specific example
+&lt;button onclick="
+   var tb = document.getElementById('out');
+   tb.value = 'Hello World!';"
+   >Say Hello World!&lt;/button>
+&lt;input type="text" id="out">
+          </code></pre>
+<button autocomplete="off" onclick="
+	var tb = document.getElementById('out');
+	tb.value = 'Hello World!';" class="pure-button pure-button-primary">Say Hello World!</button>
+<input type="text" id="out">
+</section>
+
+
+<section>
+	<h2>document.getElementById</h2>
+	<p>What happens if the <code>id</code> is not unique?</p>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+//general way of accessing DOM elements
+//returned is the DOM object for an element with the id
+var name = document.getElementById("id") 
+
+//specific example
+&lt;button onclick="
+   var tb = document.getElementById('out1');
+   tb.value = 'Hello World!';"
+   >Say Hello World!&lt;/button>   
+&lt;input type="text" id="out1"> &lt;input type="text" id="out1">
+          </code></pre>
+<button autocomplete="off" onclick="
+	var tb = document.getElementById('out1');
+	tb.value = 'Hello World!';" class="pure-button pure-button-primary">Say Hello World!</button>
+<input type="text" id="out1" size="15"> <input type="text" id="out1" size="15">
+
+</section>
+
+
+<section>
+	<h2>Not just forms ...</h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+&lt;button onclick="
+var span1 = document.getElementById('span1');
+var span2 = document.getElementById('span2');
+var tmp = span1.innerHTML;
+span1.innerHTML = span2.innerHTML;
+span2.innerHTML = tmp;
+">Swap the span content&lt;/button>
+&lt;span id="span1" style="background-color:red"> &lt;b>Hello&lt;/b> &lt;/span>
+&lt;span id="span2" style="background-color:green">World&lt;/span>
+          </code></pre>
+
+<button class="pure-button pure-button-primary" onclick="
+var span1 = document.getElementById('span1');
+var span2 = document.getElementById('span2');
+var tmp = span1.innerHTML;
+span1.innerHTML = span2.innerHTML;
+span2.innerHTML = tmp;
+">Swap the span content</button>&nbsp;&nbsp;
+<span id="span1" style="background-color:red"> <b>Hello</b> </span> &nbsp;&nbsp;
+<span id="span2" style="background-color:green"> World </span>
+
+<ul>
+<li>form controls: use <code>value</code> to change the text</li>
+<li>other elements: use <code>innerHTML</code> to change the text</li>
+<li>arbitrary HTML can be injected into the page via <code>innerHTML</code> (don't overdo it)</li>
+</ul>
+
+</section>
+
+
+<section>
+<h2>DOM object properties</h2>
+
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" >
+&lt;div id="main" class="main_class">
+   &lt;p>Hello &lt;em>World!&lt;/em>&lt;/p>
+   &lt;img id="worldImage" src="images/1.jpg" />
+&lt;/div>
+</code></pre>
+
+<table class="centerTable">
+            <tr><th>Property</th><th>Example</th></tr>
+            <tr><td><coe>tagName</code> (element's HTML tag)</td><td><code>$("main").tagName</code> is <code>DIV</code></td></tr>
+        
+            <tr><td><coe>className</code> (element's CSS class/es)</td><td><code>$("main").className</code> is <code>main_class</code></td></tr>    
+
+            <tr><td><coe>innerHTML</code> (content inside an element)</td><td><code>$("main").innerHTML</code> is <code>\n <p>Hello....</code></td></tr>  
+ 
+            <tr><td><coe>src</code> (URL target of an image)</td><td><code>$("worldImage").src</code> is <code>images/1.jpg</code></td></tr>             
+              
+          </table>
+</section>
+
+
+
+<section>
+<h2>DOM object properties (forms)</h2>
+
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" >
+&lt;input id="firstName" type="text" />
+&lt;input id="agreed" type="checkbox checked="checked" /> Did you read the terms and conditions?
+</code></pre>
+
+<table class="centerTable">
+            <tr><th>Property</th><th>Example</th></tr>
+            <tr><td><coe>value</code> (text in an input control)</td><td><code>$("firstName").value</code> may be <code>"Tom"</code></td></tr>
+        
+            <tr><td><coe>checked</code> (checkbox)</td><td><code>$("agreed").checked</code> is <code>true</code></td></tr>    
+
+            <tr><td><coe>disabled</code> (whether a control is disabled)</td><td><code>$("agreed").disabled</code> is <code>false</code></td></tr>  
+ 
+            <tr><td><coe>readOnly</code> (read-only text box)</td><td><code>$("firstName").readOnly</code> is <code>false</code></td></tr>             
+              
+          </table>
+</section>
+
+<section>
+<h2>Style adjustments</h2>
+
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html,javascript" >
+&lt;!-- HTML -->	
+<button id="button1">I am changing colors</button>
+
+/* JavaScript */
+window.onload = function() {
+  document.getElementById("clickme").onclick = changeColor;
+};
+function changeColor() {
+  var clickMe = document.getElementById("clickme");
+  clickMe.style.color = "red";
+}
+</pre></code>
+
+<button id="button1" class="pure-button pure-button-primary">I am changing colors</button>
+
+</section>
+
+
+<section>
+<h2>Style adjustments: common errors</h2>
+
+<ul>
+<li>not <code>button1.color="red"</code>, but <code>button1.style.color</code></li>
+<li>not <code>button1.style.font-size="10px"</code>, but <code>button1.style.fontSize</code></li>
+<li>not <code>button1.style.width=10</code>, but <code>button1.style.width="10px"</code></li>
+</ul>
+</section>
+
+
+<section>
+	<h2><code>typeof(Number)</code></h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+var grade = "10";
+var average = 8.5;
+var combined1 = grade * average; // 85
+var combined2 = grade + average; // "108.5"
+var combined3 = (grade + average)*2; //217
+</code></pre>
+
+<ul>
+<li>Integers and floats (doubles) are of the same type</li>
+<li>Standard math operators: <code>+ - * / += ++</code>, etc.</li>
+<li>Automatic conversion (with a small danger: last line above)</li>
+</ul>
+
+</section>
+
+
+<section>
+	<h2>Comments</h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+// the same as in Java, either single line
+
+/* or
+   multi
+   line
+   comments
+*/	
+</code></pre>
+<p>Don't get confused by the commenting mess!</p>
+<ul>
+<li>HTML: <code>&lt;!-- commenting here --> </code></li>
+<li>CSS/JS/PHP: <code>/* commenting here */ </code></li>
+<li>Java/JS/PHP: <code>// commenting here </code></li>
+<li>PHP: <code># commenting here </code></li>
+</ul>
+</section>
+
+
+<section>
+	<h2><code>typeof(String)</code></h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+//explicit conversion to numbers
+var age = "75, Tom Jones";
+var n1 = parseInt(name); //75
+var n2 = parseFloat("nothing1.22"); //NaN
+
+//string elements
+var properName = "Tom Jones";
+var firstLetter = properName.charAt(0);
+var firstLetter = properName[0]; //alternative way to access, might fail
+var lastLetter = properName.charAt(properName.length-1);
+</code></pre>
+
+</section>
+
+<section>
+	<h2><code>for</code> loop</h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+//you know this already from Java
+var sum = 0;
+for(var i = 0; i < 5; i++) 
+{
+  sum += i;
+}
+
+//reverse a string
+var s1 = "Hello World";
+var s2 = "";
+for (var i = s1.length-1; i>=0; i--) 
+{
+  s2 += s1.charAt(i);
+}
+//s2: "dlroW olleH"
+</code></pre>
+
+</section>
+
+<section>
+	<h2>Calculations with <code>Math</code></h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+//Math is an object
+var roundOff = Math.floor(3.9888); //3
+var roundUp  = Math.ceil(3.00001); //4
+var rounded = Math.round(3.001); //3
+var absolute = Math.abs(-3.444); //3.444
+var maximum = Math.max(4,2); //4
+var randVal = Math.random(); //returns a value in [0,1)
+
+//more of the usual suspects
+</code></pre>
+
+<p>Tip: use Firebug for a complete overview</p>
+
+</section>
+
+<section>
+	<h2><code>null</code> vs. <code>undefined</code></h2>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var grade1 = null;
+var grade2 = 9;
+var averageGrade;
+
+// at this point
+// grade1 == null
+// averageGrade is undefined
+</code></pre>
+
+<ul>
+<li><code>undefined</code>: has not been referenced before, it does not exist
+<li><code>null</code>: it exists, but the value is unknown
+</li>
+</ul>
+
+</section>
+
+<section>
+<h2>Logical operators</h2>
+
+<p>JavaScript has both:
+ <ul style="list-style:none"><li><code>==</code> (comparison of value)</li>
+ <li><code>===</code> (comparison of value &amp; type)</li>
+ </ul>
+ <br>
+ This is an artifact of loose typing. </p>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var x = 5;
+var y = 5;
+var z = "5";
+var a = null;
+var b; //undefined
+var c = "5b";
+
+x == y;  // true
+x === y; // true
+x == z;  // true
+x === z; // false (wrong type)
+x == a;  // false
+x == b;  // false
+a == b;  // true !!
+a != b;  // false
+a === b; // false (not of the same type)
+a !== b; // true 
+x == c;  // false
+</code></pre>
+The usual <code>&lt;, &gt; &lt;= &gt;=</code> exist as well.
+</section>
+
+<section>
+<h2><code>if ... else</code></h2>
+<ul>
+<li>You should know this from Java</li>
+<li>Almost anything can be a <code>condition</code></li>
+</ul>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+if(condition)
+{
+   statements;
+}
+else if(condition)
+{
+   statements;
+}
+else
+{
+   statements;
+}
+</code></pre>
+</section>
+
+<section>
+<h2><code>if ... else</code></h2>
+<ul>
+<li>False: <code>0, 0.0, NaN, "", null, undefined</code> (but not <code>"0"</code>)</li>
+<li>True: anything else</li>
+<li>Do not make too many assumptions, check if you are unsure (Firebug)</li>
+<li>A <code>!!</code> (or <code>!</code>) is a casted (inverted) Boolean</li>
+</ul>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+//anything can be used as a Boolean
+
+var x = true; 		// evaluates to true
+var y = 0;
+var z = 1;
+var name = "Tom";
+var c = "0";
+
+if(x)              { /* we end up here */ }
+if(x == true)      { /* we end up here */ }
+if(y)              { /* we do not end up here */ }
+if(z)              { /* we end up here */ }
+if(name)           { /* we end up here */ }
+if(name==true)     { /* we do not end up here */ }
+if(c)              { /* we end up here */ }
+
+//casted Boolean
+var bx = !!(z); // true, typeof(z): number, typeof(bx): boolean
+</code></pre>
+
+<aside class="notes">
+var x = 5;
+var bx = !!(x); // true
+var bx = !(x); // false
+</aside>
+
+</section>
+
+
+<section>
+<h2><code>while loops</code></h2>
+<ul>
+<li>You should know this from Java</li>
+</ul>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+while(condition)
+{
+   statements;
+}
+
+do(condition)
+{
+   statements;
+} while(condition);
+
+//break &amp; continue also exist
+</code></pre>
+</section>
+
+<section>
+<h2>Popups</h2>
+<ul>
+<li><code>alert</code> (a message, "OK" as only option)</li>
+<li><code>confirm</code> (a message, "OK" and "Cancel" as options)</li>
+<li><code>prompt</code> (a message, asks for user input)</li>
+</ul>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+
+var x = alert('This is a message');
+// x is undefined
+
+var x = confirm('This is a message');
+// x is either true or false
+
+var x = prompt('This is a message');
+// x contains the returned string (null if nothing was entered)
+
+</code></pre>
+</section>
+
+
+<section>
+<h2>Arrays</h2>
+
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+
+var arrayName = []; //empty array, arrayName.length=0
+var grades = [1,2,3,4,5,6,7,8,9,10];
+var lowest = grades[0];
+var highest = grades[9]; //grades[10] is undefined
+grades[10] = 11;
+
+var mixed = [1,2,"grade 3",4,5]; //mixed types are possible, no conversion
+
+</code></pre>
+</section>
+
+<section>
+<h2>Array methods</h2>
+
+<p>Mixed type ability gives a hint: arrays are the workhorse of JavaScript, simulate lists, queues, stacks (we know this already from PHP)</p>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+
+var grades = [1,2,3,4,5,6,7,8,9,10];
+grades.push(11);       //[1,2,3,4,5,6,7,8,9,10,11];
+grades.unshift(0);     //[0,1,2,3,4,5,6,7,8,9,10,11]; returns new length of the array
+grades.pop();          //[0,1,2,3,4,5,6,7,8,9,10]; returns new length of the array
+grades.shift();        //[1,2,3,4,5,6,7,8,9,10]; returns number removed
+grades.sort();         //[[1, 10, 2, 3, 4, 5, 6, 7, 8, 9]; by default lexicographic sort
+
+grades.sort(function(a,b){return a-b;}); // much better, sorts numerically ascending
+grades.sort(function(a,b){return a-b;}); // sorts numerically descending
+
+//push,pop -> queue
+//unshift/shift -> stack
+
+</code></pre>
+</section>
+
+
+<section>
+<h2>Array methods</h2>
+
+<p>Arrays are also used as maps</p>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+
+var grades = [1,2,3,4,5,6,7,8,9,10];
+grades["test"] = 20; // [1,2,3,4,5,6,7,8,9,10] (does not appear here)
+grades.length;       // 10
+grades["test"];      // returns 20
+</code></pre>
+</section>
+
+
+
+
+
+
+<section>
+<h2>A bit more about strings</h2>
+
+<p>Mixed type ability gives a hint: arrays are the workhorse of JavaScript, simulate lists, queues, stacks (we know this already from PHP)</p>
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+
+var name = "Tom Jones";
+var tokens = name.split(" ") // ["Tom", "Jones"]
+tokens.reverse();            // ["Jones", "Tom"]
+var name2 = tokens.join("-");// "Jones-Tom"
+
+//beware, reverse() transform the array, join returns a new string
+</code></pre>
+</section>
+
+
+
+<section>
+<h2><code>arguments</code> array</h2>
+
+
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+function example()
+{
+   for(var i=0; i < arguments.length; i++)
+   {
+      alert(arguments[i]);
+   }
+}
+</code></pre>
+
+<button onclick='exampleCall("This","is","a","test");' class="pure-button pure-button-primary">This is a test</button>
+
+<ul>
+<li>Every function contains <code>arguments</code>, array with passed parameters</li>
+<li>Nice: functions can have varying numbers of parameters</li>
+</ul>
+
+</section>
+
+<section>
+<h2><code>Date</code> object</h2>
+
+<p><code>Date</code> has many methods to set/get parts of a date (seconds, minutes, time zone offset, etc.)</p>
+
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+
+var today = new Date();          //Date {Fri Jan 10 2014 10:07:44 GMT+0100 (CET)}
+
+var tomor = new Date(2014,0,11); //Date {Sat Jan 11 2014 00:00:00 GMT+0100 (CET)}
+
+//getDay starts at 0 (Sunday) and ends at 6 (Saturday)
+//Date stores months from 0-11
+</code></pre>
+
+</section>
+
+
+<section>
+<h2><code>eval</code> function</h2>
+
+<p>Treats a String as JavaScript code and runs it (if user input, a security hazard)</p>
+
+	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+&lt;button onclick='
+   eval("
+         var a = 5; 
+         var b = 6; 
+        alert(a+b);
+   ");'>
+Run eval code&lt;/button>
+</code></pre>
+
+<button onclick='eval("var a = 5; var b = 6; alert(a+b);");' class="pure-button pure-button-primary">Run eval code</button>
+
+</section>
+
+
+
+<section>
+<h2>OO for JavaScript</h2>
+
+<ul>
+<li>Small programs often don't need it</li>
+<li>JavaScript has functions as first-class citizens</li>
+<li>Large projects benefit from OO</li>
+<li>OO groups related data and behavior</li>
+<li>Built-in objects: Strings, arrays, HTML/DOM nodes</li>
+</ul>
+
+</section>
+
+
+<section>
+<h2>Anonymous objects</h2>
+
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+var pt = {
+   x: 10,
+   y: 20
+   };
+alert(pt.x +", " + pt.y + ", type: " + typeof(this);
+</code></pre>
+
+<button class="pure-button pure-button-primary" onclick='var pt = {
+   x: 10,
+   y: 20
+   };
+alert(pt.x +", " + pt.y + ", type: "+typeof(this));'>Run point</button>
+</section>
+
+<section>
+<h2>Adding a method</h2>
+
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+var pt = {
+   x: 10,
+   y: 20,
+   sumOfXY: function() {return this.x+this.y;}
+   };
+alert(pt.x +", " + pt.y + ", type: " + typeof(this) +", sum="+pt.sumOfXY();
+</code></pre>
+
+<button class="pure-button pure-button-primary" onclick='var pt = {
+   x: 10,
+   y: 20,
+   sumOfXY:function() {return this.x+this.y;}
+   };
+alert(pt.x +", " + pt.y + ", type: "+typeof(this)+", sum="+pt.sumOfXY());'>Run point</button>
+</section>
+
+
+
+<section>
+<h2>Simulating a constructor through a function</h2>
+
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+function Point(xVal, yVal)
+{
+   this.x = xVal;
+   this.y = yVal;
+   this.sumOfXY = function() { return this.x+this.y;}; //function in a function!
+}
+
+var p = new Point(10,20);
+</code></pre>
+<ul>
+<li>An object constructor is just a normal function</li>
+<li>What does JS do with <code>new</code>?
+<ul><li>new anonymous empty object is created and used as <code>this</code></li>
+<li>returns new object at the end of the function</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
 
   <section>
     <h2>THE END</h2>
