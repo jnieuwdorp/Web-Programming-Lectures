@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<html>
+<head>
+<title>Play with colors</title>
+
+<style>
+div {text-align:center; margin:auto;}
+label {width: 70px; display:inline-block;}
+#color {width:200px; height:100px;}
+</style>
+
+<script>
+
+function updateColor() {
+	var red = document.getElementById("red").value;
+	var blue = document.getElementById("blue").value;
+	var green = document.getElementById("green").value;
+	var rgbBG = "rgb("+red+","+blue+","+green+")";
+
+	var total = parseInt(red) + parseInt(blue) + parseInt(green);
+
+	/* write to the Web console */
+	console.log("rgb sum: "+total);
+
+	var rgbText = "rgb(255,255,255)";
+	if(total>375) {
+		rgbText = "rgb(0,0,0)";
+	}
+
+	var colorElement = document.getElementById("color");
+	colorElement.style.backgroundColor=rgbBG;
+	colorElement.innerHTML = rgbBG;
+	colorElement.style.color=rgbText;
+}
+</script>
+
+</head>
+<body>
+
+<div>
+
+	<label for="red">RED</label>
+	<input type="range" name="red" id="red" min="0" max="255" onchange="updateColor()"><br>
+
+	<label for="red">GREEN</label>
+	<input type="range" name="green" id="green" min="0" max="255" onchange="updateColor()"><br>
+
+	<label for="red">BLUE</label>
+	<input type="range" name="blue" id="blue" min="0" max="255" onchange="updateColor()"><br>
+
+	<div id="color">
+	</div>
+
+</div>
+
+</body>
+</html>
+

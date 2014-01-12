@@ -1,0 +1,13 @@
+{
+  "name": "RGB colors",
+  "description": "Play with RGB",
+  "launch_path": "/",
+  "icons": {
+    "128": "http://openclipart.org/image/300px/svg_to_png/4421/valessiobrito_Aquarela_Colors.png"
+  },
+  "developer": {
+    "name": "Claudia Hauff",
+    "url": "http://www.st.ewi.tudelft.nl/~hauff/"
+  },
+  "default_locale": "en"
+}
