@@ -14,12 +14,17 @@ label {width: 70px; display:inline-block;}
 <script>
 
 function updateColor() {
-	var red = document.getElementById("red").value;
-	var blue = document.getElementById("blue").value;
-	var green = document.getElementById("green").value;
-	var rgbBG = "rgb("+red+","+blue+","+green+")";
-
-	var total = parseInt(red) + parseInt(blue) + parseInt(green);
+	var red   = parseInt(document.getElementById("red").value);
+	var blue  = parseInt(document.getElementById("blue").value);
+	var green = parseInt(document.getElementById("green").value);
+	
+	if(isNaN(red) || red<0 || red>255){ red=0; }
+	if(isNaN(blue)|| blue<0 || blue>255){blue=0;}
+	if(isNaN(green)||green<0 || green>255){green=0;}
+	
+	var rgbBG = "rgb("+red+","+green+","+blue+")";
+	
+	var total = red + blue + green;
 
 	/* write to the Web console */
 	console.log("rgb sum: "+total);

@@ -1,7 +1,7 @@
 {
   "name": "RGB colors",
   "description": "Play with RGB",
-  "launch_path": "/",
+  "launch_path": "/hello_world.html",
   "icons": {
     "128": "valessiobrito_Aquarela_Colors.png"
   },

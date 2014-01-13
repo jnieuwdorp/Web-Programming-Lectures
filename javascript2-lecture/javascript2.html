@@ -27,6 +27,15 @@
   <script>
   document.write( '<link rel="stylesheet" href="../css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
 
+
+function current_object_buttons(times,id) {
+	var input = parseInt(document.getElementById(id).value);
+	var t = parseInt(times);
+	if(isNaN(input) || isNaN(t)){alert('Not a number!');}
+	else{alert(input*t);}
+};
+
+
   </script>
 
     <!--[if lt IE 9]>
@@ -229,7 +238,8 @@ p3d.sum(); /* 60 */
 
 
 <section>
-<h2>Want to know more? .... Douglas Crockford</h2>
+<h2>Want to know more?</h2>
+<h3>Listen to Douglas Crockford</h3>
 
 <a href="http://www.youtube.com/watch?v=v2ifWcnQs6M&list=PL62E185BB8577B63D">PlayList on YouTube</a><br>
 (if you have a few hours, I highly recommend it)
@@ -414,7 +424,7 @@ function sumOfTwoNumbers() {
 <section>
   <h2>Solution 2: <code>window.onload</code> (recommended)</h2>
 
-<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
 // collect global statements
 function functionName() {
   element.event = functionName;
@@ -495,7 +505,7 @@ function functionName() {
   element.event = functionName;
   element.event = functionName;
   ...
-};
+}};
 </code></pre> 
 
 
@@ -591,10 +601,10 @@ wrapper(); /* call function */
   <li>Simplifies programming, one function can serve different objects</li>
 </ul>
 
-x: <input type="text" size="5" pattern="[0-9]+" id="this_example_id">
-<button class="pure-button pure-button-primary" id="button10">10 times</button>
-<button class="pure-button pure-button-warning" id="button23">23 times</button>
-<button class="pure-button pure-button-secondary" id="button76">76 times</button>
+<input type="text" size="5" pattern="[0-9]+" id="this_example_id">
+<button class="pure-button pure-button-primary" id="button10" onclick="current_object_buttons(10,'this_example_id')">10 times</button>
+<button class="pure-button pure-button-warning" id="button23" onclick="current_object_buttons(23,'this_example_id')">23 times</button>
+<button class="pure-button pure-button-secondary" id="button76" onclick="current_object_buttons(76,'this_example_id')">76 times</button>
 
 <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
 /* one function per button (highly redundant) */
@@ -622,10 +632,10 @@ window.onload = function() {
   <li>Simplifies programming, one function can serve different objects</li>
 </ul>
 
-x: <input type="text" size="5" pattern="[0-9]+" id="this_example_id">
-<button class="pure-button pure-button-primary" id="button10">10 times</button>
-<button class="pure-button pure-button-warning" id="button23">23 times</button>
-<button class="pure-button pure-button-secondary" id="button76">76 times</button>
+x: <input type="text" size="5" pattern="[0-9]+" id="this_example_id2">
+<button class="pure-button pure-button-primary" id="button10" onclick="current_object_buttons(10,'this_example_id2')">10 times</button>
+<button class="pure-button pure-button-warning" id="button23" onclick="current_object_buttons(23,'this_example_id2')">23 times</button>
+<button class="pure-button pure-button-secondary" id="button76" onclick="current_object_buttons(76,'this_example_id2')">76 times</button>
 
 <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
 /* best option: exploit the this keyword */
@@ -700,7 +710,8 @@ function computeTimes() {
   &lt;a href=&quot;http://www.google.com/&quot;&gt;link&lt;/a&gt;.
 &lt;/p&gt;
 </code></pre>   
-  <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_4_dom_tree.png" width="400px">
+  <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_4_dom_tree.png" width="400px"><br>
+  <small>Source: <a href="http://www.webstepbook.com/">Web Programming Step by Step</a></small>
   <ul>
     <li><span style="color:orange">Element nodes</span>: HTML tags (have children and/or attributes)</li>
     <li>Text nodes: inline text inside a block element (no children or attributes)</li>
@@ -731,7 +742,8 @@ function computeTimes() {
   &lt;a href=&quot;http://www.google.com&quot;&gt;link&lt;/a&gt;.
 &lt;/p&gt;
 </code></pre>  
-  <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_5_tree_structure.png" width="400px">
+  <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_5_tree_structure.png" width="400px"><br>
+    <small>Source: <a href="http://www.webstepbook.com/">Web Programming Step by Step</a></small>
   
     <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
 //para is a reference to node &lt;p&gt;
@@ -1005,7 +1017,13 @@ button1.classList.toString(); //"pure-button pure-button-primary pure-button-sec
 
  <section>
     <h2>THE END</h2>
-    <a href="http://shafiul.github.io/slides/kickstart_fxos.html">Time left: Firefox OS</a>
+    
+    <ul>
+    <li><a href="https://developer.mozilla.org/en-US/Firefox_OS/Apps">Mozilla's official resource for Firefox OS Apps</a></li>
+    <li><a href="http://shafiul.github.io/slides/kickstart_fxos.html">A set of slides explaining how to get started</a></li>
+    <li><a href="https://addons.mozilla.org/en-US/firefox/addon/firefox-os-simulator/">Firefox OS 1.1 Simulator</a></li>
+    <li><a href="http://www.mozilla.org/en-US/firefox/os/">The Firefox OS Phone</a></li>
+    </ul>
   </section>
  </div>
 
