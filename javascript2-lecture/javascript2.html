@@ -91,7 +91,7 @@
         <li><code>||</code> and <code>&amp;&amp;</code> behave as in Java, <em>if</em> their operands have Boolean values</li>
         <li>Non-Boolean <code>||</code>: returns left operand if it can be converted to true</li>
         <li>Non-Boolean <code>&amp;&amp;</code>: returns left operand if it can be converted to false</li>
-        <li>Default operator can be implemented this way</li>
+        <li>Default values can be implemented this way</li>
       </ul>
 
       <input type="text" id="logical_op_1" size="15"> || <input type="text" id="logical_op_2" size="15"> = <span id="logical_op_res"> </span> <button class="pure-button pure-button-primary" onclick=" {
@@ -207,7 +207,7 @@ var p = new Point(10,20);
 
 
 <section>
-<h2>Objects are prototypes</h2>
+<h2>Objects</h2>
 
 <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
 var p2d = new Point(10,20);
@@ -220,9 +220,19 @@ p3d.sum(); /* 60 */
 </code></pre>
 <ul>
 <li>New variables and methods can be added on the fly</li>
+<li>Objects have a secret pointer to another object: the object's prototype</li>
+<li>JavaScript does prototype chaining</li>
 </ul>
 </li>
 </ul>
+</section>
+
+
+<section>
+<h2>Want to know more? .... Douglas Crockford</h2>
+
+<a href="http://www.youtube.com/watch?v=v2ifWcnQs6M&list=PL62E185BB8577B63D">PlayList on YouTube</a><br>
+(if you have a few hours, I highly recommend it)
 </section>
 
 <section>
