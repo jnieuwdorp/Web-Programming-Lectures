@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+	<title>Testing noscript</title>
+
+<style>
+body {
+	background-color:rgb(230,160,200);
+}
+</style>	
+
+</head>
+
+<body onload="changeBG()">
+
+<noscript>
+	<p>
+		Without JavaScript enabled you cannot see the dynamic background color changes!
+	</p>
+</noscript>
+
+<script>
+   function changeBG() {
+
+   		/* initial colors */
+   		var rgb = [230,160,200];
+
+   		setInterval(
+   		function _updateBG() {
+   			
+   			/* randomly assign new color values (within reason) */
+   			for(var i=0; i<rgb.length; i++) {
+   				rgb[i] = parseInt(rgb[i] + Math.random() * 75) % 256;
+   			}
+   			var color = "rgb("+rgb[0]+","+rgb[1]+","+rgb[2]+")";
+
+   			/* print the colors out to console for debugging */
+   			console.log(color);
+
+   			document.getElementsByTagName("body")[0].style.backgroundColor=color;	
+   		}
+		, 2000);//call the function every two seconds
+	}
+</script>
+</body>
+</html>

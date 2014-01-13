@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="en">
+
+<!-- semicolon after functions in JS? -->
+
+<head>
+  <meta charset="utf-8">
+
+  <title>TI1505 Web Programming: JavaScript</title>
+
+  <meta name="description" content="A lecture on JavaScript">
+  <meta name="author" content="Claudia Hauff">
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="../css/reveal.min.css">
+  <link rel="stylesheet" href="../css/theme/tudelft.css" id="theme">
+  <link rel="stylesheet" href="../lib/css/pure-min.css">
+
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="../lib/css/zenburn.css">
+
+  <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+  <script>
+  document.write( '<link rel="stylesheet" href="../css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+
+  </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-background-transition="slide" data-background="../forms-lecture/img/tu_delft_library.jpg" style="background: rgba(0,129,195,.9); color: white" id="presentable" class="bookend">          
+          <h1>TI1505: JavaScript II</h1>
+          <h3>Claudia Hauff</h3>
+        </section>
+
+        <section>
+          <h2>Today: more about objects &amp; the DOM</h2>
+          <p>
+            The lecture today covers chapter 9 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>, 2nd Edition. The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter09-dom.shtml">here</a> (we follow them pretty closely).
+            
+          </p>
+        </section>
+
+    <section>
+      <h2>JavaScript tidbits</h2>
+    </section>
+
+		<section>
+		<h2><code>noscript</code></h2>
+
+      <ul>
+        <li>Not everyone has JavaScript enabled</li>
+        <li><code>noscript</code> tag is used to offer alternative content</li>
+        <li>Good practice to have such a warning</li>
+      </ul>
+
+      <pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="xml">
+&lt;noscript&gt;
+  &lt;p&gt;
+    Warning: this page should be viewed with 
+    JavaScript enabled
+  &lt;/p&gt;
+&lt;/noscript&gt;
+</code></pre>
+
+      <ul>
+        <li>Firefox: go to <b style="color:orange">about:config</b></li>
+        <li>Search for <em>javascript.enabled</em> and toggle.</li>
+        <li><a href="noscript_example.html">Example</a> of <code>noscript</code>'s effect.</li>
+      </ul>
+
+		</section>
+
+
+    <section>
+    <h2>Logical operators</h2>
+
+      <ul>
+        <li><code>||</code> and <code>&amp;&amp;</code> behave as in Java, <em>if</em> their operands have Boolean values</li>
+        <li>Non-Boolean <code>||</code>: returns left operand if it can be converted to true</li>
+        <li>Non-Boolean <code>&amp;&amp;</code>: returns left operand if it can be converted to false</li>
+        <li>Default operator can be implemented this way</li>
+      </ul>
+
+      <input type="text" id="logical_op_1" size="15"> || <input type="text" id="logical_op_2" size="15"> = <span id="logical_op_res"> </span> <button class="pure-button pure-button-primary" onclick=" {
+
+  var n1 = document.getElementById('logical_op_1').value;
+  var n2 = document.getElementById('logical_op_2').value;
+  var res = (n1 || n2)
+  console.log('n1='+n1+', n2='+n2+', res='+res);
+  document.getElementById('logical_op_res').innerHTML=res;
+
+        }">Find out</button>
+
+    </section>
+
+
+
+<section>
+<h2>OO for JavaScript</h2>
+</section>
+
+
+<section>
+<h2>OO for JavaScript</h2>
+
+<ul>
+<li>Small programs often don't need it</li>
+<li>JavaScript has functions as first-class citizens</li>
+<li>Large projects benefit from OO</li>
+<li>OO groups related data and behavior</li>
+<li>Built-in objects: Strings, arrays, HTML/DOM nodes</li>
+</ul>
+
+</section>
+
+
+<section>
+<h2>Anonymous objects</h2>
+
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+var pt = {
+   x: 10,
+   y: 20
+   };
+alert(pt.x +", " + pt.y + ", type: " + typeof(this);
+</code></pre>
+
+<button class="pure-button pure-button-primary" onclick='var pt = {
+   x: 10,
+   y: 20
+   };
+alert(pt.x +", " + pt.y + ", type: "+typeof(this));'>Run point</button>
+</section>
+
+<section>
+<h2>Adding a method</h2>
+
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+var pt = {
+   x: 10,
+   y: 20,
+   sum: function() {return this.x+this.y;}
+   };
+alert(pt.x +", " + pt.y + ", type: " + typeof(this) +", sum="+pt.sum();
+</code></pre>
+
+<button class="pure-button pure-button-primary" onclick='var pt = {
+   x: 10,
+   y: 20,
+   sumOfXY:function() {return this.x+this.y;}
+   };
+alert(pt.x +", " + pt.y + ", type: "+typeof(this)+", sum="+pt.sumOfXY());'>Run point</button>
+</section>
+
+
+
+<section>
+<h2>Simulating a constructor through a function</h2>
+
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+function Point(xVal, yVal)
+{
+   this.x = xVal;
+   this.y = yVal;
+   this.sum = function() { return this.x+this.y;}; //function in a function!
+}
+
+var p = new Point(10,20);
+</code></pre>
+<ul>
+<li>An object constructor is just a normal function</li>
+<li>What does JS do with <code>new</code>?
+<ul><li>new anonymous empty object is created and used as <code>this</code></li>
+<li>returns new object at the end of the function</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+<section>
+<h2>Objects are prototypes</h2>
+
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+var p2d = new Point(10,20);
+p2d.sum(); /* 30 */
+var p3d = new Point(10,20);
+p3d.z = 15; /* new members can be added on the fly */
+p3d.sum(); /* 30 */
+p3d.sum=function(){return this.x+this.y+this.z;};
+p3d.sum(); /* 60 */
+</code></pre>
+<ul>
+<li>New variables and methods can be added on the fly</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+<section>
+<h2>Global DOM Objects</h2>
+</section>
+
+<section>
+  <h2>Separating HTML, CSS and JavaScript</h2>
+
+<ul>
+<li>So far: either inline JavaScript or <code>*.js</code> with explicit connection between event and JavaScript function (<b>obstrusive</b> JavaScript)</li>
+  <ul><li>A program change can require fixing code in various places</li></ul>
+<li>Goal: HTML with as little as JavaScript as possible (<a href="http://www.w3.org/wiki/The_principles_of_unobtrusive_JavaScript">unobstrusive JavaScript</a>)</li>
+<li>How? DOM is used to attach and execute JavaScript functions</li>
+</ul>
+
+<div style="margin-top:25px">
+<span style="padding:10px; background-color:orange; height:200px">content</span>
+<span style="padding:10px; background-color:green; height:200px">presentation</span>
+<span style="padding:10px; background-color:blue; height:200px">behavior</span>
+</div>
+
+</section>
+
+
+<section>
+  <h2>Examples of obstrusive JavaScript</h2>
+
+<input type="text" placeholder="int" size="4" id="n1"> + <input type="text" placeholder="int" size="4" id="n2"> = <span id="res"></span> <button class="pure-button pure-button-secondary" onclick="
+{
+  var n1 = document.getElementById('n1').value;
+  var n2 = document.getElementById('n2').value;
+  var res = parseInt(n1) + parseInt(n2);
+  console.log('n1='+n1+', n2='+n2+', res='+res);
+  document.getElementById('res').innerHTML=res;
+}
+">Calculate</button>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
+&lt;input type=&quot;text&quot; id=&quot;n1&quot;&gt; + &lt;input type=&quot;text&quot; id=&quot;n2&quot;&gt; 
+= &lt;span id=&quot;res&quot;&gt;&lt;/span&gt; 
+&lt;button onclick=&quot;
+{
+  var n1 = document.getElementById('n1').value;
+  var n2 = document.getElementById('n2').value;
+  var res = parseInt(n1) + parseInt(n2);
+  document.getElementById('res').innerHTML=res;
+}
+&quot;&gt;Calculate&lt;/button&gt;
+</code></pre>
+
+<p>Somewhat less obstrusive ... </p>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
+<!-- in the header of the HTML page -->
+&lt;script src=&quot;some_functions.js&quot;&gt;&lt;/script&gt;
+
+<!-- in the body -->
+&lt;input type=&quot;text&quot; id=&quot;n1&quot;&gt; + &lt;input type=&quot;text&quot; id=&quot;n2&quot;&gt; 
+= &lt;span id=&quot;res&quot;&gt;&lt;/span&gt; 
+&lt;button onclick=&quot;compute()&quot;&gt;Calculate&lt;/button&gt;
+
+<!-- in some_functions.js -->
+function sumOfTwoNumbers() {
+  ....
+}
+</code></pre>
+
+</section>
+
+<section>
+  <h2>Defining event functions in JavaScript</h2>
+
+  <p><a href="compute.html">compute.html</a></p>
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
+&lt;input type=&quot;text&quot; id=&quot;n1&quot;&gt; + &lt;input type=&quot;text&quot; id=&quot;n2&quot;&gt; 
+= &lt;span id=&quot;res&quot;&gt;&lt;/span&gt; 
+&lt;button id=&quot;computeButton&quot;&gt;Calculate&lt;/button&gt;
+</code></pre> 
+
+<p>and the JavaScript code ... <p>
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+/* in general
+element.event = function
+*/
+
+//specific
+document.getElementById("computeButton").onclick = sumOfTwoNumbers;
+
+function sumOfTwoNumbers() {
+  ....
+}
+</code></pre> 
+
+</section>
+
+
+<section>
+  <h2>Where to put the line of JavaScript?</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
+&lt;head&gt;
+    &lt;script src=&quot;some_functions.js&quot; type=&quot;text/javascript&quot;&gt;
+    &lt;/script&gt;
+    <!-- JavaScript contains global code (not in a function): 
+       document.getElementById("computeButton").onclick 
+       = sumOfTwoNumbers; 
+     -->
+&lt;/head&gt;
+
+&lt;body&gt;
+    ...
+    &lt;button id=&quot;computeButton&quot;&gt;...
+&lt;/body&gt;
+</code></pre> 
+
+<ul>
+  <li>Web page parsed/executed as elements are encountered</li>
+  <li>JS code: variables are declared immediately &amp; functions are declared but not called</li>
+  <li>At <code>&lt;/head&gt;</code>, the structure of <code>&lt;body&gt;</code> is unknown (DOM objects have not been created yet)</li>
+  <li>Error: <code style="color:red">document.getElementById(...) is null</code> </li>
+</ul>
+
+</section>
+
+
+
+<section>
+  <h2>Solution 1</h2>
+
+<ul>
+  <li>Move the call to the JavaScript <code>*.js</code> file just before <code>&lt;/body></code></li>
+  <li>JavaScript is executed once the page has loaded (all DOM objects exist)</li>
+  <li>Commonly used in practice, not the optimal solution though</li>
+</ul>
+
+</section>
+
+
+<section>
+  <h2>Solution 2: <code>window.onload</code> (recommended)</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
+// collect global statements
+function functionName() {
+  element.event = functionName;
+  element.event = functionName;
+  ...
+}
+window.onload = functionName;   // run once the page is loaded
+
+</code></pre> 
+
+<ul>
+  <li><code>window.onload</code> event occurs once a page has been fully loaded (all DOM objects exist)</li>
+  <li>Attach all other handlers to this event</li>
+</ul>
+</section>
+
+
+<section>
+  <h2>All together: unobstrusive JavaScript</h2>
+
+<img src="html_events.svg" width="900px">
+
+</section>
+
+<section>
+  <h2>Common errors</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+/* wrong:
+window.onload = collect_handlers(); //function brackets
+window.onLoad = collect_handlers;   //uppercase
+*/
+
+window.onload = collect_handlers;
+
+</code></pre> 
+
+<ul>
+  <li><a href="event_handler_error.html" target="_blank">What happens if the event handler is wrongly attached?</a></li>
+  <li><a href="http://www.jslint.com/">JSLint</a> catches such mistakes.
+  </li>
+</ul>
+</section>
+
+<section>
+  <h2><code>onload</code> not the only <code>window</code> event</h2>
+
+<ul>
+  <li>onerror</li>
+  <li>onresize</li>
+  <li>onunload</li>
+</ul>
+</section>
+
+
+
+<section>
+  <h2>Anonymous functions</h2>
+
+<ul>
+  <li>It is not strictly necessary to give names to functions</li>
+  <li>Function without a name can be stored as variable, <em>attached as event handler</em>, etc.</li>
+  <li>In general: an anonymous function is immediately assigned/passed </li>
+</ul>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+/* instead of writing */
+function functionName() {
+  element.event = functionName;
+  element.event = functionName;
+  ...
+}
+window.onload = functionName;   // run once the page is loaded
+
+/* we can also write */
+window.onload = function() {
+function functionName() {
+  element.event = functionName;
+  element.event = functionName;
+  ...
+};
+</code></pre> 
+
+
+</section>
+
+
+
+<section>
+  <h2>Module pattern</h2>
+
+<ul>
+  <li>Problem: larger projects include many JavaScript libraries</li>
+  <li>All JavaScript code enters the same namespace</li>
+<li>JavaScript has limited scoping</li>
+  <ul>
+    <li><code>var</code> in function: local, limited scope</li>
+    <li><code>var</code> outside of a function: global scope</li>
+    <li>no <code>var</code>: global scope (holds for function names too)</li>
+</ul>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+var i = 12; /* global scope */
+j = 17;     /* global scope */
+function summedPower() { /* function name has global scope */
+  var res = i + j; /* variable has local scope */
+  return res*res;
+}
+</code></pre> 
+
+<li>What if other libraries define <code>i</code> and <code>j</code> as well?</li>
+</ul>
+</section>
+
+
+
+<section>
+  <h2>Module pattern</h2>
+
+<ul>
+  <li>Goal: do not declare any global variables or functions unless required</li>
+  <li>Idea: enclose entire script in a function (functions have their own scopes)</li>
+</ul>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+function wrapper() { /* function name has global scope */
+   var i = 12; 
+   var j = 17;
+   function summedPower() {
+     var res = i + j;
+     return res*res;
+   }
+}
+
+wrapper(); /* call function */
+</code></pre> 
+
+</section>
+
+<section>
+  <h2>Module pattern</h2>
+
+<ul>
+  <li>We can also get rid of the last global symbol</li>
+  <li>Idea: use an anonymous function</li>
+  <li>Todo: wrap code into an anonymous function &amp; call the function</li>
+</ul>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+(function() {
+   var i = 12; 
+   var j = 17;
+   function summedPower() {
+     var res = i + j;
+     return res*res;
+   }
+})();
+
+/* general template for module pattern */
+(function() {
+  statements;
+})();
+</code></pre> 
+</section>
+
+
+
+<section>
+  <h2><code>this</code>: the current object</h2>
+
+<ul>
+  <li>Event handlers are bound to the attached element's objects</li>
+  <li>Handler function "knows" which element it is listening to (<code>this</code>)</li>
+  <li>Simplifies programming, one function can serve different objects</li>
+</ul>
+
+x: <input type="text" size="5" pattern="[0-9]+" id="this_example_id">
+<button class="pure-button pure-button-primary" id="button10">10 times</button>
+<button class="pure-button pure-button-warning" id="button23">23 times</button>
+<button class="pure-button pure-button-secondary" id="button76">76 times</button>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+/* one function per button (highly redundant) */
+window.onload = function() {
+  document.getElementById(&quot;button10&quot;).onclick = computeTimes10;
+  document.getElementById(&quot;button23&quot;).onclick = computeTimes23;
+  document.getElementById(&quot;button76&quot;).onclick = computeTimes76;
+}
+
+/* would not work: event handlers cannot have parameters */
+window.onload = function() {
+  document.getElementById(&quot;button10&quot;).onclick = computeTimes(10);
+  ...
+}
+</code></pre> 
+</section>
+
+<section>
+  <h2><code>this</code>: the current object</h2>
+
+
+<ul>
+  <li>Event handlers are bound to the attached element's objects</li>
+  <li>Handler function "knows" which element it is listening to (<code>this</code>)</li>
+  <li>Simplifies programming, one function can serve different objects</li>
+</ul>
+
+x: <input type="text" size="5" pattern="[0-9]+" id="this_example_id">
+<button class="pure-button pure-button-primary" id="button10">10 times</button>
+<button class="pure-button pure-button-warning" id="button23">23 times</button>
+<button class="pure-button pure-button-secondary" id="button76">76 times</button>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+/* best option: exploit the this keyword */
+window.onload = function() {
+  document.getElementById(&quot;button10&quot;).onclick = computeTimes;
+  document.getElementById(&quot;button23&quot;).onclick = computeTimes;
+  document.getElementById(&quot;button76&quot;).onclick = computeTimes;
+}
+
+function computeTimes() {
+  var times = parseInt(this.innerHTML);
+  var input = parseFloat(document.getElementById(&quot;input&quot;));
+  var res = times * input;
+  alert('The result is '+res);
+}
+</code></pre> 
+
+
+</section>
+
+
+<section>
+  <h2><code>this</code>: the current object</h2>
+
+
+<ul>
+  <li>In global code or regular functions (not bound to an object), <code>this</code> refers to the global <code>window</code> object</li>
+  <li>Event handler sharing only works with the unobstrusive attachment strategy</li>
+  <li>Simplifies programming, one function can serve different objects</li>
+</ul>
+
+
+</section>
+
+
+
+<section>
+  <h2>Traversing the DOM tree</h2>
+</section>
+
+<section>
+  <h2>Reminder: the DOM tree</h2>
+  <img src="dom.svg">
+  <p>This tree can be traversed programmatically.</p>
+</section>
+
+<section>
+  <h2>Type of DOM nodes</h2>
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+&lt;p id=&quot;foo&quot;&gt;This is a paragraph of text with a 
+  &lt;a href=&quot;/path/to/another/page.html&quot;&gt;link&lt;/a&gt;.
+&lt;/p&gt;
+</code></pre>   
+  <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_4_dom_tree.png" width="400px">
+  <ul>
+    <li>Element nodes: HTML tags (have children, attributes)</li>
+    <li>Text nodes</li>
+    <li>Attribute nodes (attribute/value pair); usually not shown</li>
+</section>
+
+<section>
+  <h2>Examples</h2>
+  <ul>
+    <li>Can be intricate ... don't just think text, but visualizations, games</li>
+    <li>Puzzle pieces expressed as <code>divs</code>, randomly exchange them after button click</li>
+    <li>Mouse cursor game: cursor must not touch maze walls - turn them red otherwise</li>
+  </ul>
+</section>
+
+
+<section>
+  <h2>DOM object properties</h2>
+  
+  <table class="centerTable">
+    <tr><th>name</th><th>description</th></tr>
+    <tr><td>firstChild, lastChild</td><td>start/end of this node's list of children</td></tr>
+    <tr><td>childNodes</td><td>  array of all this node's children</td></tr>
+    <tr><td>nextSibling, previousSibling</td><td>neighboring nodes with the same parent</td></tr>
+    <tr><td>parentNode</td><td>the element that contains this node</td></tr>
+  </table>
+
+</section>
+
+
+<section>
+  <h2>Example</h2>
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+&lt;p id=&quot;foo&quot;&gt;This is a paragraph of text with a 
+  &lt;a href=&quot;/path/to/another/page.html&quot;&gt;link&lt;/a&gt;.
+&lt;/p&gt;
+</code></pre>  
+  <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_5_tree_structure.png" width="400px">
+</section>
+
+
+
+<section>
+  <h2>Element vs. text nodes</h2>
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+&lt;div&gt;
+  &lt;p&gt;
+    This is a paragraph of text with a 
+    &lt;a href=&quot;page.html&quot;&gt;link&lt;/a&gt;.
+  &lt;/p&gt;
+&lt;/div&gt;
+</code></pre>  
+
+<p><code>div</code> has three children:
+  <ul><li>Text node: <code>\n\t</code></li>
+    <li>Element node: <code>&lt;p&gt;</code></li>
+    <li>Text node: <code>\n</code></li>
+  </ul>
+</p>
+</section>
+
+
+<section>
+  <h2>Selecting groups of DOM objects</h2>
+
+    <ul>
+      <li><code>document.getElementsByTagName</code></li>
+      <li><code>document.getElementsByName</code></li>
+      <li><code>document.querySelector<span class="html5">HTML5</span></code></li>
+      <li><code>document.querySelectorAll<span class="html5">HTML5</span></code></li>
+    </ul>
+    <p>
+    Test on <a href="dom.html">dom.html</a> (WebConsole, Inspector).
+  </p>
+</section>
+
+
+
+<section>
+  <h2><code>document.querySelector(All)<span class="html5">HTML5</span></code></h2>
+
+  <p>Returned is the first (or all) element(s) that that match the provided CSS selector string.</p>
+
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+var lis = document.querySelectorAll(&quot;li&quot;);
+for (var i = 0; i &lt; lis.length; i++) {
+  lis[i].style.backgroundColor = &quot;orange&quot;;
+}
+
+/* selectors can be more complex, just like CSS */
+var pInDiv = document.querySelectorAll(&quot;div #id_p&quot;);
+for (var i = 0; i &lt; pInDiv.length; i++) {
+  pInDiv[i].style.backgroundColor = &quot;red&quot;;
+}
+</code></pre>  
+
+</section>
+
+<section>
+  <h2>Creating new nodes</h2>
+
+  <p>HTML tags and content can also be added dynamically. Two-step procedure:</p>
+  <ol><li>Create a DOM node</li>
+    <li>New node is added to the page as child of an existing node</li>
+  </ol>
+  <ul><li>document.createElement("tag")</li>
+    <li>document.createTextNode("text")</li>
+  </ul>
+
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+// adding another li element
+var newLI = document.createElement("li");
+newLI.innerHTML = "Another list element";
+newLI.style.color = "orange";
+</code></pre>  
+
+</section>
+
+<section>
+  <h2>Inserting nodes into the DOM tree</h2>
+
+<p>Every DOM element object has these methods</p>
+<table class="centerTable">
+<tr><th>name</th><th>  description</th></tr>
+<tr><td>appendChild(node)</td><td>   places given node at end of this node's child list</td></tr>
+<tr><td>insertBefore(new, old)</td><td>   places the given new node in this node's child list just before old child</td></tr>
+<tr><td>removeChild(node)</td><td>    removes given node from this node's child list</td></tr>
+<tr><td>replaceChild(new, old)</td><td>   replaces given child with new node </td></tr>
+</table>
+</section>
+
+
+<section>
+  <h2>Inserting nodes into the DOM tree</h2>
+
+<ul id="ul_domtree"><li>A list element</li></ul>
+
+<button class="pure-button pure-button-warning" onclick="
+  var ul = document.getElementById('ul_domtree');
+  var il = document.createElement('li');
+  il.innerHTML = 'List element '+(ul.childElementCount+1) +' ';
+  ul.appendChild(il);
+">Add list element</button>
+
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+&lt;button onclick=&quot;
+  var ul = document.getElementById('ul_domtree');
+  var il = document.createElement('li');
+  il.innerHTML = 'List element ' + (ul.childElementCount+1) +' ';
+  ul.appendChild(il);
+&quot;&gt;Add list element&lt;/button&gt;
+</code></pre>
+
+
+</section>
+
+
+<section>
+  <h2>Removing nodes into the DOM tree</h2>
+
+<ul id="ul_domtree2"><li>List element 1</li>
+<li>List element 2</li>
+<li>List element 3</li>
+<li>List element 4</li>
+<li>List element 5</li>
+<li>List element 6</li>
+<li>List element 7</li>
+</ul>
+
+<button class="pure-button pure-button-warning" onclick="
+  var ul = document.getElementById('ul_domtree2');
+  ul.removeChild(ul.lastChild);
+">Remove last element</button>
+
+<button class="pure-button pure-button-secondary" onclick="
+  var ul = document.getElementById('ul_domtree2');
+  ul.removeChild(ul.firstChild);
+">Remove first element</button>
+
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<!-- removing last child -->     
+&lt;button class=&quot;pure-button pure-button-warning&quot; onclick=&quot;
+  var ul = document.getElementById('ul_domtree2');
+  ul.removeChild(ul.lastChild);
+&quot;&gt;Remove last element&lt;/button&gt;
+
+<!-- removing first child -->
+&lt;button class=&quot;pure-button pure-button-secondary&quot; onclick=&quot;
+  var ul = document.getElementById('ul_domtree2');
+  ul.removeChild(ul.firstChild);
+&quot;&gt;Remove first element&lt;/button&gt;
+</code></pre>
+
+</section>
+
+
+
+<section>
+  <h2>Misuse of <code>innerHTML</code></h2>
+
+<ul>
+  <li>HTML elements can also be added via <code>innerHTML</code></li>
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<!-- adding a link to Google -->   
+var div = document.getElementById("some_div");
+div.innerHTML += "<a href=\"http://www.google.com\">Link to Google</a>";
+</code></pre>
+
+  <li>Strongly discouraged</li>
+  <li>More principled approach is to use <code>createElement</code>, <code>appendChild</code></li>
+
+</ul>
+
+</section>
+
+<section>
+  <h2>Unobtrusive styling</h2>
+</section>
+
+
+<section>
+  <h2>Global DOM objects</h2>
+
+  <ul>
+    <li><code>document</code>: current web page</li>
+    <li><code>history</code></li>
+    <li><code>location</code> (URL of the current page)</li>
+    <li><code>navigator</code> (the Web browser you are using)</li>
+    <li><code>screen</code></li>
+    <li><code>window</code>: entire browser window</li>
+  </ul>
+  </section>
+
+<section>
+  <h2>Methods of the <code>windows</code> object</h2>
+
+  <ul>
+    <li><code>alert, confirm, prompt</code></li>
+    <li><code>setInterval, setTimeout, clearInterval, clearTimeout</code></li>
+    <li><code>open, close, print</code></li>
+    <li><code>blur, focus</code></li>
+    <li><code>moveBy, moveTo, resizeBy, resizeTo, scrollBy, scrollTo</code></li>
+  </ul>
+  </section>
+
+<section>
+  <h2>Interesting properties &amp; methods</h2>
+
+  <ul>
+    <li><code>document.referrer</code>: URL of the document viewed before this one</li>
+    <li><code>document.cookie</code>: all cookies of this page</li>
+    <li><code>document.body</code></li>
+    <li><code>navigator.cookieEnabled</code></li>
+    <li><code>history.length, history.back(), history.forward(), history.go(index)</code></li>
+    <li><code>location.hostname, location.protocol, location.search</code></li>
+  </ul>
+  </section>
+
+  <section>
+    <h2>THE END</h2>
+  </section>
+ </div>
+
+</div>
+
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.min.js"></script>
+
+<script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+        { src: '../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: '../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: '../plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+        { src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+</script>
+
+
+</body>
+</html>
