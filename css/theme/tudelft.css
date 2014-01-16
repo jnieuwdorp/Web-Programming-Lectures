@@ -23,6 +23,18 @@ body {
   color: white;
   background: #e7ad52;
   text-shadow: none; }
+
+.reveal .tooltip {
+  text-align:center;
+  padding:5px;
+  position:absolute;
+  background:rgb(120,60,60);
+  height:90px;
+  width:120px;
+  top: 20;
+  left: 0;
+  visibility: hidden;
+}  
   
 .reveal        .pure-button-success,
 .reveal        .pure-button-error,

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>TI1505 Web Programming: JavaScript Events</title>
+  <title>TI1505 Web Programming: JavaScript Prototype &amp; Events</title>
 
   <meta name="description" content="A lecture on JavaScript events">
   <meta name="author" content="Claudia Hauff">
@@ -40,17 +40,113 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
         <section data-background-transition="slide" data-background="../forms-lecture/img/tu_delft_library.jpg" style="background: rgba(0,129,195,.9); color: white" id="presentable" class="bookend">          
-          <h1>TI1505: JavaScript Events</h1>
+          <h1>TI1505: Prototype &amp; Events</h1>
           <h3>Claudia Hauff</h3>
         </section>
 
         <section>
           <h2>Today: more than just <code>onclick</code></h2>
           <p>
-            The lecture today covers chapter 11 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>, 2nd Edition. The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter11-events.shtml">here</a> (we follow them pretty closely).
+            The lecture today covers chapters 10 &amp; 11 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>, 2nd Edition. The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter10-prototype-scriptaculous.shtml">here (Prototype part)</a> and <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter11-events.shtml">here</a> (we follow them pretty closely).
             
           </p>
         </section>
+
+        <section>
+          <h2>Prototype</h2>
+        </section>
+
+        <section>
+          <h2>JavaScript</h2>
+
+          <ul>
+            <li>JavaScript implementations are browser specific (we ignore <a href="https://developer.mozilla.org/en-US/docs/Rhino">Rhino</a> &amp; Co) </li>
+            <li>Naming differences, e.g. <code>class</code> vs. <code>className</code></li>
+            <li>Slightly different effects due to underspecified standard (<a href="http://en.wikipedia.org/wiki/ECMAScript">ECMAScript</a>, version 5.1)</li>
+            <li>.... or due to historic reasons (<a href="http://www.youtube.com/watch?v=JxAXlJEmNMg">Douglas Crockford's very interesting history overview</a>)</li>
+            <li>Many small differences, requires at least debugging on Firefox, Chrome and Internet Explorer</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Which browsers are most popular?</h2>
+
+          <ul>
+            <li>Statistics of <a href="http://gs.statcounter.com/">StatCounter</a>, <a href="http://www.netmarketshare.com/">Market Share</a></li>
+            <li><a href="http://www.google.com/trends/explore#q=Firefox%2C%20Safari%2C%20Chrome%2C%20Internet%20Explorer%2C%20Opera&cmpt=q">Google Trends</a></li>
+          </ul>
+          <img src="img/google_trends.png" width="800px">
+        </section>  
+
+        <section><h2>JavaScript libraries</h2>
+
+          <ul>
+            <li>Free you from cross-browser debugging</li>
+            <li>JavaScript <a href="http://en.wikipedia.org/wiki/List_of_JavaScript_libraries">libraries</a> exist for different purposes (DOM, GUI, Visualization, Unit Testing, etc.</a></li>
+            <li>Popular frameworks: <a href="http://jquery.com/">jQuery</a>, <a href="http://dojotoolkit.org/">Dojo</a>, <a href="http://mootools.net/">MooTools</a>, <a href="http://script.aculo.us/">script.aculo.us</a>, <a href="http://prototypejs.org/">Prototype</a>, etc.</li>
+          </ul>
+        </section>  
+
+
+        <section><h2>What do they do?</h2>
+
+          <blockquote>script.aculo.us provides you with
+easy-to-use, cross-browser user
+interface JavaScript libraries to make
+your web sites and web applications fly. 
+<br>What's inside? animation framework,
+drag and drop, Ajax controls
+DOM utilities, and unit testing.</blockquote>
+
+<blockquote>jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers.</blockquote>
+        </section>  
+
+         <section><h2>What do they do?</h2>
+
+          <blockquote>MooTools is a compact, modular, Object-Oriented JavaScript framework designed for the intermediate to advanced JavaScript developer.</blockquote>
+
+<blockquote>Prototype takes the complexity out of client-side web programming. Built to solve real-world problems, it adds useful extensions to the browser scripting environment and provides elegant APIs around the clumsy interfaces of Ajax and the Document Object Model.</blockquote>
+        </section>     
+
+
+        <section><h2>jQuery vs. Prototype</h2>
+
+          <ul>
+            <li>jQuery has won the war</li>
+
+          </ul>
+
+          <img src="img/google_trends2.png" width="800px"><br>
+          <small><a href="http://www.google.com/trends/explore?q=jQuery#q=%2Fm%2F0268gyp%2C%20mootools%2C%20scriptaculous%2C%20%2Fm%2F0fvx82&cmpt=q">Google Trends</a></small>
+
+        </section>                        
+
+
+
+        <section>
+          <h2>Events</h2>
+          <ul>
+            <li>Mouse events</li>
+              <ul><li>onclick</li>
+                  <li>onmousemove</li>
+                  <li>onmouseup ...</li> 
+              </ul>
+            <li>Keyboard events</li>
+              <ul><li>onkeydown</li>
+                  <li>onkeypress</li>
+                  <li>onkeyup</li>
+              </ul>
+            <li>Frame/object events</li>
+              <ul><li>onerror</li>
+                  <li>onscroll ...</li>
+                </ul>
+            <li>Form events</li>
+              <ul><li>onblur</li>
+                  <li>onchange</li>
+                  <li>onsubmit ...</li>
+              </ul>
+            </ul>
+        </section>        
 
 
         <section>
@@ -137,14 +233,32 @@ function increment( elementIDString, addonText ) {
 
         <!-- slide: S_C -->
         <section>
-          <h2><code>onselect</code> &amp; <code>onmousemove</code></h2>
+          <h2><code>onselect</code>, <code>onmousemove</code> &amp; <code>onmouseout</code></h2>
 
+          <form class="pure-form" onmousemove="movingTheMouseWithin(event)" onmouseout="movingTheMouseOutside(event)" id="S_C_0">
           <p><em>Task: Write or mark the 3 most important information nuggets</em><br>
-            <textarea id="S_C_1" cols="50" rows="5" readonly onselect="updateNuggets()">
-          "Hobey Baker (1892–1918) was an American amateur athlete of the early twentieth century, widely regarded by his contemporaries as one of the best athletes of his time."</textarea><br>
-          <label>Nugget 1: <input type="text" id="S_C_2"></label><br>
-          <label>Nugget 2: <input type="text" id="S_C_3"></label><br>
-          <label>Nugett 3: <input type="text" id="S_C_4"></label>
+            <textarea id="S_C_1" cols="50" rows="5" readonly onselect="updateNuggets()">"Hobey Baker (1892–1918) was an American amateur athlete of the early twentieth century, widely regarded by his contemporaries as one of the best athletes of his time."</textarea><br>
+          <label>Nugget 1: <input type="text" id="S_C_2" style="margin:10px;" autocomplete="off"></label><br>
+          <label>Nugget 2: <input type="text" id="S_C_3" style="margin:10px;" autocomplete="off"></label><br>
+          <label>Nugget 3: <input type="text" id="S_C_4" style="margin:10px;" autocomplete="off"></label><br>
+          <button hidden="hidden" id="S_C_5">Submit Answers</button><br>
+          <div id="S_C_6" class="tooltip"></span>
+
+        </form>
+        </section>
+
+
+        <!-- slide: S_D -->
+        <section>
+          <h2><code>onkeypress</code></h2>
+
+          <form class="pure-form" onkeypress="checkTextAtKeyPress(event)" id="S_D_0">
+          <p><em>Task: Type out the following text correctly:</em><br>
+          <textarea id="S_D_1" cols="50" rows="5" readonly autocomplete="off">"Hobey Baker (1892-1918) was an American amateur athlete of the early twentieth century, widely regarded by his contemporaries as one of the best athletes of his time."</textarea>
+          <br>&nbsp;<br>
+            <textarea id="S_D_2" cols="50" rows="5" readonly autocomplete="off"></textarea><br>          
+          <span id="S_D_3">0 seconds</span>
+        </form>
         </section>
 
 
