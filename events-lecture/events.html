@@ -27,6 +27,7 @@
   </script>
 
   <script src="sample_scripts.js" type="text/javascript"></script>
+  <script src="../lib/js/prototype-1.7.1.js" type="text/javascript"></script>
 
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
@@ -84,6 +85,7 @@
             <li>Free you from cross-browser debugging</li>
             <li>JavaScript <a href="http://en.wikipedia.org/wiki/List_of_JavaScript_libraries">libraries</a> exist for different purposes (DOM, GUI, Visualization, Unit Testing, etc.</a></li>
             <li>Popular frameworks: <a href="http://jquery.com/">jQuery</a>, <a href="http://dojotoolkit.org/">Dojo</a>, <a href="http://mootools.net/">MooTools</a>, <a href="http://script.aculo.us/">script.aculo.us</a>, <a href="http://prototypejs.org/">Prototype</a>, etc.</li>
+            <li><a href="http://en.wikipedia.org/wiki/Comparison_of_JavaScript_frameworks">Detailed comparison of JavaScript libraries on Wikipedia</a></li>
           </ul>
         </section>  
 
@@ -113,14 +115,155 @@ DOM utilities, and unit testing.</blockquote>
 
           <ul>
             <li>jQuery has won the war</li>
-
+            <li>jQuery's syntax/style removed from typical JavaScript coding patterns</li>
+            <li>Prototype: "more subtle and gentle library that seeks to augment JavaScript rather than reinvent it"</li>
           </ul>
 
           <img src="img/google_trends2.png" width="800px"><br>
           <small><a href="http://www.google.com/trends/explore?q=jQuery#q=%2Fm%2F0268gyp%2C%20mootools%2C%20scriptaculous%2C%20%2Fm%2F0fvx82&cmpt=q">Google Trends</a></small>
 
-        </section>                        
+        </section>     
 
+
+        <section><h2>Prototype</h2>
+
+          <ul>
+            <li>Additional methods for JavaScript objects (<code>String</code>, <code>Array</code>, etc.)</li>
+            <li>DOM extensions</li>
+            <li>Event handling is simplified</li>
+            <li>Cross-browser compatibility</li>
+            <li>Ajax</li>
+          </ul>
+<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+&lt;script src=&quot;prototype.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+        </section>      
+
+
+        <section><h2>Extending JavaScript Objects</h2>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var name = &quot;Daisy&quot;;
+name.firstLetter(); //TypeError: name1.firstLetter is not a function
+
+//adding a method to the prototype
+typeof(String.prototype); //&quot;object&quot;
+String.prototype.firstLetter=function(){
+    if(this.length&gt;0){
+       return this.charAt(0);
+    }
+    else{
+       return null;
+    }
+}
+
+name.firstLetter(); //&quot;D&quot;
+&quot;Micky Mouse&quot;.firstLetter(); //&quot;M&quot;
+          </code></pre>
+        </section>                                
+
+<section><h2>Why does it work?</h2>
+
+<img src="img/inheritance1.png">
+</section>       
+
+<section><h2>Why does it work?</h2>
+
+<img src="img/inheritance2.png">
+</section> 
+
+
+        <section><h2>Nothing special about <code>String.prototype</code></h2>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var name = { first : "Daisy", last : "Duck"}; //JSON: JavaScript Object Notation
+typeof(name); //"object"
+typeof(name.first); //"string"
+name.first.firstLetter(); //"D"
+
+//define a new function on the name object
+name.secondLetter=function(){
+   return name.first.charAt(1);
+}
+
+name.secondLetter(); //"a"
+
+var name2 = {first:"Minnie", last:"Mouse"};
+name2.first.firstLetter(); //"M"
+name2.secondLetter(); //TypeError: name2.secondLetter is not a function
+
+//though it does not make a lot of sense, this is possible
+Object.prototype.secondLetter = function(){return this.first.charAt(1).toUpperCase();}
+name2.secondLetter(); //"I"
+name.secondLetter(); //"a"
+          </code></pre>
+        </section>    
+
+
+        <section><h2>Why not extend a <code>String</code> directly?</h2>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var name = "Daisy Duck";
+typeof(name); //"string"
+
+name.thirdLetter = function(){return this.charAt(2);} //works
+
+name.thirdLetter(); //TypeError: name.thirdLetter is not a function
+
+//what about Number?
+var num = 4;
+num.minusOne = function(){return this-1; } //works
+num.minusOne(); //TypeError: num.minusOne is not a function
+
+var numObj = { num : 4}; //typeof(numObj) is "object"
+numObj.minusOne = function(){return this.num-1; }
+numObj.minusOne(); //4
+          </code></pre>
+          <p>Only objects of type <code>Object</code> can be extended this way (includes arrays).</p>
+        </section>          
+
+
+
+        <section><h2>Prototype extensions of <code>Number</code></h2>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+//Prototype
+var n = 135.42;
+n = n.round(); //135 (in plain JavaScript: Math.round())
+
+(254).toColorPart(); //"fe" (254.toColorPart() does not work)
+
+(254).toPaddedString(6); //"000254"
+
+(254).toPaddedString(6,16); //"000fe"
+          </code></pre>
+<p>WebConsole (Firefox) shows the available methods as well when loading pages that import the library</p>
+<ul><li>Use <code>X.prototype</code> when <code>typeof(X)!="object"</code></li></ul>
+<img style="position:absolute; left:950px; top:100px" src="img/webconsole.png">
+        </section> 
+
+
+        <section><h2>Prototype extensions of <code>Array</code></h2>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var a = [1,2,3,4,5];
+var b = a.copy(); //Prototype: deep copy of the array (not the same as var b = a)
+
+delete a[2]; //true
+delete a[3]; //true
+a.toString();//"1,2,,,5" 
+a.length; //5
+a = a.compact(); //Prototype: deleting undefined/null  values
+a.toString; //"1,2,5"
+
+a = [1,2,3,[4.1,4.2],[5.1,5.2,5.3,[5.3.1,5.3.2]]];
+
+
+
+
+          </code></pre>
+        </section> 
 
 
         <section>
