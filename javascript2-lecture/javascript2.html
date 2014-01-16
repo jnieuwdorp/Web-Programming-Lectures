@@ -27,6 +27,15 @@
   <script>
   document.write( '<link rel="stylesheet" href="../css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
 
+
+function current_object_buttons(times,id) {
+	var input = parseInt(document.getElementById(id).value);
+	var t = parseInt(times);
+	if(isNaN(input) || isNaN(t)){alert('Not a number!');}
+	else{alert(input*t);}
+};
+
+
   </script>
 
     <!--[if lt IE 9]>
@@ -91,7 +100,7 @@
         <li><code>||</code> and <code>&amp;&amp;</code> behave as in Java, <em>if</em> their operands have Boolean values</li>
         <li>Non-Boolean <code>||</code>: returns left operand if it can be converted to true</li>
         <li>Non-Boolean <code>&amp;&amp;</code>: returns left operand if it can be converted to false</li>
-        <li>Default operator can be implemented this way</li>
+        <li>Default values can be implemented this way</li>
       </ul>
 
       <input type="text" id="logical_op_1" size="15"> || <input type="text" id="logical_op_2" size="15"> = <span id="logical_op_res"> </span> <button class="pure-button pure-button-primary" onclick=" {
@@ -125,6 +134,21 @@
 </ul>
 
 </section>
+
+
+
+<section>
+<h2>Objects</h2>
+
+<ul>
+<li><code>new Object()</code> produces an empty Object, ready to receive name/value pairs</li>
+<li>Name can be any string, value anything but <code>undefined</code></li>
+<li>Member are accessed through <code>.name</code> or <code>[name]</code></li>
+<li>Unifies Object and Hashtable</li>
+</ul>
+
+</section>
+
 
 
 <section>
@@ -192,7 +216,7 @@ var p = new Point(10,20);
 
 
 <section>
-<h2>Objects are prototypes</h2>
+<h2>Objects</h2>
 
 <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
 var p2d = new Point(10,20);
@@ -205,6 +229,8 @@ p3d.sum(); /* 60 */
 </code></pre>
 <ul>
 <li>New variables and methods can be added on the fly</li>
+<li>Objects have a secret pointer to another object: the object's prototype</li>
+<li>JavaScript does prototype chaining</li>
 </ul>
 </li>
 </ul>
@@ -212,8 +238,55 @@ p3d.sum(); /* 60 */
 
 
 <section>
+<h2>Want to know more?</h2>
+<h3>Listen to Douglas Crockford</h3>
+
+<a href="http://www.youtube.com/watch?v=v2ifWcnQs6M&list=PL62E185BB8577B63D">PlayList on YouTube</a><br>
+(if you have a few hours, I highly recommend it)
+</section>
+
+<section>
 <h2>Global DOM Objects</h2>
 </section>
+
+<section>
+  <h2>Global DOM objects</h2>
+
+  <ul>
+    <li><code>document</code>: current web page</li>
+    <li><code>history</code></li>
+    <li><code>location</code> (URL of the current page)</li>
+    <li><code>navigator</code> (the Web browser you are using)</li>
+    <li><code>screen</code></li>
+    <li><code>window</code>: entire browser window</li>
+  </ul>
+  </section>
+
+<section>
+  <h2>Methods of the <code>windows</code> object</h2>
+
+  <ul>
+    <li><code>alert, confirm, prompt</code></li>
+    <li><code>setInterval, setTimeout, clearInterval, clearTimeout</code></li>
+    <li><code>open, close, print</code></li>
+    <li><code>blur, focus</code></li>
+    <li><code>moveBy, moveTo, resizeBy, resizeTo, scrollBy, scrollTo</code></li>
+  </ul>
+  </section>
+
+<section>
+  <h2>Interesting properties &amp; methods</h2>
+
+  <ul>
+    <li><code>document.referrer</code>: URL of the document viewed before this one</li>
+    <li><code>document.cookie</code>: all cookies of this page</li>
+    <li><code>document.body</code></li>
+    <li><code>navigator.cookieEnabled</code></li>
+    <li><code>history.length, history.back(), history.forward(), history.go(index)</code></li>
+    <li><code>location.hostname, location.protocol, location.search</code></li>
+  </ul>
+  </section>
+
 
 <section>
   <h2>Separating HTML, CSS and JavaScript</h2>
@@ -351,7 +424,7 @@ function sumOfTwoNumbers() {
 <section>
   <h2>Solution 2: <code>window.onload</code> (recommended)</h2>
 
-<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
 // collect global statements
 function functionName() {
   element.event = functionName;
@@ -432,7 +505,7 @@ function functionName() {
   element.event = functionName;
   element.event = functionName;
   ...
-};
+}};
 </code></pre> 
 
 
@@ -528,10 +601,10 @@ wrapper(); /* call function */
   <li>Simplifies programming, one function can serve different objects</li>
 </ul>
 
-x: <input type="text" size="5" pattern="[0-9]+" id="this_example_id">
-<button class="pure-button pure-button-primary" id="button10">10 times</button>
-<button class="pure-button pure-button-warning" id="button23">23 times</button>
-<button class="pure-button pure-button-secondary" id="button76">76 times</button>
+<input type="text" size="5" pattern="[0-9]+" id="this_example_id">
+<button class="pure-button pure-button-primary" id="button10" onclick="current_object_buttons(10,'this_example_id')">10 times</button>
+<button class="pure-button pure-button-warning" id="button23" onclick="current_object_buttons(23,'this_example_id')">23 times</button>
+<button class="pure-button pure-button-secondary" id="button76" onclick="current_object_buttons(76,'this_example_id')">76 times</button>
 
 <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
 /* one function per button (highly redundant) */
@@ -559,10 +632,10 @@ window.onload = function() {
   <li>Simplifies programming, one function can serve different objects</li>
 </ul>
 
-x: <input type="text" size="5" pattern="[0-9]+" id="this_example_id">
-<button class="pure-button pure-button-primary" id="button10">10 times</button>
-<button class="pure-button pure-button-warning" id="button23">23 times</button>
-<button class="pure-button pure-button-secondary" id="button76">76 times</button>
+x: <input type="text" size="5" pattern="[0-9]+" id="this_example_id2">
+<button class="pure-button pure-button-primary" id="button10" onclick="current_object_buttons(10,'this_example_id2')">10 times</button>
+<button class="pure-button pure-button-warning" id="button23" onclick="current_object_buttons(23,'this_example_id2')">23 times</button>
+<button class="pure-button pure-button-secondary" id="button76" onclick="current_object_buttons(76,'this_example_id2')">76 times</button>
 
 <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
 /* best option: exploit the this keyword */
@@ -610,27 +683,42 @@ function computeTimes() {
 </section>
 
 <section>
-  <h2>Type of DOM nodes</h2>
-<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
-&lt;p id=&quot;foo&quot;&gt;This is a paragraph of text with a 
-  &lt;a href=&quot;/path/to/another/page.html&quot;&gt;link&lt;/a&gt;.
-&lt;/p&gt;
-</code></pre>   
-  <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_4_dom_tree.png" width="400px">
+  <h2>Reminder: the DOM tree</h2>
   <ul>
-    <li>Element nodes: HTML tags (have children, attributes)</li>
-    <li>Text nodes</li>
-    <li>Attribute nodes (attribute/value pair); usually not shown</li>
+  <li>Each page element is an object</li>
+  <li>A DOM node (or DOM object) has references to</li>
+  <ul><li>its parent</li>
+  <li>its siblings</li>
+  <li>its children</li></ul>
+  <li>All objects are connected to each other in a tree-like structure</li>
+  </ul>
 </section>
 
 <section>
-  <h2>Examples</h2>
+  <h2>Why do we care?</h2>
   <ul>
-    <li>Can be intricate ... don't just think text, but visualizations, games</li>
+    <li>Intricate DOM manipulations make games, visualizations possible</li>
     <li>Puzzle pieces expressed as <code>divs</code>, randomly exchange them after button click</li>
     <li>Mouse cursor game: cursor must not touch maze walls - turn them red otherwise</li>
   </ul>
 </section>
+
+<section>
+  <h2>Three Types of DOM nodes</h2>
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+&lt;p id=&quot;foo&quot;&gt;This is a paragraph of text with a 
+  &lt;a href=&quot;http://www.google.com/&quot;&gt;link&lt;/a&gt;.
+&lt;/p&gt;
+</code></pre>   
+  <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_4_dom_tree.png" width="400px"><br>
+  <small>Source: <a href="http://www.webstepbook.com/">Web Programming Step by Step</a></small>
+  <ul>
+    <li><span style="color:orange">Element nodes</span>: HTML tags (have children and/or attributes)</li>
+    <li>Text nodes: inline text inside a block element (no children or attributes)</li>
+    <li>Attribute nodes: attribute name/value pair inside an element's opening tag; cannot have children or attributes</li>
+</section>
+
+
 
 
 <section>
@@ -651,16 +739,21 @@ function computeTimes() {
   <h2>Example</h2>
   <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
 &lt;p id=&quot;foo&quot;&gt;This is a paragraph of text with a 
-  &lt;a href=&quot;/path/to/another/page.html&quot;&gt;link&lt;/a&gt;.
+  &lt;a href=&quot;http://www.google.com&quot;&gt;link&lt;/a&gt;.
 &lt;/p&gt;
 </code></pre>  
-  <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_5_tree_structure.png" width="400px">
+  <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_5_tree_structure.png" width="400px"><br>
+    <small>Source: <a href="http://www.webstepbook.com/">Web Programming Step by Step</a></small>
+  
+    <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+//para is a reference to node &lt;p&gt;
+para.firstChild.nextSibling.firstChild.textContent = "Google link"
+</code></pre>  
 </section>
 
 
-
 <section>
-  <h2>Element vs. text nodes</h2>
+  <h2>Walking the DOM tree directly is error-prone</h2>
   <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
 &lt;div&gt;
   &lt;p&gt;
@@ -668,8 +761,31 @@ function computeTimes() {
     &lt;a href=&quot;page.html&quot;&gt;link&lt;/a&gt;.
   &lt;/p&gt;
 &lt;/div&gt;
-</code></pre>  
+</code></pre> 
 
+<p><a href="walking_dom_tree" target="_blank">How many children does <code>&lt;div></code> have?</a></p> 
+
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+var myDiv = document.getElementsByTagName("div")[0];
+myDiv.childNodes;
+myDiv.childElementCount;
+</code></pre> 
+
+</section>
+
+
+<section>
+  <h2>Walking the DOM tree directly is error-prone</h2>
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+&lt;div&gt;
+  &lt;p&gt;
+    This is a paragraph of text with a 
+    &lt;a href=&quot;page.html&quot;&gt;link&lt;/a&gt;.
+  &lt;/p&gt;
+&lt;/div&gt;
+</code></pre> 
+
+<p>How many children does <code>&lt;div></code> have?</p> 
 <p><code>div</code> has three children:
   <ul><li>Text node: <code>\n\t</code></li>
     <li>Element node: <code>&lt;p&gt;</code></li>
@@ -680,8 +796,8 @@ function computeTimes() {
 
 
 <section>
-  <h2>Selecting groups of DOM objects</h2>
-
+  <h2>Selecting groups of DOM elements</h2>
+	<p>We are mostly interested in the elements, lets ignore the text nodes.</p>
     <ul>
       <li><code>document.getElementsByTagName</code></li>
       <li><code>document.getElementsByName</code></li>
@@ -691,6 +807,12 @@ function computeTimes() {
     <p>
     Test on <a href="dom.html">dom.html</a> (WebConsole, Inspector).
   </p>
+</section>
+
+
+<section>
+  <h2>Example: highlighting</h2>
+	<p>Goal: a <a href="highlight.html">searchable page</a>, which highlights paragraphs that contain terms of interest to the user</p>
 </section>
 
 
@@ -711,6 +833,10 @@ var pInDiv = document.querySelectorAll(&quot;div #id_p&quot;);
 for (var i = 0; i &lt; pInDiv.length; i++) {
   pInDiv[i].style.backgroundColor = &quot;red&quot;;
 }
+
+/* or ... (remember: # is an id, . a class)*/
+var paragraphs = document.querySelectorAll("div#news p.announcement");
+
 </code></pre>  
 
 </section>
@@ -834,49 +960,70 @@ div.innerHTML += "<a href=\"http://www.google.com\">Link to Google</a>";
 
 <section>
   <h2>Unobtrusive styling</h2>
+  <ul>
+  <li>So far
+  	<ul><li>separation between content and code</li>
+  	<li>Hardcoding of CSS style properties in JavaScript</li>
+  	</ul>
+  <li>Now: separation between JavaScript code and styling/presentation</li>
+  <li>Ideally: presentation change should require changes in CSS files only</li>
+  <li>Good JavaScript code contains little to none CSS</li> 
+  </ul>
 </section>
 
 
 <section>
-  <h2>Global DOM objects</h2>
-
+  <h2>Unobtrusive styling: How-To</h2>
   <ul>
-    <li><code>document</code>: current web page</li>
-    <li><code>history</code></li>
-    <li><code>location</code> (URL of the current page)</li>
-    <li><code>navigator</code> (the Web browser you are using)</li>
-    <li><code>screen</code></li>
-    <li><code>window</code>: entire browser window</li>
+  <li>JavaScript modifies classes and/or ids on elements</li>
+  <li>Appearance of classes/ids defined in CSS files</li> 
   </ul>
-  </section>
+  
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="css">
+/* CSS style for clicked buttons in *.css */
+.clickedButton {
+  color: orange;
+  background-color:white;
+}
+</code></pre>
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+// JavaScript to change the style at button click
+function buttonClick() {
+   this.className = &quot;clickedButton&quot;;
+}
+</code></pre>  
+
+</section>
+
+
 
 <section>
-  <h2>Methods of the <code>windows</code> object</h2>
-
+  <h2>Unobtrusive styling: What about multiple classes?</h2>
   <ul>
-    <li><code>alert, confirm, prompt</code></li>
-    <li><code>setInterval, setTimeout, clearInterval, clearTimeout</code></li>
-    <li><code>open, close, print</code></li>
-    <li><code>blur, focus</code></li>
-    <li><code>moveBy, moveTo, resizeBy, resizeTo, scrollBy, scrollTo</code></li>
+  <li><code>className</code> property overwrites pre-existing class</li>
+  <li>Use <code>classList<span class="html5">HTML5</span></code>: DOM property, which represents all classes on the element</li> 
   </ul>
-  </section>
+  
+  <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+var buttons = document.getElementByTagName("button");
+var button1 = buttons[0];
+button1.classList.toString(); //"pure-button pure-button-primary"
+button1.classList.add("pure-button-secondary");
+button1.classList.toString(); //"pure-button pure-button-primary pure-button-secondary"
+</code></pre>
+  
+</section>
 
-<section>
-  <h2>Interesting properties &amp; methods</h2>
 
-  <ul>
-    <li><code>document.referrer</code>: URL of the document viewed before this one</li>
-    <li><code>document.cookie</code>: all cookies of this page</li>
-    <li><code>document.body</code></li>
-    <li><code>navigator.cookieEnabled</code></li>
-    <li><code>history.length, history.back(), history.forward(), history.go(index)</code></li>
-    <li><code>location.hostname, location.protocol, location.search</code></li>
-  </ul>
-  </section>
-
-  <section>
+ <section>
     <h2>THE END</h2>
+    
+    <ul>
+    <li><a href="https://developer.mozilla.org/en-US/Firefox_OS/Apps">Mozilla's official resource for Firefox OS Apps</a></li>
+    <li><a href="http://shafiul.github.io/slides/kickstart_fxos.html">A set of slides explaining how to get started</a></li>
+    <li><a href="https://addons.mozilla.org/en-US/firefox/addon/firefox-os-simulator/">Firefox OS 1.1 Simulator</a></li>
+    <li><a href="http://www.mozilla.org/en-US/firefox/os/">The Firefox OS Phone</a></li>
+    </ul>
   </section>
  </div>
 

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<html>
+<head>
+
+<!-- correctly: write to a separate CSS file -->
+<style>
+	.highlighted {
+		background-color:yellow;
+		font-weight: bold;
+	}
+</style>
+
+<!-- correctly: write to a separate JavaScript file -->
+<script type="text/javascript">
+window.onload = function() {
+	document.getElementById("searchbutton").onclick = searchClick;
+};
+
+function searchClick() {
+
+	var searchPhrase = document.getElementById("searchtext").value;
+
+	var main = document.getElementById("main");
+	var mainParas = main.getElementsByTagName("p");
+	
+	for (var i = 0; i < mainParas.length; i++) {
+		if( mainParas[i].innerHTML.indexOf(searchPhrase) >= 0) {
+			mainParas[i].className = "highlighted";
+		}
+		else {
+			mainParas[i].className = null;
+		}
+	}
+}
+</script>
+
+</head>
+
+<body>
+
+<div id="main">
+
+	<p>Israeli politician and general Ariel Sharon (pictured) dies after being in a permanent vegetative state for eight years.</p>
+	<p>Amid civil conflict, Michel Djotodia resigns as President of the Central African Republic.</p>
+	<p>Archaeologists identify the tomb of Egyptian pharaoh Sobekhotep I.</p>
+	<p>The United States Senate confirms Janet Yellen as the Federal Reserve System's first female chairman.</p>
+	<p>North America experiences record low temperatures.</p>
+	<p>Amid violence and a boycott by opposition parties, the Bangladesh Awami League wins the general election.</p>
+	<p>The al-Qaeda-affiliated Islamic State of Iraq and the Levant captures the city of Fallujah.</p>
+</div>
+<hr>
+<div>
+	Search for text:
+	<input id="searchtext" type="text" />
+	<button id="searchbutton">Search</button>
+</div>
+<hr>
+<p>Text source: Wikipedia Current Events Portal</p>
+
+</body>
+
+</html>
