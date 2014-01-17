@@ -3,6 +3,16 @@ S_B_interval= [];
 S_D_currentPos = 0;
 S_D_numSeconds = 0;
 
+window.onload = (function(){
+console.log("attaching events");
+$("S_E_1").observe("click",alertEvent);
+})();
+
+function alertEvent(event) {
+	console.log("in alert events!");
+	alert(event.element().type);
+}
+
 function checkTextAtKeyPress(e) {
 	var givenText = "S_D_1";
 	var typedText = "S_D_2";
