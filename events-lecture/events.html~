@@ -34,7 +34,13 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body   onclick= "
+		var page = 'page: '+event.pageX+', '+event.pageY;
+		var offset= 'offset: '+event.offsetX+', '+event.offsetY;
+		var client= 'client: '+event.clientX+', '+event.clientY;
+		var screen= 'screen: '+event.screenX+', '+event.screenY;
+
+		document.getElementById('mouseinfo').innerHTML = page+'<br>'+offset+'<br>'+client+'<br>'+screen+'<br>';	"	>
 
     <div class="reveal">
 
@@ -492,7 +498,7 @@ function whatToDoOnBlur(){
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
 //plain JavaScript
 function mouseover(elementID, timeout, addonText) {
-  interval[elementID]=setInterval(function(){increment(elementID, addonText);}, timeout);//global interval variable, anonymous function within setInterval
+  interval[elementID]=setInterval(increment, timeout,elementID,addonText);
 }
 
 function increment( elementIDString, addonText ) {
@@ -550,6 +556,7 @@ function increment( elementIDString, addonText ) {
 	<li>Once added to function call, no further code changes required</li>
 	<li>Prototype's event methods (<a href="event.html" target="_blank">example</a>)</li>
 		<ul>	<li><code>element()</code>: element on which the even occurred</li>
+			<li><code>stop()</code>: stop the event</li>
 			<li><code>stopObserving(eventType, eventHandler)</code>: removes the event handler for that event type</li>
 			<li><code>stopObserving(eventType)</code>: removes all event handlers for that event type</li>
 			<li><code>stopObserving()</code>: removes all event handlers</li>
@@ -569,6 +576,412 @@ function whatToDoOnBlur(event) {
           </code></pre>
 	</section>
 
+	<section><h2>Mouse events</h2>
+	<ul>
+		<li>A click of the mouse button in-place is a series of events ("clicking"):</li>
+		<ol>	<li><code>mousedown</code></li>
+			<li><code>mouseup</code></li>
+			<li><code>click</code></li>
+		</ol>
+	
+		<li>A click of the mouse button while moveing the mouse ("dragging"):</li>
+		<ol>	<li><code>mousedown</code></li>
+			<li><code>mousemove</code></li>
+			<li><code>...</code></li>
+			<li><code>mousemove</code></li>
+			<li><code>mouseup</code></li>
+		</ol>
+		<li>Other mouse effects: dblclick, mouseover, mouseout</li>
+		</ul>
+	</section>
+
+	<section><h2>Mouse event properties</h2>
+
+	<ul>
+		<li>Different spatial properties related to event location</li>
+		<ul><li>High degree of incompatibilities between browsers</li></ul>
+	</il>
+	</ul>
+	<img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_2_mouse_events.png" width="600px"><br>
+	<small>Source: <a href="http://www.webstepbook.com/supplements-2ed/slides/images/figure_2_mouse_events.png">Web Programming Step by Step</a></small>
+
+	</section>
+
+	<section><h2>Mouse event properties</h2>
+	<h4>Plain JavaScript: use is discouraged</h4>
+	<ul>
+		<li><code>clientX, clientY</code>: relative to the top/left corner of the browser window or tab</li>
+		<li><code>screenX, screenY</code>: relative to the top/left corner of the entire screen</li>
+		<li><code>offsetX, offsetY</code>: relative to the top/left corner of the element in which the event occurred (not in Firefox)</li>
+		<li><code>pageX, pageY</code>: relative to the top/left corner of the overall document</li>
+		<li><code>target</code> (Firefox), <code>srcElement</code> (the rest): element on which event occurred</li>
+		<li><code>button</code>: which (if any) button was pressed; assigned numbers vary across browsers</li>
+	</ul>
+	<div id="mouseinfo" style="width:400px;color:orange">Make a mouse click</div>
+
+	</section>
+
+	<section><h2>Mouse event properties in Prototype</h2>
+	<h4>Use these instead</h4>
+	<ul>
+		<li><code>isLeftClick()</code>: <code>true</code> if this event was left click</li>
+		<li><code>pointerX(), pointerY()</code>: relative to the overall document (same as pageX, pageY)</li>
+		<li><code>element()</code> element on which the event occurred</li>
+	</ul>
+	<div id="mouseinfo" style="width:400px;color:orange">Make a mouse click</div>
+
+	</section>
+
+
+	<section><h2>Keyboard and text events</h2>
+	<h4>Plain JavaScript</h4>
+		  <table class="centerTable">
+		    <tr><th>event</th><th>description</th></tr>
+		    <tr><td><code>blur</code></td><td>element loses keyboard focus</td></tr>
+		    <tr><td><code>focus</code></td><td>element gains keyboard focus</td></tr>
+		    <tr><td><code>keydown</code></td><td>user presses key while element has keyboard focus</td></tr>
+		    <tr><td><code>keypress</code></td><td>user presses and releases key while element has keyboard focus (problematic)</td></tr>
+		    <tr><td><code>keyup</code></td><td>user releases key while element has keyboard focus</td></tr>
+		    <tr><td><code>select</code></td><td>user selects text in an element</td></tr>
+		  </table>
+	<ul>
+		<li>User holding down a key and autorepeating the key: multiple <code>keydown</code> and <code>keypress</code> events</li>
+		<li><code>keydown</code> vs. <code>keypress</code>: use <code>keydown</code> if possible, <code>keypress</code> is more inconsistent across browsers</li>
+		<li>Only one element has the focus at a time</li> 
+	</ul>
+
+	</section>
+
+
+	<section><h2>Keyboard and text events</h2>
+	<h4>Plain JavaScript</h4>
+	<ul>
+		<li>User holding down a key and autorepeating the key: multiple <code>keydown</code> and <code>keypress</code> events</li>
+		<li><code>keydown</code> vs. <code>keypress</code>: use <code>keydown</code> if possible, <code>keypress</code> is more inconsistent across browsers</li>
+		<li>Only one element has the focus at a time</li> 
+	</ul>
+
+	</section>
+
+
+	<section><h2>Keyboard and text events</h2>
+	<h4>Plain JavaScript: which key is used?</h4>
+	<ul>
+		<li><code>keyCode</code>: <a href="http://en.wikipedia.org/wiki/ASCII">ASCII</a> value of the character that was pressed (convert to a character via <code>String.fromCharCode</code>)</li>
+		<li><code>charCode</code>: the character that was typed (not standardized!)</li>
+		<li><code>altKey</code>, <code>ctrlKey</code>, <code>shiftKey</code>: <code>true</code> if Alt, Ctrl, Shift is held down</li>
+		<li><a href="events.html#/32" target="_blank">Lets look at the example again</a> ... </li> 
+	</ul>
+
+	</section>
+
+
+	<section><h2>Correct typing example</h2>
+	<h4>Todo list</h4>
+
+	<ul>
+		<li>Input text box</li>
+			<ul>	<li>Is there more text to type out?</li>
+				<li>If so, compare pressed key against correct one</li>
+				<li>If correct, update the shown typed out text</li>
+				<li>If incorrect, alert the user (flash background red)</li>
+			</ul>
+		<li>Second counter</li>
+			<ul>	<li>When user starts typing, start counter</li>
+				<li>Update counter once a second</li>
+				<li>Stop counter when user typed out all text</li>
+			</ul>
+	</ul>
+	</section>
+
+	<section><h2>Correct typing example</h2>
+	<h4>Code layout</h4>
+
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+
+function checkTextAtKeyPress(e) {
+
+	//ID of the elements to acess: givenText, typedText, timer
+	var givenText = "S_D_1";
+	var typedText = "S_D_2";
+	var timerLog = "S_D_3";
+
+	var textToType = document.getElementById(givenText).value;
+
+	//we reached the end, do nothing
+	if(S_D_currentPos>=textToType.length) {return;}
+
+	var nextChar = textToType.charAt(S_D_currentPos);
+	var keyPressed = String.fromCharCode(e.keyCode);
+
+	//correct key was pressed
+	if(nextChar==keyPressed) {
+		$(typedText).style.backgroundColor="rgb(255,255,255)";
+		$(typedText).value = textToType.substring(0,S_D_currentPos+1);
+		S_D_currentPos++;//update position
+
+		//first time key was pressed, start counter
+		if(S_D_currentPos==1) {
+			S_B_interval[timerLog]=setInterval(function(){incrementSB(timerLog, " seconds");}, 1000);
+		}
+
+		//we reached the end
+		if(S_D_currentPos==textToType.length) {
+			clearInterval(S_B_interval[timerLog]);
+			$(timerLog).style.color="orange";
+		}
+	}
+	//incorrect key
+	else {
+		$(typedText).style.backgroundColor="rgb(255,100,100)";
+	}
+}
+    
+          </code></pre>
+	</section>
+
+	<section><h2>Keyboard and text events</h2>
+	<h4>What does Prototype add?</h4>
+	<ul>
+		<li>Simplifies the lookup of special characters (Escape key, arrow key .... useful for games)</li>
+		<li>In plain JavaScript: lookup ASCII values and match</li>
+		<li>In Prototype: constants in its global <code>Event</code> object</li>
+		<ul><li>KEY_TAB</li>
+			<li>KEY_ESC</li>
+			<li>KEY_LEFT</li>
+			<li>...</li>
+		</ul> 
+	</ul>
+
+	</section>
+
+	<section><h2>Keyboard and text events</h2>
+	<h4>Example: act when 'C' is pressed</h4>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+
+window.onload = function() {
+	$("words").observe("keydown",wordsKeyDown);
+}
+
+function wordsKeyDown(event) {
+	var letter = String.fromCharCode(event.keyCode);
+	if(letter=="C") {
+		alert("Yep, you pressed C");
+	}
+	if(event.keyCode == Event.KEY_LEFT) {
+		alert("Moving left ...");
+	}
+}
+          </code></pre>
+
+	</section>
+
+	<section><h2>Keyboard and text events</h2>
+	<h4>Example: zip code checker (numeric only)</h4>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+//allow digits and back space, key left and key right
+var ALLOWED = [Event.KEY_BACKSPACE, EVENT.KEY_LEFT, EVENT.KEY_RIGHT];
+
+window.onload = function() {
+	$("zip").observe("keydown",zipKeyDown);
+};
+
+function zipKeyDown(event) {
+	var zero = "0".charCodeAt("0");
+	var nine = "9".charCodeAt("9");
+	//we know that ASCII is `sorted`
+	if((event.keyCode < zero || event.keyCode>nine) && ALLOWED.indexOf(event.keyCode)<0){
+		event.stop();
+	}
+          </code></pre>
+
+	</section>
+
+
+	<section><h2>Form events</h2>
+	<h4>Extensively used already</h4>
+
+		<ul><li>change</li>
+			<li>reset</li>
+			<li>submit</li>
+		</ul> 
+	</section>
+
+
+	<section><h2>Page events</h2>
+
+		<ul><li><code>abort</code>: user cancels loading of the page</li>
+			<li><code>contextmenu</code>: user right-clicks to pop up a context menu (disallow downloading, e.g. on Flickr: compare <a href="http://www.flickr.com/photos/cheishichiyo/11488548836/sizes/l/">here</a> and <a href="http://www.flickr.com/photos/nikmorris/11913691314/sizes/l/">here</a>)</li>
+			<li><code>load</code>: the page has finished loading</li>
+			<li><code>unload</code>: user chooses to leave the page</li>
+		</ul> 
+	</section>
+
+	<section><h2>Page events</h2>
+	<h4>Alert the user when he leaves</h4>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+window.onunload = checkDataStatus;
+
+fuction checkDataStatus(event) {
+   if( $("message").length > 0 && 
+   !confirm("You have unsaved data! Are you sure?")) {
+      event.stop();
+  }
+}
+          </code></pre>
+	</section>
+
+
+	<section><h2>Page events</h2>
+	<h4>What does Prototype add?</h4>
+
+	<ul><li><code>dom:loaded</code>: event fires for <code>document</code> as soon as HTML DOM tree has finished loading; occurs sooner than <code>window.onload</code></li>
+        </ul>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+document.observe("dom:loaded", function() {
+   //what to do once DOM is available;
+   //only called once
+   //anonymous function is enough
+
+   //in our ZIP example
+   $("zip").observe("keydown",zipKeyDown);
+});
+          </code></pre>
+	</section>
+
+	<section><h2>Timer events</h2>
+	<h4>A very powerful notion </h4>
+
+	<ul>
+		<li>Run pieces of code after a specified delay</li>
+		<li>Often useful</li>
+		<ul>	<li>Requests or questions to the user that time out (e.g. a test exam)</li>
+			<li>Retrying an action repeatedly</li>
+			<li>Contacting a server at given intervals to request data!</li>
+			<li>Drawing animations</li>
+		</ul>
+        </ul>
+
+	</section>
+
+
+	<section><h2>Timer events</h2>
+	<h4>In 4 functions</h4>
+
+		  <table class="centerTable">
+		    <tr><th>name</th><th>description</th></tr>
+		    <tr><td><code>setTimeout(function, delay)</code></td><td>starts timer to call <code>function</code> <em>once</em> after <code>delay</code> milliseconds; returns a <em>timer ID</em></td></tr>
+		    <tr><td><code>setInterval(function, delay)</code></td><td><code>function</code> is called repeatedly every <code>delay</code> milliseconds</td></tr>
+		    <tr><td><code>clearTimeout(timerID)</code></td><td>aborts the timer associated with the <code>timerID</code></td></tr>
+		    <tr><td><code>clearInterval(timerID)</code></td><td>aborts the timer</td></tr>
+		  </table>
+
+	</section>
+
+	<section><h2>Timer events</h2>
+	<h4><a href="events.html#/29" target="_blank">We have seen this already</a></h4>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+var elementIDString;
+var addonText;
+
+function S_B_mouseover(elementID, timeout, text) {
+	elementIDString=elementID;
+	addonText=text;
+	S_B_interval[elementID]=setInterval(incrementSB, timeout);
+}
+
+function S_B_mouseout(elementID, addonText)
+{
+	clearInterval(S_B_interval[elementID]);
+}
+
+function incrementSB ( ) {
+	
+	var thisElement = document.getElementById(elementIDString);
+	var num;
+	if( thisElement.value!=undefined && thisElement.value.length > 0 ) {
+		num = parseInt(thisElement.value,10);
+	}
+	num++;
+
+	if( thisElement.value!=undefined && thisElement.value.length > 0) {
+		thisElement.value = num+addonText;
+	}
+}
+          </code></pre>
+	</section>
+
+	<section><h2>Timer events</h2>
+	<h4>A comon misconception</h4>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+	S_B_interval[elementID]=setInterval(function(){incrementSB(param1,param2);}(), timeout);
+	S_B_interval[elementID]=setInterval(incrementSB(param1,param2), timeout);
+          </code></pre>
+
+	<ul>	<li>Wrong: function will be executed immediately</li>
+		<li>A call to <code>setTimeout</code> returns immediately</li>
+	</section>
+
+	<section><h2>Timer events</h2>
+	<h4>Correct</h4>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
+	//1.
+	S_B_interval[elementID]=setInterval(function(){incrementSB(param1,param2);}, timeout);
+	//2.
+	S_B_interval[elementID]=setInterval(incrementSB, timeout,param1,param2);
+
+	//3. use a global variable or complex object in small projects
+          </code></pre>
+
+	<ul>	<li>The book recommends notation two</li>
+	</section>
+
+	<section>
+	<h2>If browser incompatibilities frustrate you go to <a href="http://www.quirksmode.org/" target="_blank">quirksmode</a></h2>
+	</section>
+
+	<section><h2>To round things off</h2>
+	<h4><a href="memory.html">A little game: memory</a></h4>
+
+	<ul>
+		<li>Input text box</li>
+			<ul>	<li>Is there more text to type out?</li>
+				<li>If so, compare pressed key against correct one</li>
+				<li>If correct, update the shown typed out text</li>
+				<li>If incorrect, alert the user (flash background red)</li>
+			</ul>
+		<li>Second counter</li>
+			<ul>	<li>When user starts typing, start counter</li>
+				<li>Update counter once a second</li>
+				<li>Stop counter when user typed out all text</li>
+			</ul>
+	</ul>
+	</section>
+
+
+	<section><h2>A pointer for advanced JavaScripter</h2>
+	</section>
+
+	<section><h2><a href="http://nodejs.org/">node.js</a></h2>
+	<blockquote>
+Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.
+	</blockquote>
+	</section>
+
+	<section><h2>The Hello World of node.js</h2>
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+var http = require('http');
+
+// Configure our HTTP server
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.end("Hello World\n");
+});
+
+// Listen on port 8000, IP defaults to 127.0.0.1
+server.listen(8000);
+          </code></pre>
+	</section>
       </div>
 
     </div>

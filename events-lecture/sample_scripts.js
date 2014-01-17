@@ -124,7 +124,8 @@ function incrementSB ( elementIDString, addonText ) {
 }
 
 function S_B_mouseover(elementID, timeout, addonText) {
-	S_B_interval[elementID]=setInterval(function(){incrementSB(elementID, addonText);}, timeout);
+	//S_B_interval[elementID]=setInterval(function(){incrementSB(elementID, addonText);}, timeout);
+	S_B_interval[elementID]=setInterval(incrementSB, timeout,elementID, addonText);
 }
 
 function S_B_mouseout(elementID, addonText)

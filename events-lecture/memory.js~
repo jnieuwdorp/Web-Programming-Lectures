@@ -5,7 +5,7 @@ var cardsShown = [];
 
 
 function startGame() {
-	console.log("Start game!");
+
 	//assign images to cards	
 	var images = ["1","1","2","2","3","3","4","4"];
 
@@ -25,13 +25,11 @@ function cardPairVisible() {
 	if( cards[cardsShown[0]]==cards[cardsShown[1]] ) {
 		$(cardsShown[0]).style.visibility="hidden";
 		$(cardsShown[1]).style.visibility="hidden";
-		console.log("Valid pair selected");
 	}
 	else
 	{
 		$(cardsShown[0]).src="img/backOfCard.png";
 		$(cardsShown[1]).src="img/backOfCard.png";
-		console.log("Invalid pair selected");
 	}
 	cardsShown.length = 0;//clear array
 }
@@ -47,7 +45,6 @@ function showCard(id) {
 	}
 
 	if(num_open_cards == 2) {
-		console.log("2 elements selected ... ");
 		setTimeout( cardPairVisible, 500);
 		num_open_cards = 0;
 	}	
