@@ -140,7 +140,7 @@ DOM utilities, and unit testing.</blockquote>
             <li>Cross-browser compatibility</li>
             <li>Ajax</li>
           </ul>
-<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
 &lt;script src=&quot;prototype.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
 </code></pre>
 
@@ -407,7 +407,7 @@ Droppables.add(&amp;quot;playArea&amp;quot;, {ondrop : function() {
 		<li>Prototype resolves most issues for you</li>
 	</ul>
 
-          <pre><code data-trim contenteditable style="font-size: 26px; margin-top: 20px;" class="javascript">
+          <pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
 //Attaching an event handler in plain JavaScript
 element.onevent = function;
 //example
@@ -510,7 +510,7 @@ function increment( elementIDString, addonText ) {
   thisElement.innerHTML = num+addonText;
 }       
           </code></pre> 
-          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
+          <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
 &lt;button id=&quot;b_1&quot; onmouseover=&quot;mouseover('b_1', 1000, 'x')&quot; onmouseout=&quot;mouseout('b_1','x')&quot;&gt;0x (increment by 1 second)&lt;/button&gt;
                       
           </code></pre>
@@ -550,14 +550,13 @@ function increment( elementIDString, addonText ) {
 	<!-- S_E -->
 	<section><h2>Event object</h2>
 	<ul>
-	<li>Passed whenever an event handler is called</li>
-	<li>Event parameter is optional</li>
+	<li>Passed whenever an event handler is called, event parameter optional</li>
 	<li>Once added to function call, no further code changes required</li>
 	<li>Prototype's event methods (<a href="event.html" target="_blank">example</a>)</li>
 		<ul>	<li><code>element()</code>: element on which the even occurred</li>
 			<li><code>stop()</code>: stop the event</li>
 			<li><code>stopObserving(eventType, eventHandler)</code>: removes the event handler for that event type</li>
-			<li><code>stopObserving(eventType)</code>: removes all event handlers for that event type</li>
+			<li><code>stopObserving(eventType)</code>: removes all handlers for that type</li>
 			<li><code>stopObserving()</code>: removes all event handlers</li>
 		</ul>
 	</ul>
@@ -627,8 +626,6 @@ function whatToDoOnBlur(event) {
 		<li><code>pointerX(), pointerY()</code>: relative to the overall document (same as pageX, pageY)</li>
 		<li><code>element()</code> element on which the event occurred</li>
 	</ul>
-	<div id="mouseinfo" style="width:400px;color:orange">Make a mouse click</div>
-
 	</section>
 
 
@@ -780,16 +777,17 @@ function wordsKeyDown(event) {
 var ALLOWED = [Event.KEY_BACKSPACE, EVENT.KEY_LEFT, EVENT.KEY_RIGHT];
 
 window.onload = function() {
-	$(&quot;zip&quot;).observe(&quot;keydown&quot;,zipKeyDown);
+   $(&quot;zip&quot;).observe(&quot;keydown&quot;,zipKeyDown);
 };
 
 function zipKeyDown(event) {
-	var zero = &quot;0&quot;.charCodeAt(&quot;0&quot;);
-	var nine = &quot;9&quot;.charCodeAt(&quot;9&quot;);
-	//we know that ASCII is `sorted`
-	if((event.keyCode &lt; zero || event.keyCode&gt;nine) &amp;&amp; ALLOWED.indexOf(event.keyCode)&lt;0){
+   var zero = &quot;0&quot;.charCodeAt(&quot;0&quot;);
+   var nine = &quot;9&quot;.charCodeAt(&quot;9&quot;);
+   //we know that ASCII is `sorted`
+   if((event.keyCode &lt; zero || event.keyCode&gt;nine) 
+      &amp;&amp; ALLOWED.indexOf(event.keyCode)&lt;0){
 		event.stop();
-	}
+   }
           </code></pre>
 
 	</section>
@@ -820,8 +818,8 @@ function zipKeyDown(event) {
 window.onunload = checkDataStatus;
 
 fuction checkDataStatus(event) {
-   if( $(&quot;message&quot;).length &gt; 0 &amp;&amp; 
-   !confirm(&quot;You have unsaved data! Are you sure?&quot;)) {
+   if( $(&quot;message&quot;).length &gt; 0 
+   &amp;&amp; !confirm(&quot;You have unsaved data! Are you sure?&quot;)) {
       event.stop();
   }
 }
@@ -911,8 +909,11 @@ function incrementSB ( ) {
 	<section><h2>Timer events</h2>
 	<h4>A comon misconception</h4>
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-	S_B_interval[elementID]=setInterval(function(){incrementSB(param1,param2);}(), timeout);
-	S_B_interval[elementID]=setInterval(incrementSB(param1,param2), timeout);
+   S_B_interval[elementID] = 
+      setInterval(function(){incrementSB(param1,param2);}(), timeout);
+
+S_B_interval[elementID] = 
+      setInterval(incrementSB(param1,param2), timeout);
           </code></pre>
 
 	<ul>	<li>Wrong: function will be executed immediately</li>
@@ -922,12 +923,14 @@ function incrementSB ( ) {
 	<section><h2>Timer events</h2>
 	<h4>Correct</h4>
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-	//1.
-	S_B_interval[elementID]=setInterval(function(){incrementSB(param1,param2);}, timeout);
-	//2.
-	S_B_interval[elementID]=setInterval(incrementSB, timeout,param1,param2);
+//1.
+S_B_interval[elementID] = 
+    setInterval(function(){incrementSB(param1,param2);}, timeout);
+//2.
+S_B_interval[elementID] = 
+    setInterval(incrementSB, timeout,param1,param2);
 
-	//3. use a global variable or complex object in small projects
+//3. use a global variable or complex object in small projects
           </code></pre>
 
 	<ul>	<li>The book recommends notation two</li>
@@ -938,8 +941,8 @@ function incrementSB ( ) {
 	</section>
 
 	<section><h2>To round things off</h2>
-	<h4><a href="memory.html">A little game: memory</a></h4>
 
+	<p>Play a <a href="memory.html">little game of memory</a></p>
 	<ul>
 		<li>What to do at the start of the game?</li>
 			<ul>	<li>Assign images to cards</li>
