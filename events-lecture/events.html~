@@ -183,26 +183,26 @@ name.firstLetter(); //&quot;D&quot;
         <section><h2>Nothing special about <code>String.prototype</code></h2>
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-var name = { first : "Daisy", last : "Duck"}; //JSON: JavaScript Object Notation
-typeof(name); //"object"
-typeof(name.first); //"string"
-name.first.firstLetter(); //"D"
+var name = { first : &quot;Daisy&quot;, last : &quot;Duck&quot;}; //JSON: JavaScript Object Notation
+typeof(name); //&quot;object&quot;
+typeof(name.first); //&quot;string&quot;
+name.first.firstLetter(); //&quot;D&quot;
 
 //define a new function on the name object
 name.secondLetter=function(){
    return name.first.charAt(1);
 }
 
-name.secondLetter(); //"a"
+name.secondLetter(); //&quot;a&quot;
 
-var name2 = {first:"Minnie", last:"Mouse"};
-name2.first.firstLetter(); //"M"
+var name2 = {first:&quot;Minnie&quot;, last:&quot;Mouse&quot;};
+name2.first.firstLetter(); //&quot;M&quot;
 name2.secondLetter(); //TypeError: name2.secondLetter is not a function
 
 //though it does not make a lot of sense, this is possible
 Object.prototype.secondLetter = function(){return this.first.charAt(1).toUpperCase();}
-name2.secondLetter(); //"I"
-name.secondLetter(); //"a"
+name2.secondLetter(); //&quot;I&quot;
+name.secondLetter(); //&quot;a&quot;
           </code></pre>
         </section>    
 
@@ -210,8 +210,8 @@ name.secondLetter(); //"a"
         <section><h2>Why not extend a <code>String</code> directly?</h2>
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-var name = "Daisy Duck";
-typeof(name); //"string"
+var name = &quot;Daisy Duck&quot;;
+typeof(name); //&quot;string&quot;
 
 name.thirdLetter = function(){return this.charAt(2);} //works
 
@@ -222,7 +222,7 @@ var num = 4;
 num.minusOne = function(){return this-1; } //works
 num.minusOne(); //TypeError: num.minusOne is not a function
 
-var numObj = { num : 4}; //typeof(numObj) is "object"
+var numObj = { num : 4}; //typeof(numObj) is &quot;object&quot;
 numObj.minusOne = function(){return this.num-1; }
 numObj.minusOne(); //4
           </code></pre>
@@ -238,11 +238,11 @@ numObj.minusOne(); //4
 var n = 135.42;
 n = n.round(); //135 (in plain JavaScript: Math.round())
 
-(254).toColorPart(); //"fe" (254.toColorPart() does not work)
+(254).toColorPart(); //&quot;fe&quot; (254.toColorPart() does not work)
 
-(254).toPaddedString(6); //"000254"
+(254).toPaddedString(6); //&quot;000254&quot;
 
-(254).toPaddedString(6,16); //"000fe"
+(254).toPaddedString(6,16); //&quot;000fe&quot;
           </code></pre>
 <p>WebConsole (Firefox) shows the available methods as well when loading pages that import the library</p>
 <ul><li>Use <code>X.prototype</code> when <code>typeof(X)!="object"</code></li></ul>
@@ -258,10 +258,10 @@ var b = a.copy(); //Prototype: deep copy of the array (not the same as var b = a
 
 delete a[2]; //true
 delete a[3]; //true
-a.toString();//"1,2,,,5" 
+a.toString();//&quot;1,2,,,5&quot; 
 a.length; //5
 a = a.compact(); //Prototype: deleting undefined/null  values
-a.toString; //"1,2,5"
+a.toString; //&quot;1,2,5&quot;
 
 var a = [1,2,3,[1,2],[1,2,[3,4]]]; //array in 3 dimensions
 a[4][2][0]; //3
@@ -271,8 +271,8 @@ a[8]; //undefined
 var b = a.flatten(); //Prototype: multi-dimensional array is turned into a 1D array
 b[8]; //4
 
-[1,2,3,4].intersect([1,4,5]).toString(); //"1,4" Prototype
-[1,2,3,3,3,4].uniq().toString(); //"1,2,3,4" Prototype
+[1,2,3,4].intersect([1,4,5]).toString(); //&quot;1,4&quot; Prototype
+[1,2,3,3,3,4].uniq().toString(); //&quot;1,2,3,4&quot; Prototype
           </code></pre>
         </section> 
 
@@ -280,23 +280,23 @@ b[8]; //4
 
 	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
 var html="<div class='main'><p>1. paragraph</p></div>";
-html.escapeHTML().toString(); //"&lt;div class='main'&gt;&lt;p&gt;1. paragraph&lt;/p&gt;&lt;/div&gt;"
+html.escapeHTML().toString(); //&quot;&amp;lt;div class='main'&amp;gt;&amp;lt;p&amp;gt;1. paragraph&amp;lt;/p&amp;gt;&amp;lt;/div&amp;gt;&quot;
 //reversal of above via unescapeHTML()
 
-var name = '{ "first" : "Minnie", "last" : "Mouse" }';
+var name = '{ &quot;first&quot; : &quot;Minnie&quot;, &quot;last&quot; : &quot;Mouse&quot; }';
 var myObj = name.evalJSON(); //uses eval(), should be avoided with external input (security)
 
-var html="<div class='main'><p>1. paragraph</p></div>";
-html.stripTags().toString(); //"1. paragraph"
-"Minnie Mouse ".times(3); //"Minnie Mouse Minnie Mouse Minnie Mouse "
+var html=&quot;&lt;div class='main'&gt;&lt;p&gt;1. paragraph&lt;/p&gt;&lt;/div&gt;&quot;;
+html.stripTags().toString(); //&quot;1. paragraph&quot;
+&quot;Minnie Mouse &quot;.times(3); //&quot;Minnie Mouse Minnie Mouse Minnie Mouse &quot;
 
 //parsing URL-like query strings
-var bing = "filt=all&pq=amsterdam&sc=8-9&sp=-1&sk=&q=amsterdam&qft=+filterui:aspect-square+filterui:color2-bw&FORM=R5IR7";
+var bing = &quot;filt=all&amp;pq=amsterdam&amp;sc=8-9&amp;sp=-1&amp;sk=&amp;q=amsterdam&amp;qft=+filterui:aspect-square+filterui:color2-bw&amp;FORM=R5IR7&quot;;
 var bingParam = bing.toQueryParams();
-bingParam["q"]="amsterdam";
+bingParam[&quot;q&quot;]=&quot;amsterdam&quot;;
 
 //truncate string after n characters (does not care about word boundaries)
-"This is a very long text which should be truncated.".truncate(17,"..."); //"This is a very..."
+&quot;This is a very long text which should be truncated.&quot;.truncate(17,&quot;...&quot;); //&quot;This is a very...&quot;
 	</code></pre>
 	</section>
 
@@ -311,9 +311,9 @@ function $(id){return document.getElementById(id);}
 	<li><code>$F</code> is analogous to <code>$</code> but specifically for forms; it returns the <code>value</code> of a form element</li>
 	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
 //same as
-$("myFormElement").value;
+$(&quot;myFormElement&quot;).value;
 //or
-document.getElementById("myFormElement").value;
+document.getElementById(&quot;myFormElement&quot;).value;
 	</code></pre>
 	</ul>
 	</section>
@@ -342,10 +342,10 @@ document.getElementById("myFormElement").value;
 	<a href="each1.html">Example 1</a>
 	<li>Chain of calls</li>
 	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-$$("div#news p.announcement").each(function(p) { p.hide(); });
+$$(&quot;div#news p.announcement&quot;).each(function(p) { p.hide(); });
 
 //alternative for calling an element's parameterless method
-$$("div#news p.announcement").each(Element.hide);
+$$(&quot;div#news p.announcement&quot;).each(Element.hide);
 	</code></pre>
 	<a href="each2.html">Example 2</a>
 	</ul>
@@ -375,15 +375,14 @@ $$("div#news p.announcement").each(Element.hide);
 		<li>Drag &amp; drog can be heavily custimized</li>
 	</ul>
 	<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
-var items = $$(&quot;#playpen img&quot;);
-for(var i=0; i&lt;items.length; i++0 {
+var items = $$(&amp;quot;#playpen img&amp;quot;);
+for(var i=0; i&amp;lt;items.length; i++0 {
 	new Draggable(items[i], {revert:false});//images stay at dragged position
 }
 
-Droppables.add(&quot;playArea&quot;, {ondrop : function() {
+Droppables.add(&amp;quot;playArea&amp;quot;, {ondrop : function() {
 	//do something once dropped
 	}});
-
 	</code></pre>
 	
 	</section>
@@ -412,13 +411,13 @@ Droppables.add(&quot;playArea&quot;, {ondrop : function() {
 //Attaching an event handler in plain JavaScript
 element.onevent = function;
 //example
-$("dartsBoard").onmousemove = throwDart;
+$(&quot;dartsBoard&quot;).onmousemove = throwDart;
 
 //in Prototype
-element.observe("eventName", function);
+element.observe(&quot;eventName&quot;, function);
 //example
-$("dartsBoard").observe("mousemove", throwFirstDart);
-$("dartsBoard").observe("mousemove", throwSecondDart);//multiple handlers can be attached to one event
+$(&quot;dartsBoard&quot;).observe(&quot;mousemove&quot;, throwFirstDart);
+$(&quot;dartsBoard&quot;).observe(&quot;mousemove&quot;, throwSecondDart);//multiple handlers can be attached to one event
 </code></pre>
         </section>   
 
@@ -472,7 +471,7 @@ function whatToDoOnBlur(){
             {
               this.style.color = 'black';
             }
- }          
+ }   
           </code></pre> 
         </section>
 
@@ -503,7 +502,7 @@ function mouseover(elementID, timeout, addonText) {
 
 function increment( elementIDString, addonText ) {
   var thisElement = document.getElementById(elementIDString);
-  var num = parseInt(thisElement.innerHTML,10);//"0x" is NaN with parseInt("0x")
+  var num = parseInt(thisElement.innerHTML,10);//&quot;0x&quot; is NaN with parseInt(&quot;0x&quot;)
   
   if(num==null) {return;}
   num++;
@@ -698,42 +697,41 @@ function whatToDoOnBlur(event) {
 	<h4>Code layout</h4>
 
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-
 function checkTextAtKeyPress(e) {
 
 	//ID of the elements to acess: givenText, typedText, timer
-	var givenText = "S_D_1";
-	var typedText = "S_D_2";
-	var timerLog = "S_D_3";
+	var givenText = &quot;S_D_1&quot;;
+	var typedText = &quot;S_D_2&quot;;
+	var timerLog = &quot;S_D_3&quot;;
 
 	var textToType = document.getElementById(givenText).value;
 
 	//we reached the end, do nothing
-	if(S_D_currentPos>=textToType.length) {return;}
+	if(S_D_currentPos&gt;=textToType.length) {return;}
 
 	var nextChar = textToType.charAt(S_D_currentPos);
 	var keyPressed = String.fromCharCode(e.keyCode);
 
 	//correct key was pressed
 	if(nextChar==keyPressed) {
-		$(typedText).style.backgroundColor="rgb(255,255,255)";
+		$(typedText).style.backgroundColor=&quot;rgb(255,255,255)&quot;;
 		$(typedText).value = textToType.substring(0,S_D_currentPos+1);
 		S_D_currentPos++;//update position
 
 		//first time key was pressed, start counter
 		if(S_D_currentPos==1) {
-			S_B_interval[timerLog]=setInterval(function(){incrementSB(timerLog, " seconds");}, 1000);
+			S_B_interval[timerLog]=setInterval(function(){incrementSB(timerLog, &quot; seconds&quot;);}, 1000);
 		}
 
 		//we reached the end
 		if(S_D_currentPos==textToType.length) {
 			clearInterval(S_B_interval[timerLog]);
-			$(timerLog).style.color="orange";
+			$(timerLog).style.color=&quot;orange&quot;;
 		}
 	}
 	//incorrect key
 	else {
-		$(typedText).style.backgroundColor="rgb(255,100,100)";
+		$(typedText).style.backgroundColor=&quot;rgb(255,100,100)&quot;;
 	}
 }
     
@@ -758,18 +756,17 @@ function checkTextAtKeyPress(e) {
 	<section><h2>Keyboard and text events</h2>
 	<h4>Example: act when 'C' is pressed</h4>
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-
 window.onload = function() {
-	$("words").observe("keydown",wordsKeyDown);
+	$(&quot;words&quot;).observe(&quot;keydown&quot;,wordsKeyDown);
 }
 
 function wordsKeyDown(event) {
 	var letter = String.fromCharCode(event.keyCode);
-	if(letter=="C") {
-		alert("Yep, you pressed C");
+	if(letter==&quot;C&quot;) {
+		alert(&quot;Yep, you pressed C&quot;);
 	}
 	if(event.keyCode == Event.KEY_LEFT) {
-		alert("Moving left ...");
+		alert(&quot;Moving left ...&quot;);
 	}
 }
           </code></pre>
@@ -783,14 +780,14 @@ function wordsKeyDown(event) {
 var ALLOWED = [Event.KEY_BACKSPACE, EVENT.KEY_LEFT, EVENT.KEY_RIGHT];
 
 window.onload = function() {
-	$("zip").observe("keydown",zipKeyDown);
+	$(&quot;zip&quot;).observe(&quot;keydown&quot;,zipKeyDown);
 };
 
 function zipKeyDown(event) {
-	var zero = "0".charCodeAt("0");
-	var nine = "9".charCodeAt("9");
+	var zero = &quot;0&quot;.charCodeAt(&quot;0&quot;);
+	var nine = &quot;9&quot;.charCodeAt(&quot;9&quot;);
 	//we know that ASCII is `sorted`
-	if((event.keyCode < zero || event.keyCode>nine) && ALLOWED.indexOf(event.keyCode)<0){
+	if((event.keyCode &lt; zero || event.keyCode&gt;nine) &amp;&amp; ALLOWED.indexOf(event.keyCode)&lt;0){
 		event.stop();
 	}
           </code></pre>
@@ -823,8 +820,8 @@ function zipKeyDown(event) {
 window.onunload = checkDataStatus;
 
 fuction checkDataStatus(event) {
-   if( $("message").length > 0 && 
-   !confirm("You have unsaved data! Are you sure?")) {
+   if( $(&quot;message&quot;).length &gt; 0 &amp;&amp; 
+   !confirm(&quot;You have unsaved data! Are you sure?&quot;)) {
       event.stop();
   }
 }
@@ -838,13 +835,13 @@ fuction checkDataStatus(event) {
 	<ul><li><code>dom:loaded</code>: event fires for <code>document</code> as soon as HTML DOM tree has finished loading; occurs sooner than <code>window.onload</code></li>
         </ul>
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="html">
-document.observe("dom:loaded", function() {
+document.observe(&quot;dom:loaded&quot;, function() {
    //what to do once DOM is available;
    //only called once
    //anonymous function is enough
 
    //in our ZIP example
-   $("zip").observe("keydown",zipKeyDown);
+   $(&quot;zip&quot;).observe(&quot;keydown&quot;,zipKeyDown);
 });
           </code></pre>
 	</section>
@@ -899,12 +896,12 @@ function incrementSB ( ) {
 	
 	var thisElement = document.getElementById(elementIDString);
 	var num;
-	if( thisElement.value!=undefined && thisElement.value.length > 0 ) {
+	if( thisElement.value!=undefined &amp;&amp; thisElement.value.length &gt; 0 ) {
 		num = parseInt(thisElement.value,10);
 	}
 	num++;
 
-	if( thisElement.value!=undefined && thisElement.value.length > 0) {
+	if( thisElement.value!=undefined &amp;&amp; thisElement.value.length &gt; 0) {
 		thisElement.value = num+addonText;
 	}
 }
@@ -944,16 +941,14 @@ function incrementSB ( ) {
 	<h4><a href="memory.html">A little game: memory</a></h4>
 
 	<ul>
-		<li>Input text box</li>
-			<ul>	<li>Is there more text to type out?</li>
-				<li>If so, compare pressed key against correct one</li>
-				<li>If correct, update the shown typed out text</li>
-				<li>If incorrect, alert the user (flash background red)</li>
+		<li>What to do at the start of the game?</li>
+			<ul>	<li>Assign images to cards</li>
+				<li>Shuffle cards</li>
 			</ul>
-		<li>Second counter</li>
-			<ul>	<li>When user starts typing, start counter</li>
-				<li>Update counter once a second</li>
-				<li>Stop counter when user typed out all text</li>
+		<li>User clicks on a card</li>
+			<ul>	<li>Show the image (i.e. turn the card)</li>
+				<li>Is it the second card shown?</li>
+				<ul><li>Yes: distinguish between correct match and incorrect match</li></ul>
 			</ul>
 	</ul>
 	</section>
@@ -972,13 +967,13 @@ Node.js is a platform built on Chrome's JavaScript runtime for easily building f
           <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;" class="javascript">
 var http = require('http');
 
-// Configure our HTTP server
+// our HTTP server
 var server = http.createServer(function (request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.end("Hello World\n");
+  response.writeHead(200, {&quot;Content-Type&quot;: &quot;text/plain&quot;});
+  response.end(&quot;Hello World\n&quot;);
 });
 
-// Listen on port 8000, IP defaults to 127.0.0.1
+// Listen on port 8000, IP is 127.0.0.1
 server.listen(8000);
           </code></pre>
 	</section>
