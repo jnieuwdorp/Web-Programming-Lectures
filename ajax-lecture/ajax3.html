@@ -27,11 +27,11 @@ function loadOnClick() {
 <p>
 Lets add something:<br>
 
-<input type="text" pattern="[0-9]+" id="n1"> + <input type="text" pattern="[0-9]+" id="n2"> = <span id="result"> </span>
+<input type="text" pattern="[0-9]+" id="n1"> + <input type="text" pattern="[0-9]+" id="n2"> = <span id="result" style="color:orange;font-weight:bold"> </span>
 <button onclick="
-	var res = document.getElementById('n1') + document.getElementById('n2');
-	document.getElementById('result').value=res;
-"></button>
+	var res = parseInt(document.getElementById('n1').value) + parseInt(document.getElementById('n2').value);
+	document.getElementById('result').innerHTML=res;
+">Calculate</button>
 
 </body>
 

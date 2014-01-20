@@ -48,13 +48,13 @@
         <section>
           <h2>Today: Ajax, XML and JSON</h2>
           <p>
-            The lecture today covers chapters 12 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>, 2nd Edition. The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter12-ajax-xml-json.shtml">here</a> (we follow them pretty closely).
+            The lecture today covers chapter 12 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>, 2nd Edition. The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter12-ajax-xml-json.shtml">here</a>.
             
           </p>
         </section>
 
         <section>
-          <h2>Ajax: an introduction</h2>
+          <h2>Ajax</h2>
         </section>
 
         <section>
@@ -89,24 +89,24 @@
             <li>Web browser creates a <code>XMLHttpRequest</code> object</li>
             <li><code>XMLHttpRequest</code> requests data from a Web server</li>
             <li>Data is sent back from the server in XML format</li>
-            <li>On the browser, JavaScript code injects the XML data into the web page</li>
+            <li>On the client, JavaScript code injects the XML data into the page</li>
           </ol>
         </section>  
 
         <section><h2>How does it work?</h2>
 
           <img src="img/xmlhttprequest.png" width="1000px" >
-          <p><small>After: <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter12-ajax-xml-json.shtml#slide7">Web Programming Step by Step</a></small></p>
+          <p><small>According to: <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter12-ajax-xml-json.shtml#slide7">Web Programming Step by Step</a></small></p>
         </section>  
 
         <section><h2>Data from a Web server ...</h2>
 
-          <a href="http://www.flickr.com/services/api/explore/flickr.interestingness.getList"><img src="img/flickr_interestingness.png"></a>
+          <a href="http://www.flickr.com/services/api/explore/flickr.interestingness.getList"><img src="img/flickr_interestingness.png" width="800px"></a>
         </section>  
 
         <section><h2>Data from a Web server ...</h2>
 
-          <a href="http://www.flickr.com/services/api/explore/flickr.interestingness.getList"><img src="img/flickr_interestingness_call.png"></a>
+          <a href="http://www.flickr.com/services/api/explore/flickr.interestingness.getList"><img src="img/flickr_interestingness_call.png" width="800px"></a>
 
           <p style="text-align:left"><code>http://api.flickr.com/services/rest/?
               <ul style="list-style:none"><li>method=flickr.interestingness.getList
@@ -120,7 +120,7 @@
         
         </section>          
 
-         <section><h2>Our running example</h2>
+         <section><h2>An example</h2>
           <h4>With current knowledge: PHP</h4>
 
           <p>Flickr's most interesting images:</p>
@@ -133,9 +133,9 @@
 <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
 &lt;form method=&quot;get&quot; action=&quot;query_flickr.php&quot;&gt;
    &lt;label&gt;Date: &lt;input type=&quot;text&quot; name=&quot;iflickr_date&quot; 
-         placeholder=&quot;YYYY-MM-DD&quot;&gt;&lt;/label&gt;&lt;br&gt;
-   &lt;label&gt;Num: &lt;input type=&quot;text&quot; name=&quot;iflickr-num&quot; pattern=&quot;[1-9]&quot; 
-         placeholder=&quot;between 1 and 9&quot;&gt;&lt;/label&gt;&lt;br&gt;
+      placeholder=&quot;YYYY-MM-DD&quot;&gt;&lt;/label&gt;&lt;br&gt;
+   &lt;label&gt;Num: &lt;input type=&quot;text&quot; name=&quot;iflickr-num&quot; 
+      pattern=&quot;[1-9]&quot; placeholder=&quot;between 1 and 9&quot;&gt;&lt;/label&gt;&lt;br&gt;
    &lt;input type=&quot;submit&quot; value=&quot;Get interesting images&quot;&gt;
 &lt;/form&gt;
 </code></pre>
@@ -143,7 +143,7 @@
         </section>     
 
 
-        <section><h2>Until now, we do ...</h2>
+        <section><h2>Until now, we ...</h2>
 
           <ul>
             <li>Send a request</li>
@@ -184,11 +184,11 @@
             <li>Form data validation</li>
             <li>Auto-completion</li>
             <li>Load on demand</li>
-            <li>Sophisticated UI controls</li>
+            <li>Sophisticated UI controls, e.g. through <a href="http://yuilibrary.com/yui/docs/paginator/search.html">YUI</a></li>
             <li>Refreshing data</li>
             <li>Partial submit</li>
             <li>Mashups</li>
-            <li>Web Applications</li>
+            <li>Web Applications (Gmail, etc.)</li>
           </ul>
         </section>      
 
@@ -312,18 +312,20 @@ ajax.send(null);
 function displayTimeAsync() {
    var ajax = new XMLHttpRequest();
 
-   //function to be called when the weather data has arrived (to display it)
+   //function to be called when the 
+   //data has arrived (to display it)
    ajax.onreadystatechange = function() {
 
-      //we now have access to the ajax object because of closure
+      //we can access the ajax object
       if(ajax.readyState==4) {
-         var p = document.createElement("p");
+         var p = document.createElement(&quot;p&quot;);
          p.innerHTML = ajax.responseText;
-         document.getElementById("timeDiv").appendChild(p);
+         document.getElementById(&quot;timeDiv&quot;).appendChild(p);
       }
    }; //end of function 
 
-   ajax.open("GET", "time.php", true); //true indicates asynchronous request
+   //true indicates asynchronous request
+   ajax.open(&quot;GET&quot;, &quot;time.php&quot;, true); 
 
    ajax.send(null);
 }
@@ -331,36 +333,29 @@ function displayTimeAsync() {
         </section>     
 
 
-        <section><h2>Another useful feature of JavaScript: Passing functions to functions</h2>
+        <section><h2>Another useful feature: Passing functions to functions</h2>
 
-<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
 function downloadTextAsync(url, my_function) {
    var ajax = new XMLHttpRequest();
 
    ajax.onreadystatechange = function() {
 
-      if(ajax.readyState==4 && ajax.status == 200) {
+      if(ajax.readyState==4 &amp;&amp; ajax.status == 200) {
          my_function(ajax);
       }
       else {
-         alert("Error fetching text of "+url+": "+ajax.statusText);
+         alert(&quot;Error: &quot;+ajax.statusText);
        }
-    }
-   }; //end of function 
-
-   ajax.open("GET", "time.php", true); //true indicates asynchronous request
-   ajax.send(null);
+  }; //end of function 
+  ajax.open(&quot;GET&quot;, &quot;time.php&quot;, true); 
+  ajax.send(null);
 }
 
 function displayTimeAsync2() {
-  downloadTextAsync("time.php",ajaxCompleted);
+  downloadTextAsync(&quot;time.php&quot;,ajaxCompleted);
 }
-
-function ajaxCompleted(ajax) {
-  /*
-   * do something with the weather data
-   */
-}
+function ajaxCompleted(ajax) { /* do something */ }
 
 </code></pre>
         </section>  
@@ -371,9 +366,9 @@ function ajaxCompleted(ajax) {
 <ul><li>Plain Ajax: clunky, not readily readable, requires special treatment of IE6 and below</li>
     <li>Prototype has Ajax wrapper objects</li>
     </ul>
-<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+<pre><code data-trim contenteditable style="font-size: 20px; margin-top: 20px;" class="javascript">
   window.onload = function () {
-    $("oneTimeButton").onclick = displayTimeAsync3;
+    $(&quot;oneTimeButton&quot;).onclick = displayTimeAsync3;
   }
 
   function displayTimeAsync3() {
@@ -382,14 +377,15 @@ function ajaxCompleted(ajax) {
      {
         method:'get',
         onSuccess:timeFetchCompleted,
-        parameters: {p1: "param 1", p2: 100.0},   // "p1=param+1&p2=100.0"
+        //GET parameters are drawn from here
+        parameters: {p1: &quot;param 1&quot;, p2: 100.0},
+        localParam: {myPara: 50.0}
      }
     );
   }
-
   function timeFetchCompleted(ajax) {
     $('time_async3').innerHTML = ajax.responseText;
-    //parameters accessed through ajax.request.parameters['p1']
+    //parameters accessed through ajax.request.localParam['myPara']
   }
 </code></pre>    
 
@@ -413,12 +409,12 @@ function ajaxCompleted(ajax) {
 
         <section><h2>Handling errors</h2>
 
-<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+<pre><code data-trim contenteditable style="font-size: 20px; margin-top: 20px;" class="javascript">
 function displayTimeAsync3() {
-  //Prototype's wrapper: a nested object, makes an asynchronous request
+  //Prototype's wrapper: a nested object, 
+  //makes an asynchronous request
   new Ajax.Request(
      "time.php",
-     //anonymous object
      {
         method:"get",
         onSuccess:ajaxCompleted, 
@@ -456,7 +452,8 @@ window.onload = function () {
 
 function displayTimeAsync4() {
     new Ajax.Updater(
-      "time_async4", //id of the element that gets assigned the data
+      //id of the element that gets assigned the data
+      "time_async4", 
       "time.php",
       {
           method:'get'
@@ -473,12 +470,14 @@ function displayTimeAsync4() {
 
 <ul>
   <li>Common pattern: fetch data from a server <b>repeatedly</b> and put it into an element on the Web page (polling)</li>
+  <li>Prototype parameters: <code>frequency</code> (repeat call after X seconds), and <code>decay</code> (how to react if data does not change)</li>
 </ul>
 <pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
 
  function displayTimeAsync5() {
     new Ajax.PeriodicalUpdater(
-      "time_async5", //id of the element that gets assigned the data
+      //id of the element that gets assigned the data
+      "time_async5", 
       "time.php",
       {
           method:'get',
@@ -624,14 +623,11 @@ Kim Ralls, Midnight Rain, 5.95, 2000-12-16, genre: Fantasy
   <li>Schema (optional): describes which tags and data are legal within an XML language</li>
   <li>XML schemas can be described in different languages, including the Document Type Definition (DTD)</li>
   <li>Validation tools exist, e.g. <code>xmllint</code></a></li>
-  <li>Flickr API shows results in XML format, e.g. <a href="http://www.flickr.com/services/api/explore/flickr.photos.search">flickr.photos.search</a></li>
-  <li><a href="https://developer.mozilla.org/en/docs/XUL">XUL (XML User Interface Language)</a>: building a UI for applications</li>
-  <li><a href="http://en.wikipedia.org/wiki/Office_Open_XML">Office Open XML</a></li>
 </ul>
 
 <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
-<?xml version="1.0"?>     <-- XML prologue
-<catalog>                 <-- document tag (single outermost tag)
+<?xml version="1.0"?> <-- XML prologue
+<catalog>             <-- document tag (single outermost tag)
    <book id="bk101">
 </code></pre>
 
@@ -699,8 +695,10 @@ function process_xml(ajax) {
 <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
 <?xml version="1.0"?>
 <genres>
-      <genre popularity="high" numBooksInStore="45">Computer</genre>
-      <genre popularity="medium" numBooksInStore="23">Fantasy</genre>
+  <genre popularity="high" 
+           numBooksInStore="45">Computer</genre>
+  <genre popularity="medium" 
+           numBooksInStore="23">Fantasy</genre>
 </genres>
 </code></pre> 
 </ul>
@@ -726,7 +724,7 @@ function process_xml(ajax) {
   </ul>
 
 <pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
-var pers on = {
+var person = {
   name : "Donald Duck",
   age: 35,
   friends: ["Goofy","Micky"],
@@ -787,7 +785,7 @@ person.getBeloved()
 
 <section><h2>Processing JSON data</h2>
   <ul>
-    <li>Recall for XML: <code>ajax.responseXML</code>, XML DOM methods to traverse it</li>
+    <li>For XML: <code>ajax.responseXML</code>, XML DOM methods to traverse it</li>
     <li>JSON is received through <code>ajax.responseText</code>, <code>JSON.parse</code> (global browser function) returns a JavaScript object</li>
     <li>Any JavaScript object can be transformed into JSON via <code>JSON.stringify</code></li>
   </ul>
@@ -795,13 +793,14 @@ person.getBeloved()
 </section>
 
 
-	<section><h2>Two pointers for advanced JavaScripters</h2>
+	<section><h2>Three pointers for advanced JavaScripters</h2>
 	</section>
 
 
   <section>
-    <h3><a href="https://github.com/kripken/emscripten">Emscripten: from C/C++ to JavaScript</a> [<a href="http://kripken.github.io/mloc_emscripten_talk/#/40">slide deck</a>]</h3>
-    <h3><a href="http://www.typescriptlang.org/">TypeScript: superset of JavaScript that compiles into JavaScript</a> [<a href="http://www.typescriptlang.org/Playground/">Playground</a>]</h3> 
+    <h3><a href="https://github.com/kripken/emscripten">Emscripten</a>: from C/C++ to JavaScript [<a href="http://kripken.github.io/mloc_emscripten_talk/#/40">slide deck</a>]</h3>
+    <h3><a href="http://www.typescriptlang.org/">TypeScript</a>: superset of JavaScript that compiles into JavaScript [<a href="http://www.typescriptlang.org/Playground/">Playground</a>]</h3> 
+    <h3><a href="http://www.typescriptlang.org/">Greasemonkey</a>: Firefox extension to customize the look and functionality of web pages [<a href="http://userscripts.org/">userscripts.org</a>]</h3>
   </section>
 
       </div>
