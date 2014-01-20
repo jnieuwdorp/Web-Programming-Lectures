@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>
+
+window.onload = function() {
+	document.getElementById("load").onclick = downloadOnClick;
+}
+
+//function specific to this page
+function downloadOnClick() {
+	var myText = downloadText(document.getElementById("url").value);
+	document.getElementById("output").value = myText;
+	return false;
+}
+
+//reusable function to take any URL
+function downloadText(url) {
+	console.log("Attempting to fetch the text of "+url);
+	var ajax = new XMLHttpRequest();
+	ajax.open("GET", url, false);
+	ajax.send(null);
+
+	//Ajax error checking
+	if(ajax.status != 200) {
+		alert("Error fetching text of " + url + ":\n" + ajax.status + " " + ajax.statusText);
+	}
+
+	return ajax.responseText;
+}
+
+</script>
+
+</head>
+<label>URL: <input type="text" id="url"></label><br>
+<textarea id="output" rows="10" cols="50">Text of requested URL will appear here.</textarea>
+<br>
+<button id="load">Load data</button>
+
+</body>
+
+</html>

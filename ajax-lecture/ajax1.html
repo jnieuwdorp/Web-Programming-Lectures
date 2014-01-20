@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>
+
+window.onload = function() {
+	document.getElementById("load").onclick = loadOnClick;
+}
+
+function loadOnClick() {
+	var ajax = new XMLHttpRequest();
+	ajax.open("GET", "example.txt", false);
+	ajax.send(null);
+	document.getElementById("output").value = ajax.responseText;
+}
+
+</script>
+
+</head>
+
+<textarea id="output" rows="10" cols="50">Loaded text will be shown here.</textarea>
+<br>
+<button id="load">Load data</button>
+
+</body>
+
+</html>

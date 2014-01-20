@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>
+
+window.onload = function() {
+	document.getElementById("load").onclick = loadOnClick;
+}
+
+function loadOnClick() {
+   var ajax = new XMLHttpRequest();
+
+   //function to be called when the weather data has arrived (to display it)
+   ajax.onreadystatechange = function() {
+
+      //we now have access to the ajax object because of closure
+      if(ajax.readyState==4) {
+         document.getElementById("output").value = ajax.responseText;
+      }
+   }; //end of function 
+
+   ajax.open("GET", "example.php", true); //true indicates asynchronous request
+
+   ajax.send(null);
+}
+</script>
+
+</head>
+
+<textarea id="output" rows="10" cols="50">Loaded text will be shown here.</textarea>
+<br>
+<button id="load">Load data</button>
+
+<p>
+Lets add something:<br>
+
+<input type="text" pattern="[0-9]+" id="n1"> + <input type="text" pattern="[0-9]+" id="n2"> = <span id="result" style="color:orange;font-weight:bold"> </span>
+<button onclick="
+	var res = parseInt(document.getElementById('n1').value) + parseInt(document.getElementById('n2').value);
+	document.getElementById('result').innerHTML=res;
+">Calculate</button>
+
+</body>
+
+</html>

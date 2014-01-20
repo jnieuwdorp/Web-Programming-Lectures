@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>
+
+window.onload = function() {
+	document.getElementById("load").onclick = loadOnClick;
+}
+
+
+function loadOnClick() {
+	var ajax = new XMLHttpRequest();
+	//if set to true, the text would not be shown (no response yet)
+	ajax.open("GET", "example.php", false);
+	ajax.send(null);
+	document.getElementById("output").value = ajax.responseText;
+}
+
+</script>
+
+</head>
+
+<textarea id="output" rows="10" cols="50">Loaded text will be shown here.</textarea>
+<br>
+<button id="load">Load data</button>
+
+<p>
+Lets add something:<br>
+
+<input type="text" pattern="[0-9]+" id="n1"> + <input type="text" pattern="[0-9]+" id="n2"> = <span id="result"> </span>
+<button onclick="
+	var res = document.getElementById('n1') + document.getElementById('n2');
+	document.getElementById('result').value=res;
+"></button>
+
+</body>
+
+</html>

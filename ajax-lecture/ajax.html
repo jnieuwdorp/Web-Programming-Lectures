@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>TI1505 Web Programming: JavaScript Prototype &amp; Events</title>
+
+  <meta name="description" content="A lecture on JavaScript events">
+  <meta name="author" content="Claudia Hauff">
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="../css/reveal.min.css">
+  <link rel="stylesheet" href="../css/theme/tudelft.css" id="theme">
+  <link rel="stylesheet" href="../lib/css/pure-min.css">
+
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="../lib/css/zenburn.css">
+
+  <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+  <script>
+  document.write( '<link rel="stylesheet" href="../css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+  </script>
+
+  <script src="../lib/js/prototype-1.7.1.js" type="text/javascript"></script>
+  <script src="sample_scripts.js" type="text/javascript"></script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-background-transition="slide" data-background="../img-allLectures/tu_delft_library.jpg" style="background: rgba(0,129,195,.9); color: white" id="presentable" class="bookend">          
+          <h1>TI1505: Ajax</h1>
+          <h3>Claudia Hauff</h3>
+        </section>
+
+        <section>
+          <h2>Today: Ajax, XML and JSON</h2>
+          <p>
+            The lecture today covers chapters 12 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>, 2nd Edition. The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter12-ajax-xml-json.shtml">here</a> (we follow them pretty closely).
+            
+          </p>
+        </section>
+
+        <section>
+          <h2>Ajax: an introduction</h2>
+        </section>
+
+        <section>
+          <h2>Data is everything</h2>
+
+          <ul>
+            <li>Most popular web portals today rely on [user created] data (Google, Facebook, IMDB, etc.)</li>
+            <li>Key to success: interaction with data is seamless, fast and fun</li>
+            <li>Ajax: technology to </em>inject</em> new data into an <em>existing</em> web page</li>
+            <li>You see this technology every day</li>
+              <ul><li>Endless scrolling, e.g. on <a href="http://www.flickr.com/search/?q=Amsterdam">Flickr</a> and <a href="https://twitter.com/search?q=Amsterdam&src=typd">Twitter</a></li>
+                  <li>Chat boxes</li></ul>
+          </ul>
+          <img src="img/google_chat.png">
+        </section>
+
+        <section>
+          <h2>What is Ajax (not)?</h2>
+
+          <ul>
+            <li>Ajax is not a language</li>
+            <li>Ajax is not a product</li>
+            <li>Ajax is a particular(ly clever) way of writing JavaScript</li>
+            <li>Ajax revoles around <code>XMLHttpRequest</code>, a JavaScript object</li>
+            <li>Acronym: <b>A</b>synchronous <b>J</b>avaScript <b>a</b>nd <b>X</b>ML</li>
+          </ul>
+        </section>  
+
+        <section><h2>How does it work?</h2>
+
+          <ol>
+            <li>Web browser creates a <code>XMLHttpRequest</code> object</li>
+            <li><code>XMLHttpRequest</code> requests data from a Web server</li>
+            <li>Data is sent back from the server in XML format</li>
+            <li>On the browser, JavaScript code injects the XML data into the web page</li>
+          </ol>
+        </section>  
+
+        <section><h2>How does it work?</h2>
+
+          <img src="img/xmlhttprequest.png" width="1000px" >
+          <p><small>After: <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter12-ajax-xml-json.shtml#slide7">Web Programming Step by Step</a></small></p>
+        </section>  
+
+        <section><h2>Data from a Web server ...</h2>
+
+          <a href="http://www.flickr.com/services/api/explore/flickr.interestingness.getList"><img src="img/flickr_interestingness.png"></a>
+        </section>  
+
+        <section><h2>Data from a Web server ...</h2>
+
+          <a href="http://www.flickr.com/services/api/explore/flickr.interestingness.getList"><img src="img/flickr_interestingness_call.png"></a>
+
+          <p style="text-align:left"><code>http://api.flickr.com/services/rest/?
+              <ul style="list-style:none"><li>method=flickr.interestingness.getList
+                  <li>&amp;api_key=a5e90f753ad62a0f97eba79d831134e5</li>
+                  <li>&amp;date=2013-02-25</li>
+                  <li>&amp;per_page=3</li>
+                  <li>&amp;page=1</li>
+                  <li>&amp;format=rest</li>
+            </code></p>
+
+        
+        </section>          
+
+         <section><h2>Our running example</h2>
+          <h4>With current knowledge: PHP</h4>
+
+          <p>Flickr's most interesting images:</p>
+          <form method="get" action="query_flickr.php" class="pure-form" target="_blank">
+            <label>Date: <input type="text" name="iflickr-date" placeholder="YYYY-MM-DD"></label><br>&nbsp;<br>
+            <label>Num: <input type="text" name="iflickr-num" pattern="[1-9]" placeholder="between 1 and 9"></label><br>&nbsp;<br>
+            <input type="submit" value="Get interesting images" class="pure-button-warning pure-button">
+          </form>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
+&lt;form method=&quot;get&quot; action=&quot;query_flickr.php&quot;&gt;
+   &lt;label&gt;Date: &lt;input type=&quot;text&quot; name=&quot;iflickr_date&quot; 
+         placeholder=&quot;YYYY-MM-DD&quot;&gt;&lt;/label&gt;&lt;br&gt;
+   &lt;label&gt;Num: &lt;input type=&quot;text&quot; name=&quot;iflickr-num&quot; pattern=&quot;[1-9]&quot; 
+         placeholder=&quot;between 1 and 9&quot;&gt;&lt;/label&gt;&lt;br&gt;
+   &lt;input type=&quot;submit&quot; value=&quot;Get interesting images&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+          <p>Lets take a look at <code>query_flickr.php</code>.</p>
+        </section>     
+
+
+        <section><h2>Until now, we do ...</h2>
+
+          <ul>
+            <li>Send a request</li>
+            <li>Wait for response</li>
+            <li>View result (via a different URL)</li>
+          </ul>
+
+            <p><em>Synchronous communication</em>: A click on a link loads an entire web page. User waits for the loading to finish before continuing the interaction.</p>
+        </section>   
+
+        <section><h2>Synchronous communication</h2>
+
+          <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_1_synchronous.png">
+          <p>Image source: <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter12-ajax-xml-json.shtml#slide2">Web Programming Step by Step</a></p>
+        </section>  
+
+        <section><h2>Ajax works differently ...</h2>
+
+          <ul>
+            <li>Request for a <em>small</em> amount of data</li>
+            <li>Requested data is viewed on the same page (same URL)</li>
+              <ul><li>Feels more like an app or program, than a Web page</li></ul>
+            <li>JavaScript code updates the page the user is viewing</li>
+            <li><em>Asynchronous communication</em>: a number of actions occurring at a time without needing to wait for each other</li>
+          </ul>
+        </section>       
+
+        <section><h2>Asynchronous communication</h2>
+
+          <img src="http://www.webstepbook.com/supplements-2ed/slides/images/figure_2_asynchronous.png">
+          <p>Image source: <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter12-ajax-xml-json.shtml#slide4">Web Programming Step by Step</a></p>
+        </section>               
+
+
+        <section><h2>Common Ajax uses</h2>
+
+          <ul>
+            <li>Form data validation</li>
+            <li>Auto-completion</li>
+            <li>Load on demand</li>
+            <li>Sophisticated UI controls</li>
+            <li>Refreshing data</li>
+            <li>Partial submit</li>
+            <li>Mashups</li>
+            <li>Web Applications</li>
+          </ul>
+        </section>      
+
+
+        <section><h2>Ajax: Synchronous requests</h2>
+
+          <textarea id="ttExampleText" rows="4" cols="40">The loaded text will be shown here.</textarea><p>&nbsp;</p>
+          <button id="getExampleText" class="pure-button pure-button-primary" onclick="
+
+            var ajax = new XMLHttpRequest();
+            ajax.open('GET', 'example.txt', false);
+            ajax.send(null);
+            document.getElementById('ttExampleText').value = ajax.responseText;
+
+          ">Load data</button>
+          <p>&nbsp;</p>
+          <ul><li><a href="example.txt" target="_blank">example.txt</a> (data), <a href="ajax1.html" target="_blank">ajax1.html</a> (Web page)</li>
+              <li>Use Firebug (Net with disabled cache) to check for errors</li>
+          </ul>
+        
+        </section>  
+
+        <section><h2>Ajax: Synchronous requests</h2>
+
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+//IE6 and prior IE versions use Microsoft.XMLHTTP instead
+var ajax = new XMLHttpRequest();
+
+//retrieve data from URL (file) of interest
+//false parameter: synchronous request
+ajax.open('GET', 'example.txt', false);
+ajax.send(null);
+
+//response data in ajax.responseText
+document.getElementById('ttExampleText').value = ajax.responseText;
+</code></pre>
+        <p>Making the code more reusable with simple error checking: <a href="ajax2.html" target="_blank">ajax2.html</a></p>
+        </section>    
+
+
+        <section><h2>Ajax: Asynchronous requests</h2>
+
+          <ul>
+            <li>Problem of synchronous requests: Web browser comes to a halt and waits</li>
+              <ul><li>Reason: JavaScript waits for <code>send</code> to receive the file from the server</li>
+                  <li>Slow server, large file poses problems</li></ul>
+            <li>Asynchronous request does not block</li>
+              <ul><li>More complicated to program (When is the data received? What code to execute at that point?)</li>
+                  <li>Solution: specify a function to be called when response is received (similar to attaching functions to events ...)</li>
+              </ul>
+        </section>    
+
+
+
+
+        <section><h2>Synchronous vs. asynchronous</h2>
+
+          <ul>
+            <li>Synchronous: <a href="ajax3.html" target="_blank">ajax3.html</a></li>
+            <li>Asynchronous: <a href="ajax4.html" target="_blank">ajax4.html</a></li>
+              </ul>
+        </section>          
+
+
+        <section><h2>Properties of <code>XMLHttpRequest</code></h2>
+
+  <table class="centerTable">
+    <tr><th>property</th><th>description</th></tr>
+    <tr><td><code style="color:darkorange">onreadystatechange</code></td><td>fires when status changes</td></tr>
+    <tr><td><code>readyState</code></td><td>0: not initialized<br>1: set up, not sent<br>2: sent<br>3: in progress<br><span style="color:darkorange">4: completed</span></td></tr>
+    <tr><td><code>responseText</code></td><td>data that was fetched (string)</td></tr>
+    <tr><td><code>responseXML</code></td><td>fetched XML as DOM <code>Document</code> object</td></tr>
+    <tr><td><code>status</code></td><td>HTTP status code sent back by the Web server (e.g. 200, 403)</td></tr>
+    <tr><td><code>statusText</code></td><td>description of status sent by the Web server</td></tr>
+
+  </table>
+        </section>   
+
+        <section><h2>Methods of <code>XMLHttpRequest</code></h2>
+
+  <table class="centerTable">
+    <tr><th>method</th><th>description</th></tr>
+    <tr><td><code>abort()</code></td><td>stop a Web request in progress</td></tr>
+    <tr><td><code style="color:darkorange">open(method, url, async)</code></td><td>GET or POST<br>URL to fetch<br>true (asynchronous) or false (synchronous)</td></tr>
+    <tr><td><code style="color:darkorange">send(data)</code></td><td>called after <code>open()</code>; for POST <code>data</code> is the string to send, for GET it is <code>null</code></td></tr>
+
+  </table>
+        </section>          
+
+
+        <section><h2>Ajax: an asynchronous request</h2>
+
+          <p style="text-align:left">Event <code>onreadystatechange</code> is fired when the status of the request changes.</p>
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+var ajax = new XMLHttpRequest();
+
+//function to be called when the data has arrived
+ajax.onreadystatechange = function() {
+
+   //the only state we care about
+   if(ajax.readyState==4) {
+      /*
+       * process received data
+       */
+   }
+}; //end of function 
+
+ajax.open("GET", "url", true); //true indicates asynchronous request
+
+ajax.send(null);
+</code></pre>
+        </section>  
+
+        <section><h2>A feature of JavaScript: <em>Closure</em></h2>
+
+          <ul>  
+            <li>Closure: A nested function has access to the variables declared in the outer function</li>
+                <li>Useful for us: we need access to the <code>XMLHttpRequest</code> object</li>
+          </ul>
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+function displayTimeAsync() {
+   var ajax = new XMLHttpRequest();
+
+   //function to be called when the weather data has arrived (to display it)
+   ajax.onreadystatechange = function() {
+
+      //we now have access to the ajax object because of closure
+      if(ajax.readyState==4) {
+         var p = document.createElement("p");
+         p.innerHTML = ajax.responseText;
+         document.getElementById("timeDiv").appendChild(p);
+      }
+   }; //end of function 
+
+   ajax.open("GET", "time.php", true); //true indicates asynchronous request
+
+   ajax.send(null);
+}
+</code></pre>
+        </section>     
+
+
+        <section><h2>Another useful feature of JavaScript: Passing functions to functions</h2>
+
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+function downloadTextAsync(url, my_function) {
+   var ajax = new XMLHttpRequest();
+
+   ajax.onreadystatechange = function() {
+
+      if(ajax.readyState==4 && ajax.status == 200) {
+         my_function(ajax);
+      }
+      else {
+         alert("Error fetching text of "+url+": "+ajax.statusText);
+       }
+    }
+   }; //end of function 
+
+   ajax.open("GET", "time.php", true); //true indicates asynchronous request
+   ajax.send(null);
+}
+
+function displayTimeAsync2() {
+  downloadTextAsync("time.php",ajaxCompleted);
+}
+
+function ajaxCompleted(ajax) {
+  /*
+   * do something with the weather data
+   */
+}
+
+</code></pre>
+        </section>  
+
+
+        <section><h2>Ajax in Prototype</h2>
+
+<ul><li>Plain Ajax: clunky, not readily readable, requires special treatment of IE6 and below</li>
+    <li>Prototype has Ajax wrapper objects</li>
+    </ul>
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+  window.onload = function () {
+    $("oneTimeButton").onclick = displayTimeAsync3;
+  }
+
+  function displayTimeAsync3() {
+    new Ajax.Request(
+     'time.php',
+     {
+        method:'get',
+        onSuccess:timeFetchCompleted,
+        parameters: {p1: "param 1", p2: 100.0},   // "p1=param+1&p2=100.0"
+     }
+    );
+  }
+
+  function timeFetchCompleted(ajax) {
+    $('time_async3').innerHTML = ajax.responseText;
+    //parameters accessed through ajax.request.parameters['p1']
+  }
+</code></pre>    
+
+<span id="time_async3"> Time to Update</span>  <button id="oneTimeButton" class="pure-button pure-button-warning">Update Time Once</button> 
+</section>                            
+
+
+        <section><h2><code>Ajax.Request</code> event options</h2>
+
+  <table class="centerTable">
+    <tr><th>event</th><th>occurs when ...</th></tr>
+    <tr><td><code style="color:darkorange">onSuccess</code></td><td>request was successful</td></tr>
+    <tr><td><code>onFailure</code></td><td>request failed</td></tr>
+    <tr><td><code>onComplete</code></td><td>request was completed (either way)</td></tr>
+    <tr><td><code>onException</code></td><td>an exception ocurred</td></tr>
+    <tr><td><code>on###</code></td><td>the request failed with an error code (e.g. <code>on404</code>)</td></tr>
+
+  </table>  
+        </section>  
+
+
+        <section><h2>Handling errors</h2>
+
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+function displayTimeAsync3() {
+  //Prototype's wrapper: a nested object, makes an asynchronous request
+  new Ajax.Request(
+     "time.php",
+     //anonymous object
+     {
+        method:"get",
+        onSuccess:ajaxCompleted, 
+        onException:ajaxFailed, //two callbacks: unsuccessful request
+        onFailure:ajaxFailed
+     }
+  );
+}
+
+function ajaxFailed(ajax, exception) {
+  var msg = "Error: ";
+  if(exception) {
+    msg += "Exception: "+exception.message;
+  }
+  else {
+    msg += "Server status: "+ajax.statusText;
+  }
+  alert(msg); //or console.log(msg);
+}
+
+</code></pre>    
+        </section>       
+
+
+       <section><h2><code>Ajax.Updater</code></h2>
+
+<ul>
+  <li>Common pattern: fetch data from a server and put it into an element on the Web page</li>
+  <li>Prototype's <code>Ajax.Updater</code> simplifies this process</li>
+</ul>
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+window.onload = function () {
+  $("oneUpdateTimeButton").onclick = displayTimeAsync4;
+}
+
+function displayTimeAsync4() {
+    new Ajax.Updater(
+      "time_async4", //id of the element that gets assigned the data
+      "time.php",
+      {
+          method:'get'
+      }
+    );
+  }
+</code></pre>  
+<span id="time_async4"> Time to Update</span>  <button id="oneUpdateTimeButton" class="pure-button pure-button-secondary">Update Time Once Again</button>   
+        </section>          
+
+
+
+       <section><h2><code>Ajax.PeriodicalUpdater</code></h2>
+
+<ul>
+  <li>Common pattern: fetch data from a server <b>repeatedly</b> and put it into an element on the Web page (polling)</li>
+</ul>
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+
+ function displayTimeAsync5() {
+    new Ajax.PeriodicalUpdater(
+      "time_async5", //id of the element that gets assigned the data
+      "time.php",
+      {
+          method:'get',
+          frequency:3,
+          decay:1
+      }
+    );
+}
+</code></pre> 
+
+<span id="time_async5"> Time to Update</span>  <button id="regularUpdateTimeButton" class="pure-button pure-button-primary">Update Time Periodically</button>    
+
+<aside class="notes">
+decay (Number; default is 1): The rate at which the frequency grows when the response received is exactly the same as the previous. The default of 1 means frequency will never grow; override the default if a stale response implies it's worthwhile to poll less often. If decay is set to 2, for instance, frequency will double (2 seconds, 4 seconds, 8 seconds...) each consecutive time the result is the same; when the result is different once again, frequency will revert to its original value.  
+  </aside>
+        </section>   
+
+
+
+
+<section><h2>Ajax Security</h2>
+
+<ul>
+  <li>Conveniently we always requested data from &quot;our&quot; Web server</li>
+  <li>Security restriction of Ajax: can only fetch files from the <em>same</em> Web server as the calling page (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Same_origin_policy_for_JavaScript">Same-origin policy</a>)</li>
+    <ul><li>Same origin, when <span style="color:darkorange">protocol, port, and host</span> are the same for two pages</li></ul>
+  <li>Ajax cannot be executed from a Web page stored locally on disk</li>
+  <li>Not entirely true: <a href="http://json-p.org/">JSONP</a> get around this restriction (beyond the scope of this class)</li>
+</ul>
+
+        </section>  
+
+<section><h2>Debugging</h2>
+
+  <ul>
+    <li>Firebug: for Ajax requests, use the NET tab</li>
+    <li>WebConsole: use breakpoints for general JavaScript debugging</li>
+  </ul>
+
+</section>         
+
+
+  <section><h2>XML</h2>
+  </section>
+
+        <section><h2>Instead of ...</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+Matthew Gambardella, XML Developer's Guide, 44.95, 2000-10-01, genre: Computers
+
+Kim Ralls, Midnight Rain, 5.95, 2000-12-16, genre: Fantasy
+ </code></pre>
+        </section>  
+
+        <section><h2>XML gives us ...</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<?xml version="1.0"?>
+<catalog>
+   <book id="bk101">
+      <author>Gambardella, Matthew</author>
+      <title>XML Developer's Guide</title>
+      <genre>Computer</genre>
+      <price>44.95</price>
+      <publish_date>2000-10-01</publish_date>
+   </book>
+   <book id="bk102">
+      <author>Ralls, Kim</author>
+      <title>Midnight Rain</title>
+      <genre>Fantasy</genre>
+      <price>5.95</price>
+      <publish_date>2000-12-16</publish_date>
+   </book>
+</catalog>
+ </code></pre>
+<small><a href="http://msdn.microsoft.com/en-us/library/ms762271%28v=vs.85%29.aspx">Example source</a></small>
+
+        </section>  
+
+
+        <section><h2>Our time server gives us ...</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<timezone xsi:noNamespaceSchemaLocation="http://www.earthtools.org/timezone.xsd">
+  <version>1.0</version>
+  <location></location>
+  <offset>1</offset>
+  <suffix>A</suffix>
+  <localtime>20 Jan 2014 02:39:51</localtime>
+  <isotime>2014-01-20 02:39:51 +0100</isotime>
+  <utctime>2014-01-20 01:39:51</utctime>
+  <dst>False</dst>
+</timezone>
+ </code></pre>
+<small><a href="http://www.earthtools.org/timezone-1.1/52.00667/4.35556">Web service call</a></small>
+
+        </section>         
+
+
+       <section><h2>XML</h2>
+
+<blockquote>XML is a specification for creating markup to store hierarchical data.</blockquote>
+
+<ul>
+  <li>Tag-based syntax for marking up text</li>
+  <li>Designed for storing data</li>
+  <li>Tags can be freely chosen (specific to the data to be stored)</li>
+</ul>
+        </section>   
+
+
+<section><h2>Pros and Cons</h2>
+
+<ul>
+  <li>Pro: formalized way of storing structured text data</li>
+  <li>Pro: simplifies processing compared to free text</li>
+  <li>Pro: many libraries exist to read and interpret XML</li>
+  <li>Con: highly verbose and redundant format</li>
+  <li>Fact: XML is used in many places (not just the Web)</li>
+  <li>Fact: many Web services use XML to exchange messages</li>
+</ul>
+</section>         
+
+<section><h2>XML is found everywhere</h2>
+
+<ul>
+  <li>SVG: Scalable Vector Graphics
+
+    <object type="image/svg+xml" data="http://openclipart.org/people/qubodup/White_Stupid_Cute_Cartoon_Sheep.svg" 
+  width="128" height="90"></object>
+
+  </li>
+  <li>RSS feeds, e.g. from <a href="http://www.nu.nl/feeds/rss/algemeen.rss">nu.nl</a></li>
+  <li>Flickr API shows results in XML format, e.g. <a href="http://www.flickr.com/services/api/explore/flickr.photos.search">flickr.photos.search</a></li>
+  <li><a href="https://developer.mozilla.org/en/docs/XUL">XUL (XML User Interface Language)</a>: building a UI for applications</li>
+  <li><a href="http://en.wikipedia.org/wiki/Office_Open_XML">Office Open XML</a></li>
+</ul>
+</section> 
+
+<section><h2>Schemas and DTDs</h2>
+
+<ul>
+  <li>Schema (optional): describes which tags and data are legal within an XML language</li>
+  <li>XML schemas can be described in different languages, including the Document Type Definition (DTD)</li>
+  <li>Validation tools exist, e.g. <code>xmllint</code></a></li>
+  <li>Flickr API shows results in XML format, e.g. <a href="http://www.flickr.com/services/api/explore/flickr.photos.search">flickr.photos.search</a></li>
+  <li><a href="https://developer.mozilla.org/en/docs/XUL">XUL (XML User Interface Language)</a>: building a UI for applications</li>
+  <li><a href="http://en.wikipedia.org/wiki/Office_Open_XML">Office Open XML</a></li>
+</ul>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<?xml version="1.0"?>     <-- XML prologue
+<catalog>                 <-- document tag (single outermost tag)
+   <book id="bk101">
+</code></pre>
+
+</section> 
+
+
+<section><h2>Ajax: processing XML data</h2>
+
+<ul>
+  <li><code>XMLHttpRequest</code> contains a <code>responseXML</code> property (instead of a string, a DOM object is returned)</li>
+</ul>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+function my_func
+{
+  //Prototype code
+  new Ajax.Request(
+     "url",
+     {
+        method: "get",
+        onSuccess: process_xml;
+     }
+  );
+}
+
+function process_xml(ajax) {
+  //work with ajax.responseXML;
+}
+
+
+</code></pre>
+
+</section> 
+
+
+
+<section><h2>JavaScript's XML DOM</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<?xml version="1.0"?>
+<timezone>
+  <location></location>
+  <offset>1</offset>
+  <suffix>A</suffix>
+  <localtime>20 Jan 2014 02:39:51</localtime>
+  <isotime>2014-01-20 02:39:51 +0100</isotime>
+  <utctime>2014-01-20 01:39:51</utctime>
+  <dst>False</dst>
+</timezone>
+</code></pre>  
+<span id="testX"> </span><button class="pure-button pure-button-primary" onclick="evaluateXMLProperties('localtime','testX','firstChild','nodeValue')"> $("localTime").firstChild.nodeValue</button><p>&nbsp;</p>
+<span id="testY"> </span><button class="pure-button pure-button-secondary" onclick="evaluateXMLProperties('localtime','testY','tagName')"> $("localTime").tagName</button><p>&nbsp;</p>
+<span id="testZ"> </span><button class="pure-button pure-button-warning" onclick="evaluateXMLProperties('localtime','testZ', 'parentNode','nodeName')"> $("localTime").parentNode.nodeName</button>
+
+
+</section> 
+
+
+<section><h2>JavaScript's XML DOM</h2>
+
+<ul>
+  <li>XML nodes can also have attributes (attribute/value pairs appear within XML tags)</li>
+  <li>Attributes can be accessed via method <code>getAttribute</code></li>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<?xml version="1.0"?>
+<genres>
+      <genre popularity="high" numBooksInStore="45">Computer</genre>
+      <genre popularity="medium" numBooksInStore="23">Fantasy</genre>
+</genres>
+</code></pre> 
+</ul>
+</section>
+
+<section><h2>JSON</h2></section>
+
+<section><h2>JSON</h2>
+  <h4>JavaScript Object Notation</h4>
+  <ul>
+    <li>XML is often too bulky in practice</li>
+    <li>JSON is much smaller than XML</li>
+    <li>JSON can be fully parsed using built-in JavaScript commands, no need for DOM</li>
+  </ul>
+
+</section>
+
+<section><h2>JavaScript Object Literals</h2>
+  <ul>
+    <li>Objects in JavaScript can be declared as property name/value containers</li>
+    <li>Prooperties are accessed via <code>object.propertyName</code> or <code>object["propertyName"]</code> </li>
+    <li>JSON can be fully parsed using built-in JavaScript commands, no need for DOM</li>
+  </ul>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+var pers on = {
+  name : "Donald Duck",
+  age: 35,
+  friends: ["Goofy","Micky"],
+  getBeloved: function() { return this.name + " and Daisy"; }
+};
+
+//access via
+person.age
+person.friends[1]
+person.getBeloved()
+</code></pre>  
+
+</section>
+
+<section><h2>JSON Data Format: best seen in practice</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<?xml version="1.0"?>
+<timezone>
+  <location></location>
+  <offset>1</offset>
+  <suffix>A</suffix>
+  <localtime>20 Jan 2014 02:39:51</localtime>
+  <isotime>2014-01-20 02:39:51 +0100</isotime>
+  <utctime>2014-01-20 01:39:51</utctime>
+  <dst>False</dst>
+</timezone>
+</code></pre>  
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+
+{
+  "timezone": {
+    "offset": "1",
+    "suffix": "A",
+    "localtime": "20 Jan 2014 02:39:51",
+    "isotime": "2014-01-20 02:39:51 +0100",
+    "utctime": "2014-01-20 01:39:51",
+    "dst": "False"
+  }
+}
+</code></pre>  
+
+
+</section>
+
+
+
+<section><h2>JSON vs. JavaScript Object Notation</h2>
+  <ul>
+    <li>JSON: all object property names must be enclosed in quotes</li>
+    <li>JSON objects may not have functions as properties</li>
+  </ul>
+
+</section>
+
+
+
+<section><h2>Processing JSON data</h2>
+  <ul>
+    <li>Recall for XML: <code>ajax.responseXML</code>, XML DOM methods to traverse it</li>
+    <li>JSON is received through <code>ajax.responseText</code>, <code>JSON.parse</code> (global browser function) returns a JavaScript object</li>
+    <li>Any JavaScript object can be transformed into JSON via <code>JSON.stringify</code></li>
+  </ul>
+
+</section>
+
+
+	<section><h2>Two pointers for advanced JavaScripters</h2>
+	</section>
+
+
+  <section>
+    <h3><a href="https://github.com/kripken/emscripten">Emscripten: from C/C++ to JavaScript</a> [<a href="http://kripken.github.io/mloc_emscripten_talk/#/40">slide deck</a>]</h3>
+    <h3><a href="http://www.typescriptlang.org/">TypeScript: superset of JavaScript that compiles into JavaScript</a> [<a href="http://www.typescriptlang.org/Playground/">Playground</a>]</h3> 
+  </section>
+
+      </div>
+
+    </div>
+
+    <script src="../lib/js/head.min.js"></script>
+    <script src="../js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+        { src: '../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: '../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: '../plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+        { src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+</script>
+
+
+</body>
+</html>

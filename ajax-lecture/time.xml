@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<timezone>
+  <location></location>
+  <offset>1</offset>
+  <suffix>A</suffix>
+  <localtime>20 Jan 2014 02:39:51</localtime>
+  <isotime>2014-01-20 02:39:51 +0100</isotime>
+  <utctime>2014-01-20 01:39:51</utctime>
+  <dst>False</dst>
+</timezone>
