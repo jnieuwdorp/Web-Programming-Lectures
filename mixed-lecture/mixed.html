@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>TI1505 Web Programming: Database Access, Cookies &amp; More</title>
+
+  <meta name="description" content="A lecture on Database access, cookies and more">
+  <meta name="author" content="Claudia Hauff">
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="../css/reveal.min.css">
+  <link rel="stylesheet" href="../css/theme/tudelft.css" id="theme">
+  <link rel="stylesheet" href="../lib/css/pure-min.css">
+
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="../lib/css/zenburn.css">
+
+  <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+  <script>
+  document.write( '<link rel="stylesheet" href="../css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+  </script>
+
+  <script src="../lib/js/prototype-1.7.1.js" type="text/javascript"></script>
+  <script src="sample_scripts.js" type="text/javascript"></script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-background-transition="slide" data-background="../img-allLectures/tu_delft_library.jpg" style="background: rgba(0,129,195,.9); color: white" id="presentable" class="bookend">          
+          <h1>TI1505: Ajax</h1>
+          <h3>Claudia Hauff</h3>
+        </section>
+
+        <section>
+          <h2>Today</h2>
+          <p>
+            The lecture today covers chapter 13, 14 and 15 of the book <a href="http://www.webstepbook.com/">Web Programming Step by Step</a>, 2nd Edition. The book's lecture slides for this chapter are available <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter13-databases-sql.shtml">here</a>, <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter14-cookies-sessions.shtml">here</a> and <a href="http://www.webstepbook.com/supplements-2ed/slides/chapter15-security.shtml">here</a>.
+          </p>
+          <p>
+            <small>Lecture 13: we skip the SQL part</small>
+           </p> 
+          
+        </section>
+
+        <section>
+          <h2>Database access in PHP</h2>
+        </section>
+
+        <section>
+          <h2>So far</h2>
+
+          <ul>
+            <li>Data stored on a Web server in files (plain text, XML, JSON)</li>
+            <li>File-based data access okay for Web applications with read-only policy and few users</li>
+            <li>Relational databases are commonly used once a more advanced storage system is needed</li>
+            <li>NoSQL databases and distributed storage (e.g. HBase) are also popular</li>
+        </section>
+
+        <section>
+          <h2>Motivations for using a database</h2>
+
+          <ul>
+            <li>Powerful language</li>
+            <li>Speed (designed for quick lookup)</li>
+            <li>Reliability</li>
+            <li>Concurrency</li>
+            <li>Abstraction</li>
+          </ul>
+        </section>  
+
+        <section><h2><a href="http://www.phpmyadmin.net/">phpMyAdmin</a></h2>
+
+          <ul>
+            <li>Open-source tool written in PHP</li>
+            <li>Management of MySQL through the browser (<a href="http://www.mysql.com/why-mysql/">Why MySQL?</a>)</li>
+            <li>Standard in <a href="http://www.apachefriends.org/en/xampp.html">XAMPP</a>, <a href="http://www.wampserver.com/en/">WAMP</a> and <a href="http://www.mamp.info/en/index.html">MAMP</a></li>
+            <li>Of course: <em>manual</em> installation also possible</li>
+        </section>          
+
+        <section><h2>phpMyAdmin</h2>
+
+          <img src="img/phpmyadmin.png">
+
+          <aside class="notes">
+            <!-- what to show from phpmyadmin 
+    
+              1. how to get there from MAMP
+              2. create a database ti1505
+              3. create a table in ti1505: users with 3 columns (first name, last name, email)
+              4. go to SQL tab and show how to insert a user
+          -->
+          </aside>
+
+        </section>  
+
+        <section><h2>Lets find data to play with</h2>
+            <h4><a href="http://t.co/a7OKA5lWhK">Google Tables</a></h4>
+          <img src="img/googleTables.png">
+        </section>   
+
+        <section><h2>Lets find data to play with</h2>
+
+          <img src="img/googleTables2.png">
+        </section>       
+
+
+        <section><h2>Lets find data to play with</h2>
+
+          <img src="img/googleTables3.png">
+        </section>     
+
+
+        <section><h2>Lets find data to play with</h2>
+
+          <img src="img/googleTables4.png" width="600px">
+        </section>                          
+
+        <section><h2>Querying a database in PHP</h2>
+
+          <ul>
+            <li>In the old days: <code>mysql_connect</code> (MySQL), <code>pg_query</code> (PostgreSQL)</li>
+            <li>Now: object-oriented database library PDO (PHP Data Objects)</li>
+            <li>PDO abstracts away from a particular database backend</li>
+          </ul>
+        </section>        
+
+        <section><h2>Querying step by step</h2>
+
+          <ol>
+            <li>Construct a new PDO object with parameters (server, database)</li>
+            <li>Use PDO's <code>query(my_sql_query)</code> method</li>
+            <li><code>query(my_sql_query)</code> returns an array of rows</li>
+            <li>Loop over the rows and display them</li>
+          </ol>
+        </section>        
+
+        <section><h2><code>query()</code> example</h2>
+
+
+<pre><code data-trim contenteditable style="font-size: 20px; margin-top: 20px;" class="php">
+&lt;?php
+//these two lines are only for debugging purposes
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+
+try {
+  $login="";
+  $pw="";
+  //read login &amp; password from file not accessible in Web
+
+  //the one line of code which changes according to the DB backend
+  //mssql: (Microsoft SQL Server), pgsql: (PostgreSQL)
+  //default login/pw: anonymous/""
+  $db = new PDO(&quot;mysql:dbname=ti1505;host=localhost&quot;,$login,$pw);
+  $rows = $db-&gt;query(
+      &quot;SELECT * from disneyCharacters WHERE English LIKE '%Duck'&quot;);
+
+} catch(PDOException  $e) {
+  echo $e-&gt;getMessage();
+}
+
+//loop over the results
+foreach ($rows as $row) {
+?&gt;
+   &lt;li&gt;&lt;?= $row[&quot;English&quot;] ?&gt;&lt;/li&gt;
+   &lt;ul&gt;&lt;li&gt;In French: &lt;?= $row[&quot;French&quot;] ?&gt;&lt;/li&gt;
+       &lt;li&gt;In German: &lt;?= $row[&quot;German&quot;] ?&gt;&lt;/li&gt;
+   &lt;/ul&gt;
+&lt;?php
+}
+?&gt;
+</code></pre>
+<a href="query_database.php" target="_blank">And this is the result ....</a>
+        </section>    
+
+
+
+        <section><h2>Checking your MySQL queries ...</h2>
+
+          <img src="img/phpmyadmin2.png">
+        </section>  
+
+        <section><h2>The <code>PDO</code> object</h2>
+
+  <table class="centerTable">
+    <tr><th>method</th><th>description</th></tr>
+    <tr><td><code style="color:darkorange">query(sql)</code></td><td>query the DB, return rows</td></tr>
+    <tr><td><code>exec(sql)</code></td><td>modify db and return number of rows matched</td></tr>
+    <tr><td><code>getAttribute</code><br><code>setAttribute</code></td><td>get/set connection options</td></tr>
+    <tr><td><code style="color:darkorange">quote(str)</code></td><td>escape string</td></tr>
+    <tr><td><code>errorInfo()</code></td><td>information about errors</td></tr>
+  </table>
+        
+        </section>     
+
+
+        <section><h2>The <code>PDO</code> object</h2>
+
+  <table class="centerTable">
+    <tr><th>method</th><th>description</th></tr>
+    <tr><td><code>beginTransaction()</code></td><td></td></tr>
+    <tr><td><code>commit()</code></td><td></td></tr>
+    <tr><td><code>inTransaction()</code></td><td></td></tr>
+    <tr><td><code>rollBack()</code></td><td></td></tr>
+    <tr><td><code>prepare(sql)</code></td><td>create SQL prepared statement</td></tr>
+  </table>
+        
+        </section>               
+
+         <section><h2>Query parameters</h2>
+          
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
+&lt;form method=&quot;post&quot;&gt;
+  English name of the Disney characters: 
+  &lt;input type=&quot;text&quot; name=&quot;disneyName&quot;&gt;
+  &lt;input type=&quot;submit&quot; value=&quot; Go! &quot;&gt;
+&lt;/form&gt;
+</code></pre>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="html">
+&lt;?php
+if( $_POST[&quot;disneyName&quot;]==&quot;&quot;) {
+  return;
+ }
+ else {
+  $disneyName = $_POST[&quot;disneyName&quot;];
+?&gt;
+  &lt;h2&gt;How is &lt;?= $disneyName ?&gt; called in 
+     French, German and Norwegian?&lt;/h2&gt;
+  &lt;ul&gt;  
+&lt;?php   
+  ...
+  $db = new PDO(&quot;mysql:dbname=ti1505;host=localhos&quot;,$login,$pw);
+
+  $rows = $db-&gt;query(
+     &quot;SELECT * from disneyCharacters 
+      WHERE English LIKE '$disneyName'&quot;);//&quot;&quot;: interpreted string
+?&gt;
+
+</code></pre>
+          <p>Lets take a look at <a href="query_database2.php.txt">query_database2.php</a>.</p>
+        </section>     
+
+
+        <section><h2>Little things make a difference</h2>
+
+          <a href="query_database3.php" target="_blank">Changing the SQL query slightly ...</a>
+        </section>   
+
+        <section><h2><code>query()</code> vs. <code>exec()</code></h2>
+
+          <ul>
+            <li><code>query()</code> should be called for <code>SELECT</code> queries</li>
+              <ul>  <li><code>SELECT</code> success: object <code>PDOStatement</code> is returned</li>
+                    <li><code>INSERT,UPDATE,DELETE</code> success: <code>TRUE</code> is returned</li>
+                    <li>failure: <code>FALSE</code></li>
+              </ul>
+            <li><code>exec()</code> should be called for <code>INSERT, UPDATE, DELETE</code></li>
+              <ul>  <li>success: returns number of affected rows</li>
+                    <li>failure: <code>FALSE</code></li>
+          </ul>
+        </section>       
+
+        <section><h2>SQL injection</h2>
+
+         <!-- http://www.unixwiz.net/techtips/sql-injection.html -->
+        </section>      
+
+
+        <section><h2>Sanitizing SQL: <code>quote()</code></h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="php">
+$db = new PDO(&quot;mysql:dbname=ti1505;host=localhost&quot;,$login,$pw);
+
+$disneyName = $db->quote($_POST[&quot;disneyName&quot;]);
+
+$rows = $db-&gt;query(
+  &quot;SELECT * from disneyCharacters 
+   WHERE English LIKE '$disneyName'&quot;);
+?&gt;
+
+</code></pre>
+        
+        </section>  
+
+        <section><h2>Reading query results</h2>
+
+          <ul>
+            <li><code>PDOStatement</code> instead of an array</li>
+                  <li>Sequential access (results are not returned at once)</li></ul>
+            <li>Asynchronous request does not block</li>
+              <ul><li>More complicated to program (When is the data received? What code to execute at that point?)</li>
+                  <li>Solution: specify a function to be called when response is received (similar to attaching functions to events ...)</li>
+              </ul>
+        </section>    
+
+
+
+
+        <section><h2>Synchronous vs. asynchronous</h2>
+
+          <ul>
+            <li>Synchronous: <a href="ajax3.html" target="_blank">ajax3.html</a></li>
+            <li>Asynchronous: <a href="ajax4.html" target="_blank">ajax4.html</a></li>
+              </ul>
+        </section>          
+
+
+        <section><h2>Properties of <code>XMLHttpRequest</code></h2>
+
+  <table class="centerTable">
+    <tr><th>property</th><th>description</th></tr>
+    <tr><td><code style="color:darkorange">onreadystatechange</code></td><td>fires when status changes</td></tr>
+    <tr><td><code>readyState</code></td><td>0: not initialized<br>1: set up, not sent<br>2: sent<br>3: in progress<br><span style="color:darkorange">4: completed</span></td></tr>
+    <tr><td><code>responseText</code></td><td>data that was fetched (string)</td></tr>
+    <tr><td><code>responseXML</code></td><td>fetched XML as DOM <code>Document</code> object</td></tr>
+    <tr><td><code>status</code></td><td>HTTP status code sent back by the Web server (e.g. 200, 403)</td></tr>
+    <tr><td><code>statusText</code></td><td>description of status sent by the Web server</td></tr>
+
+  </table>
+        </section>   
+
+        <section><h2>Methods of <code>XMLHttpRequest</code></h2>
+
+  <table class="centerTable">
+    <tr><th>method</th><th>description</th></tr>
+    <tr><td><code>abort()</code></td><td>stop a Web request in progress</td></tr>
+    <tr><td><code style="color:darkorange">open(method, url, async)</code></td><td>GET or POST<br>URL to fetch<br>true (asynchronous) or false (synchronous)</td></tr>
+    <tr><td><code style="color:darkorange">send(data)</code></td><td>called after <code>open()</code>; for POST <code>data</code> is the string to send, for GET it is <code>null</code></td></tr>
+
+  </table>
+        </section>          
+
+
+        <section><h2>Ajax: an asynchronous request</h2>
+
+          <p style="text-align:left">Event <code>onreadystatechange</code> is fired when the status of the request changes.</p>
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+var ajax = new XMLHttpRequest();
+
+//function to be called when the data has arrived
+ajax.onreadystatechange = function() {
+
+   //the only state we care about
+   if(ajax.readyState==4) {
+      /*
+       * process received data
+       */
+   }
+}; //end of function 
+
+ajax.open("GET", "url", true); //true indicates asynchronous request
+
+ajax.send(null);
+</code></pre>
+        </section>  
+
+        <section><h2>A feature of JavaScript: <em>Closure</em></h2>
+
+          <ul>  
+            <li>Closure: A nested function has access to the variables declared in the outer function</li>
+                <li>Useful for us: we need access to the <code>XMLHttpRequest</code> object</li>
+          </ul>
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+function displayTimeAsync() {
+   var ajax = new XMLHttpRequest();
+
+   //function to be called when the 
+   //data has arrived (to display it)
+   ajax.onreadystatechange = function() {
+
+      //we can access the ajax object
+      if(ajax.readyState==4) {
+         var p = document.createElement(&quot;p&quot;);
+         p.innerHTML = ajax.responseText;
+         document.getElementById(&quot;timeDiv&quot;).appendChild(p);
+      }
+   }; //end of function 
+
+   //true indicates asynchronous request
+   ajax.open(&quot;GET&quot;, &quot;time.php&quot;, true); 
+
+   ajax.send(null);
+}
+</code></pre>
+        </section>     
+
+
+        <section><h2>Another useful feature: Passing functions to functions</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+function downloadTextAsync(url, my_function) {
+   var ajax = new XMLHttpRequest();
+
+   ajax.onreadystatechange = function() {
+
+      if(ajax.readyState==4 &amp;&amp; ajax.status == 200) {
+         my_function(ajax);
+      }
+      else {
+         alert(&quot;Error: &quot;+ajax.statusText);
+       }
+  }; //end of function 
+  ajax.open(&quot;GET&quot;, &quot;time.php&quot;, true); 
+  ajax.send(null);
+}
+
+function displayTimeAsync2() {
+  downloadTextAsync(&quot;time.php&quot;,ajaxCompleted);
+}
+function ajaxCompleted(ajax) { /* do something */ }
+
+</code></pre>
+        </section>  
+
+
+        <section><h2>Ajax in Prototype</h2>
+
+<ul><li>Plain Ajax: clunky, not readily readable, requires special treatment of IE6 and below</li>
+    <li>Prototype has Ajax wrapper objects</li>
+    </ul>
+<pre><code data-trim contenteditable style="font-size: 20px; margin-top: 20px;" class="javascript">
+  window.onload = function () {
+    $(&quot;oneTimeButton&quot;).onclick = displayTimeAsync3;
+  }
+
+  function displayTimeAsync3() {
+    new Ajax.Request(
+     'time.php',
+     {
+        method:'get',
+        onSuccess:timeFetchCompleted,
+        //GET parameters are drawn from here
+        parameters: {p1: &quot;param 1&quot;, p2: 100.0},
+        localParam: {myPara: 50.0}
+     }
+    );
+  }
+  function timeFetchCompleted(ajax) {
+    $('time_async3').innerHTML = ajax.responseText;
+    //parameters accessed through ajax.request.localParam['myPara']
+  }
+</code></pre>    
+
+<span id="time_async3"> Time to Update</span>  <button id="oneTimeButton" class="pure-button pure-button-warning">Update Time Once</button> 
+</section>                            
+
+
+        <section><h2><code>Ajax.Request</code> event options</h2>
+
+  <table class="centerTable">
+    <tr><th>event</th><th>occurs when ...</th></tr>
+    <tr><td><code style="color:darkorange">onSuccess</code></td><td>request was successful</td></tr>
+    <tr><td><code>onFailure</code></td><td>request failed</td></tr>
+    <tr><td><code>onComplete</code></td><td>request was completed (either way)</td></tr>
+    <tr><td><code>onException</code></td><td>an exception ocurred</td></tr>
+    <tr><td><code>on###</code></td><td>the request failed with an error code (e.g. <code>on404</code>)</td></tr>
+
+  </table>  
+        </section>  
+
+
+        <section><h2>Handling errors</h2>
+
+<pre><code data-trim contenteditable style="font-size: 20px; margin-top: 20px;" class="javascript">
+function displayTimeAsync3() {
+  //Prototype's wrapper: a nested object, 
+  //makes an asynchronous request
+  new Ajax.Request(
+     "time.php",
+     {
+        method:"get",
+        onSuccess:ajaxCompleted, 
+        onException:ajaxFailed, //two callbacks: unsuccessful request
+        onFailure:ajaxFailed
+     }
+  );
+}
+
+function ajaxFailed(ajax, exception) {
+  var msg = "Error: ";
+  if(exception) {
+    msg += "Exception: "+exception.message;
+  }
+  else {
+    msg += "Server status: "+ajax.statusText;
+  }
+  alert(msg); //or console.log(msg);
+}
+
+</code></pre>    
+        </section>       
+
+
+       <section><h2><code>Ajax.Updater</code></h2>
+
+<ul>
+  <li>Common pattern: fetch data from a server and put it into an element on the Web page</li>
+  <li>Prototype's <code>Ajax.Updater</code> simplifies this process</li>
+</ul>
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+window.onload = function () {
+  $("oneUpdateTimeButton").onclick = displayTimeAsync4;
+}
+
+function displayTimeAsync4() {
+    new Ajax.Updater(
+      //id of the element that gets assigned the data
+      "time_async4", 
+      "time.php",
+      {
+          method:'get'
+      }
+    );
+  }
+</code></pre>  
+<span id="time_async4"> Time to Update</span>  <button id="oneUpdateTimeButton" class="pure-button pure-button-secondary">Update Time Once Again</button>   
+        </section>          
+
+
+
+       <section><h2><code>Ajax.PeriodicalUpdater</code></h2>
+
+<ul>
+  <li>Common pattern: fetch data from a server <b>repeatedly</b> and put it into an element on the Web page (polling)</li>
+  <li>Prototype parameters: <code>frequency</code> (repeat call after X seconds), and <code>decay</code> (how to react if data does not change)</li>
+</ul>
+<pre><code data-trim contenteditable style="font-size: 24px; margin-top: 20px;" class="javascript">
+
+ function displayTimeAsync5() {
+    new Ajax.PeriodicalUpdater(
+      //id of the element that gets assigned the data
+      "time_async5", 
+      "time.php",
+      {
+          method:'get',
+          frequency:3,
+          decay:1
+      }
+    );
+}
+</code></pre> 
+
+<span id="time_async5"> Time to Update</span>  <button id="regularUpdateTimeButton" class="pure-button pure-button-primary">Update Time Periodically</button>    
+
+<aside class="notes">
+decay (Number; default is 1): The rate at which the frequency grows when the response received is exactly the same as the previous. The default of 1 means frequency will never grow; override the default if a stale response implies it's worthwhile to poll less often. If decay is set to 2, for instance, frequency will double (2 seconds, 4 seconds, 8 seconds...) each consecutive time the result is the same; when the result is different once again, frequency will revert to its original value.  
+  </aside>
+        </section>   
+
+
+
+
+<section><h2>Ajax Security</h2>
+
+<ul>
+  <li>Conveniently we always requested data from &quot;our&quot; Web server</li>
+  <li>Security restriction of Ajax: can only fetch files from the <em>same</em> Web server as the calling page (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Same_origin_policy_for_JavaScript">Same-origin policy</a>)</li>
+    <ul><li>Same origin, when <span style="color:darkorange">protocol, port, and host</span> are the same for two pages</li></ul>
+  <li>Ajax cannot be executed from a Web page stored locally on disk</li>
+  <li>Not entirely true: <a href="http://json-p.org/">JSONP</a> get around this restriction (beyond the scope of this class)</li>
+</ul>
+
+        </section>  
+
+<section><h2>Debugging</h2>
+
+  <ul>
+    <li>Firebug: for Ajax requests, use the NET tab -- check if Ajax requests come through</li>
+    <li>WebConsole: use breakpoints for general JavaScript debugging</li>
+  </ul>
+
+  <p>Test file: <a href="ajax_error.html">ajax_error.html</a></p>
+
+</section>         
+
+
+  <section><h2>XML</h2>
+  </section>
+
+        <section><h2>Instead of ...</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+Matthew Gambardella, XML Developer's Guide, 44.95, 2000-10-01, genre: Computers
+
+Kim Ralls, Midnight Rain, 5.95, 2000-12-16, genre: Fantasy
+ </code></pre>
+        </section>  
+
+        <section><h2>XML gives us ...</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<?xml version="1.0"?>
+<catalog>
+   <book id="bk101">
+      <author>Gambardella, Matthew</author>
+      <title>XML Developer's Guide</title>
+      <genre>Computer</genre>
+      <price>44.95</price>
+      <publish_date>2000-10-01</publish_date>
+   </book>
+   <book id="bk102">
+      <author>Ralls, Kim</author>
+      <title>Midnight Rain</title>
+      <genre>Fantasy</genre>
+      <price>5.95</price>
+      <publish_date>2000-12-16</publish_date>
+   </book>
+</catalog>
+ </code></pre>
+<small><a href="http://msdn.microsoft.com/en-us/library/ms762271%28v=vs.85%29.aspx">Example source</a></small>
+
+        </section>  
+
+
+        <section><h2>Our time server gives us ...</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<timezone xsi:noNamespaceSchemaLocation="http://www.earthtools.org/timezone.xsd">
+  <version>1.0</version>
+  <location></location>
+  <offset>1</offset>
+  <suffix>A</suffix>
+  <localtime>20 Jan 2014 02:39:51</localtime>
+  <isotime>2014-01-20 02:39:51 +0100</isotime>
+  <utctime>2014-01-20 01:39:51</utctime>
+  <dst>False</dst>
+</timezone>
+ </code></pre>
+<small><a href="http://www.earthtools.org/timezone-1.1/52.00667/4.35556">Web service call</a></small>
+
+        </section>         
+
+
+       <section><h2>XML</h2>
+
+<blockquote>XML is a specification for creating markup to store hierarchical data.</blockquote>
+
+<ul>
+  <li>Tag-based syntax for marking up text</li>
+  <li>Designed for storing data</li>
+  <li>Tags can be freely chosen (specific to the data to be stored)</li>
+</ul>
+        </section>   
+
+
+<section><h2>Pros and Cons</h2>
+
+<ul>
+  <li>Pro: formalized way of storing structured text data</li>
+  <li>Pro: simplifies processing compared to free text</li>
+  <li>Pro: many libraries exist to read and interpret XML</li>
+  <li>Con: highly verbose and redundant format</li>
+  <li>Fact: XML is used in many places (not just the Web)</li>
+  <li>Fact: many Web services use XML to exchange messages</li>
+</ul>
+</section>         
+
+<section><h2>XML is found everywhere</h2>
+
+<ul>
+  <li>SVG: Scalable Vector Graphics
+
+    <object type="image/svg+xml" data="http://openclipart.org/people/qubodup/White_Stupid_Cute_Cartoon_Sheep.svg" 
+  width="128" height="90"></object>
+
+  </li>
+  <li>RSS feeds, e.g. from <a href="http://www.nu.nl/feeds/rss/algemeen.rss">nu.nl</a></li>
+  <li>Flickr API shows results in XML format, e.g. <a href="http://www.flickr.com/services/api/explore/flickr.photos.search">flickr.photos.search</a></li>
+  <li><a href="https://developer.mozilla.org/en/docs/XUL">XUL (XML User Interface Language)</a>: building a UI for applications</li>
+  <li><a href="http://en.wikipedia.org/wiki/Office_Open_XML">Office Open XML</a></li>
+</ul>
+</section> 
+
+<section><h2>Schemas and DTDs</h2>
+
+<ul>
+  <li>Schema (optional): describes which tags and data are legal within an XML language</li>
+  <li>XML schemas can be described in different languages, including the Document Type Definition (DTD)</li>
+  <li>Validation tools exist, e.g. <code>xmllint</code></a></li>
+</ul>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<?xml version="1.0"?> <-- XML prologue
+<catalog>             <-- document tag (single outermost tag)
+   <book id="bk101">
+</code></pre>
+
+</section> 
+
+
+<section><h2>Ajax: processing XML data</h2>
+
+<ul>
+  <li><code>XMLHttpRequest</code> contains a <code>responseXML</code> property (instead of a string, a DOM object is returned)</li>
+</ul>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+function my_func
+{
+  //Prototype code
+  new Ajax.Request(
+     "url",
+     {
+        method: "get",
+        onSuccess: process_xml;
+     }
+  );
+}
+
+function process_xml(ajax) {
+  //work with ajax.responseXML;
+}
+
+
+</code></pre>
+
+</section> 
+
+
+
+<section><h2>JavaScript's XML DOM</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<?xml version="1.0"?>
+<timezone>
+  <location></location>
+  <offset>1</offset>
+  <suffix>A</suffix>
+  <localtime>20 Jan 2014 02:39:51</localtime>
+  <isotime>2014-01-20 02:39:51 +0100</isotime>
+  <utctime>2014-01-20 01:39:51</utctime>
+  <dst>False</dst>
+</timezone>
+</code></pre>  
+<span id="testX"> </span><button class="pure-button pure-button-primary" onclick="evaluateXMLProperties('localtime','testX','firstChild','nodeValue')"> $("localTime").firstChild.nodeValue</button><p>&nbsp;</p>
+<span id="testY"> </span><button class="pure-button pure-button-secondary" onclick="evaluateXMLProperties('localtime','testY','tagName')"> $("localTime").tagName</button><p>&nbsp;</p>
+<span id="testZ"> </span><button class="pure-button pure-button-warning" onclick="evaluateXMLProperties('localtime','testZ', 'parentNode','nodeName')"> $("localTime").parentNode.nodeName</button>
+
+
+</section> 
+
+
+<section><h2>JavaScript's XML DOM</h2>
+
+<ul>
+  <li>XML nodes can also have attributes (attribute/value pairs appear within XML tags)</li>
+  <li>Attributes can be accessed via method <code>getAttribute</code></li>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<?xml version="1.0"?>
+<genres>
+  <genre popularity="high" 
+           numBooksInStore="45">Computer</genre>
+  <genre popularity="medium" 
+           numBooksInStore="23">Fantasy</genre>
+</genres>
+</code></pre> 
+</ul>
+</section>
+
+<section><h2>JSON</h2></section>
+
+<section><h2>JSON</h2>
+  <h4>JavaScript Object Notation</h4>
+  <ul>
+    <li>XML is often too bulky in practice</li>
+    <li>JSON is much smaller than XML</li>
+    <li>JSON can be fully parsed using built-in JavaScript commands, no need for DOM</li>
+  </ul>
+
+</section>
+
+<section><h2>JavaScript Object Literals</h2>
+  <ul>
+    <li>Objects in JavaScript can be declared as property name/value containers</li>
+    <li>Prooperties are accessed via <code>object.propertyName</code> or <code>object["propertyName"]</code> </li>
+    <li>JSON can be fully parsed using built-in JavaScript commands, no need for DOM</li>
+  </ul>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+var person = {
+  name : "Donald Duck",
+  age: 35,
+  friends: ["Goofy","Micky"],
+  getBeloved: function() { return this.name + " and Daisy"; }
+};
+
+//access via
+person.age
+person.friends[1]
+person.getBeloved()
+</code></pre>  
+
+</section>
+
+<section><h2>JSON Data Format: best seen in practice</h2>
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="xml">
+<?xml version="1.0"?>
+<timezone>
+  <location></location>
+  <offset>1</offset>
+  <suffix>A</suffix>
+  <localtime>20 Jan 2014 02:39:51</localtime>
+  <isotime>2014-01-20 02:39:51 +0100</isotime>
+  <utctime>2014-01-20 01:39:51</utctime>
+  <dst>False</dst>
+</timezone>
+</code></pre>  
+
+<pre><code data-trim contenteditable style="font-size: 22px; margin-top: 20px;" class="javascript">
+
+{
+  "timezone": {
+    "offset": "1",
+    "suffix": "A",
+    "localtime": "20 Jan 2014 02:39:51",
+    "isotime": "2014-01-20 02:39:51 +0100",
+    "utctime": "2014-01-20 01:39:51",
+    "dst": "False"
+  }
+}
+</code></pre>  
+
+
+</section>
+
+
+
+<section><h2>JSON vs. JavaScript Object Notation</h2>
+  <ul>
+    <li>JSON: all object property names must be enclosed in quotes</li>
+    <li>JSON objects may not have functions as properties</li>
+  </ul>
+
+</section>
+
+
+
+<section><h2>Processing JSON data</h2>
+  <ul>
+    <li>For XML: <code>ajax.responseXML</code>, XML DOM methods to traverse it</li>
+    <li>JSON is received through <code>ajax.responseText</code>, <code>JSON.parse</code> (global browser function) returns a JavaScript object</li>
+    <li>Any JavaScript object can be transformed into JSON via <code>JSON.stringify</code></li>
+  </ul>
+
+</section>
+
+
+	<section><h2>Three pointers for advanced JavaScripters</h2>
+	</section>
+
+
+  <section>
+    <h3><a href="https://github.com/kripken/emscripten">Emscripten</a>: from C/C++ to JavaScript [<a href="http://kripken.github.io/mloc_emscripten_talk/#/40">slide deck</a>]</h3>
+    <h3><a href="http://www.typescriptlang.org/">TypeScript</a>: superset of JavaScript that compiles into JavaScript [<a href="http://www.typescriptlang.org/Playground/">Playground</a>]</h3> 
+    <h3><a href="http://www.typescriptlang.org/">Greasemonkey</a>: Firefox extension to customize the look and functionality of web pages [<a href="http://userscripts.org/">userscripts.org</a>]</h3>
+  </section>
+
+      </div>
+
+    </div>
+
+    <script src="../lib/js/head.min.js"></script>
+    <script src="../js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+        { src: '../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: '../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: '../plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+        { src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+</script>
+
+
+</body>
+</html>

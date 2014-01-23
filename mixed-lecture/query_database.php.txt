@@ -1,0 +1,57 @@
+<html>
+<head></head>
+
+<body>
+
+	<h2>Who are the Duck's in English, French and German?</h2>
+
+
+	<ul>	
+<?php
+//these two lines are only for debugging purposes
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+
+try {
+	$login = "";
+	$pw = "";
+	$filename = "../login/db_login";
+	if (file_exists($filename) && is_readable ($filename)) {
+		$fh = fopen($filename, "r");
+
+		$count = 0;
+		while (!feof($file_handle)) {
+			if($count==0) {
+				$login = fgets($fh);
+			}
+			else if($count==1) {
+				$pw = fgets($fh);
+			}
+   			$count++;
+		}
+		fclose($fh);
+	}
+
+	$db = new PDO("mysql:dbname=ti1505;host=localhost;port=8889",$login,$pw);
+
+	$rows = $db->query("SELECT * from disneyCharacters WHERE English LIKE '%Duck'");
+
+} catch(PDOException  $e) {
+	echo "An error occurred: ";
+	echo $e->getMessage();
+}
+
+	foreach ($rows as $row) {
+	?>
+		<li><?= $row["English"] ?></li>
+		<ul><li>In French: <?= $row["French"] ?></li>
+			<li>In German: <?= $row["German"] ?></li>
+		</ul>
+	<?php
+	}
+	?>
+
+</ul>
+
+</body>
+</html>
